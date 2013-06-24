@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+<group ns="lrs">
+		<node pkg="beginner_tutorials/scripts" name="talker" type="talker.py">
+			
+		</node>
+		 <node pkg="beginner_tutorials" type="pilot_node" name="pilot_node" output="screen"> 
+			<param name="laser_scan_topic" value="laser_msgs_1" />
+			<param name="show_image" value="0" />
+			<!--<param name="object_topic" value="object_topic" />
+			<param name="object_row_topic" value="object_row_topic" />
+			<param name="wheel_speeds_topic" value="/Hilde/wheel_speed_topic" />
+			<param name="robot_clearence_width" value="0.26" />
+			<param name="robot_stop_zone" value="0.2" />
+			<param name="robot_turn_zone" value="0.3" />
+			<param name="robot_turn_zone_extra_width" value="0.05" />
+			
+			<param name="row_box_start_value" value="-0.10" />
+			<param name="row_box_width" value="0.30" />
+			<param name="row_box_height" value="1" />
+			<param name="row_box_count" value="10" />-->
+		</node>
+		
+		<node pkg="beginner_tutorials" name="lms111_front" type="lms111_node">
+			<param name="host" value="192.168.0.11"/>
+			<param name="topic_id" value="laser_msgs_1"/>
+			<param name="frame_id" value="base_laser"/>
+		</node>
+		
+	</group>
+</launch>

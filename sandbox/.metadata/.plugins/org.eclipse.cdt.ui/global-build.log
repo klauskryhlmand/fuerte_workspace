@@ -1,0 +1,363 @@
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/py_scripts -B/home/frobo/fuerte_workspace/sandbox/py_scripts --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/py_scripts -B/home/frobo/fuerte_workspace/sandbox/py_scripts --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/py_scripts -B/home/frobo/fuerte_workspace/sandbox/py_scripts --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/rospack_genmsg_libexe.dir/build.make CMakeFiles/rospack_genmsg_libexe.dir/depend
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+cd /home/frobo/fuerte_workspace/sandbox/py_scripts && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rospack_genmsg_libexe.dir/DependInfo.cmake --color=
+make[2]: *** No rule to make target `CMakeFiles/py_scripts.dir/build'.  Stop.
+make[1]: *** [CMakeFiles/py_scripts.dir/all] Error 2
+make: *** [all] Error 2
+Scanning dependencies of target rospack_genmsg_libexe
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/rospack_genmsg_libexe.dir/build.make CMakeFiles/rospack_genmsg_libexe.dir/build
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[2]: Nothing to be done for `CMakeFiles/rospack_genmsg_libexe.dir/build'.
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_report /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 
+Built target rospack_genmsg_libexe
+/usr/bin/make -f CMakeFiles/rosbuild_precompile.dir/build.make CMakeFiles/rosbuild_precompile.dir/depend
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+cd /home/frobo/fuerte_workspace/sandbox/py_scripts && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rosbuild_precompile.dir/DependInfo.cmake --color=
+Scanning dependencies of target rosbuild_precompile
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/rosbuild_precompile.dir/build.make CMakeFiles/rosbuild_precompile.dir/build
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[2]: Nothing to be done for `CMakeFiles/rosbuild_precompile.dir/build'.
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_report /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 
+Built target rosbuild_precompile
+/usr/bin/make -f CMakeFiles/py_scripts.dir/build.make CMakeFiles/py_scripts.dir/depend
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+cd /home/frobo/fuerte_workspace/sandbox/py_scripts && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/py_scripts.dir/DependInfo.cmake --color=
+Scanning dependencies of target py_scripts
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/py_scripts.dir/build.make CMakeFiles/py_scripts.dir/build
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/py_scripts -B/home/frobo/fuerte_workspace/sandbox/py_scripts --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/rospack_genmsg_libexe.dir/build.make CMakeFiles/rospack_genmsg_libexe.dir/depend
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+cd /home/frobo/fuerte_workspace/sandbox/py_scripts && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rospack_genmsg_libexe.dir/DependInfo.cmake --color=
+make[2]: *** No rule to make target `CMakeFiles/py_scripts.dir/build'.  Stop.
+make[1]: *** [CMakeFiles/py_scripts.dir/all] Error 2
+make: *** [all] Error 2
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/rospack_genmsg_libexe.dir/build.make CMakeFiles/rospack_genmsg_libexe.dir/build
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[2]: Nothing to be done for `CMakeFiles/rospack_genmsg_libexe.dir/build'.
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_report /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 
+Built target rospack_genmsg_libexe
+/usr/bin/make -f CMakeFiles/rosbuild_precompile.dir/build.make CMakeFiles/rosbuild_precompile.dir/depend
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+cd /home/frobo/fuerte_workspace/sandbox/py_scripts && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rosbuild_precompile.dir/DependInfo.cmake --color=
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/rosbuild_precompile.dir/build.make CMakeFiles/rosbuild_precompile.dir/build
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[2]: Nothing to be done for `CMakeFiles/rosbuild_precompile.dir/build'.
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_report /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 
+Built target rosbuild_precompile
+/usr/bin/make -f CMakeFiles/py_scripts.dir/build.make CMakeFiles/py_scripts.dir/depend
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+cd /home/frobo/fuerte_workspace/sandbox/py_scripts && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/py_scripts.dir/DependInfo.cmake --color=
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make -f CMakeFiles/py_scripts.dir/build.make CMakeFiles/py_scripts.dir/build
+make[2]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[2]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/py_scripts -B/home/frobo/fuerte_workspace/sandbox/py_scripts --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/py_scripts -B/home/frobo/fuerte_workspace/sandbox/py_scripts --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/py_scripts'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0
+/usr/bin/make all 
+/usr/bin/cmake -H/home/frobo/fuerte_workspace/sandbox/beginner_tutorials -B/home/frobo/fuerte_workspace/sandbox/beginner_tutorials --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles/progress.marks
+/usr/bin/make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/frobo/fuerte_workspace/sandbox/beginner_tutorials'
+/usr/bin/cmake -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/CMakeFiles 0

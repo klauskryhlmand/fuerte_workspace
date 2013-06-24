@@ -1,0 +1,15 @@
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/ROSBUILD_genmsg_cpp.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/ROSBUILD_genmsg_lisp.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/ROSBUILD_gensrv_cpp.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/ROSBUILD_gensrv_lisp.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/clean-test-results.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rosbuild_precompile.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rosbuild_premsgsrvgen.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rospack_genmsg.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rospack_genmsg_libexe.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/rospack_gensrv.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/test.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/test-future.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/test-results.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/test-results-run.dir
+/home/frobo/fuerte_workspace/sandbox/py_scripts/CMakeFiles/tests.dir
