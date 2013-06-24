@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/frobo/fuerte_workspace/sandbox/FroboMsgs
+CMAKE_SOURCE_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build
+CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build
 
 # Utility rule file for ROSBUILD_genmsg_cpp.
 
@@ -54,9 +54,9 @@ CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/fpga_data.h
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: /opt/ros/fuerte/share/roscpp/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: /opt/ros/fuerte/share/rospy/manifest.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/pwm_o.h"
-	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/frobo/fuerte_workspace/sandbox/FroboMsgs/msg/pwm_o.msg
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/pwm_o.msg
 
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: ../msg/fpga_data.msg
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
@@ -67,9 +67,9 @@ CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/fpga_data.h
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: /opt/ros/fuerte/share/roscpp/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: /opt/ros/fuerte/share/rospy/manifest.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/fpga_data.h"
-	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/frobo/fuerte_workspace/sandbox/FroboMsgs/msg/fpga_data.msg
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/fpga_data.msg
 
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp
 ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/pwm_o.h
@@ -86,6 +86,6 @@ CMakeFiles/ROSBUILD_genmsg_cpp.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_genmsg_cpp.dir/clean
 
 CMakeFiles/ROSBUILD_genmsg_cpp.dir/depend:
-	cd /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/FroboMsgs /home/frobo/fuerte_workspace/sandbox/FroboMsgs /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/daniel/fuerte_workspace/sandbox/FroboMsgs /home/daniel/fuerte_workspace/sandbox/FroboMsgs /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_genmsg_cpp.dir/depend
 

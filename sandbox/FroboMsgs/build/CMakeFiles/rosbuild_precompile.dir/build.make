@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/frobo/fuerte_workspace/sandbox/FroboMsgs
+CMAKE_SOURCE_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build
+CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build
 
 # Utility rule file for rosbuild_precompile.
 
@@ -57,6 +57,6 @@ CMakeFiles/rosbuild_precompile.dir/clean:
 .PHONY : CMakeFiles/rosbuild_precompile.dir/clean
 
 CMakeFiles/rosbuild_precompile.dir/depend:
-	cd /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/FroboMsgs /home/frobo/fuerte_workspace/sandbox/FroboMsgs /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles/rosbuild_precompile.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/daniel/fuerte_workspace/sandbox/FroboMsgs /home/daniel/fuerte_workspace/sandbox/FroboMsgs /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles/rosbuild_precompile.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/rosbuild_precompile.dir/depend
 

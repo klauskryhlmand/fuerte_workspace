@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/frobo/fuerte_workspace/sandbox/beginner_tutorials
+CMAKE_SOURCE_DIR = /home/daniel/fuerte_workspace/sandbox/beginner_tutorials
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build
+CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -66,9 +66,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,19 @@ ROSBUILD_genmsg_lisp/fast:
 .PHONY : ROSBUILD_genmsg_lisp/fast
 
 #=============================================================================
+# Target rules for targets named ROSBUILD_genmsg_py
+
+# Build rule for target.
+ROSBUILD_genmsg_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ROSBUILD_genmsg_py
+.PHONY : ROSBUILD_genmsg_py
+
+# fast build rule for target.
+ROSBUILD_genmsg_py/fast:
+	$(MAKE) -f CMakeFiles/ROSBUILD_genmsg_py.dir/build.make CMakeFiles/ROSBUILD_genmsg_py.dir/build
+.PHONY : ROSBUILD_genmsg_py/fast
+
+#=============================================================================
 # Target rules for targets named ROSBUILD_gensrv_cpp
 
 # Build rule for target.
@@ -159,6 +172,32 @@ clean-test-results: cmake_check_build_system
 clean-test-results/fast:
 	$(MAKE) -f CMakeFiles/clean-test-results.dir/build.make CMakeFiles/clean-test-results.dir/build
 .PHONY : clean-test-results/fast
+
+#=============================================================================
+# Target rules for targets named lms111_node
+
+# Build rule for target.
+lms111_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lms111_node
+.PHONY : lms111_node
+
+# fast build rule for target.
+lms111_node/fast:
+	$(MAKE) -f CMakeFiles/lms111_node.dir/build.make CMakeFiles/lms111_node.dir/build
+.PHONY : lms111_node/fast
+
+#=============================================================================
+# Target rules for targets named pilot_node
+
+# Build rule for target.
+pilot_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pilot_node
+.PHONY : pilot_node
+
+# fast build rule for target.
+pilot_node/fast:
+	$(MAKE) -f CMakeFiles/pilot_node.dir/build.make CMakeFiles/pilot_node.dir/build
+.PHONY : pilot_node/fast
 
 #=============================================================================
 # Target rules for targets named rosbuild_precompile
@@ -290,6 +329,36 @@ tests/fast:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
 .PHONY : tests/fast
 
+# target to build an object file
+src/Pilot.o:
+	$(MAKE) -f CMakeFiles/pilot_node.dir/build.make CMakeFiles/pilot_node.dir/src/Pilot.o
+.PHONY : src/Pilot.o
+
+# target to preprocess a source file
+src/Pilot.i:
+	$(MAKE) -f CMakeFiles/pilot_node.dir/build.make CMakeFiles/pilot_node.dir/src/Pilot.i
+.PHONY : src/Pilot.i
+
+# target to generate assembly for a file
+src/Pilot.s:
+	$(MAKE) -f CMakeFiles/pilot_node.dir/build.make CMakeFiles/pilot_node.dir/src/Pilot.s
+.PHONY : src/Pilot.s
+
+# target to build an object file
+src/lms111_node.o:
+	$(MAKE) -f CMakeFiles/lms111_node.dir/build.make CMakeFiles/lms111_node.dir/src/lms111_node.o
+.PHONY : src/lms111_node.o
+
+# target to preprocess a source file
+src/lms111_node.i:
+	$(MAKE) -f CMakeFiles/lms111_node.dir/build.make CMakeFiles/lms111_node.dir/src/lms111_node.i
+.PHONY : src/lms111_node.i
+
+# target to generate assembly for a file
+src/lms111_node.s:
+	$(MAKE) -f CMakeFiles/lms111_node.dir/build.make CMakeFiles/lms111_node.dir/src/lms111_node.s
+.PHONY : src/lms111_node.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -298,10 +367,13 @@ help:
 	@echo "... depend"
 	@echo "... ROSBUILD_genmsg_cpp"
 	@echo "... ROSBUILD_genmsg_lisp"
+	@echo "... ROSBUILD_genmsg_py"
 	@echo "... ROSBUILD_gensrv_cpp"
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
+	@echo "... lms111_node"
+	@echo "... pilot_node"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
@@ -313,6 +385,12 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
+	@echo "... src/Pilot.o"
+	@echo "... src/Pilot.i"
+	@echo "... src/Pilot.s"
+	@echo "... src/lms111_node.o"
+	@echo "... src/lms111_node.i"
+	@echo "... src/lms111_node.s"
 .PHONY : help
 
 

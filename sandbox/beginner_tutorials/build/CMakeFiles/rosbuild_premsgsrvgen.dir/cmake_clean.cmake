@@ -1,4 +1,7 @@
 FILE(REMOVE_RECURSE
+  "../src/beginner_tutorials/msg"
+  "../msg_gen"
+  "../msg_gen"
   "CMakeFiles/rosbuild_premsgsrvgen"
 )
 

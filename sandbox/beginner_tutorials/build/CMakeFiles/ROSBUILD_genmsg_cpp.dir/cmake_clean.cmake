@@ -1,5 +1,9 @@
 FILE(REMOVE_RECURSE
+  "../src/beginner_tutorials/msg"
+  "../msg_gen"
+  "../msg_gen"
   "CMakeFiles/ROSBUILD_genmsg_cpp"
+  "../msg_gen/cpp/include/beginner_tutorials/fpga_data.h"
 )
 
 # Per-language clean rules from dependency scanning.

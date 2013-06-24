@@ -32,19 +32,70 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/frobo/fuerte_workspace/sandbox/beginner_tutorials
+CMAKE_SOURCE_DIR = /home/daniel/fuerte_workspace/sandbox/beginner_tutorials
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build
+CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build
 
 # Utility rule file for ROSBUILD_genmsg_cpp.
 
 # Include the progress variables for this target.
 include CMakeFiles/ROSBUILD_genmsg_cpp.dir/progress.make
 
-CMakeFiles/ROSBUILD_genmsg_cpp:
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/beginner_tutorials/fpga_data.h
+
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: ../msg/fpga_data.msg
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: ../manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/rospy/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /home/daniel/fuerte_workspace/sandbox/FroboMsgs/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/bullet/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/rosconsole/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/rostest/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/roswtf/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/message_filters/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/common_rosdeps/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/laser_pipeline/laser_geometry/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/ros/core/rosbuild/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/pluginlib/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/filters/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/rosbag/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/bond_core/bond/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/bond_core/smclib/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/bond_core/bondcpp/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/nodelet_core/nodelet/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/rosservice/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/dynamic_reconfigure/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/nodelet_core/nodelet_topic_tools/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/perception_pcl/pcl_ros/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/laser_pipeline/laser_filters/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/pcl/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/vision_opencv/opencv2/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/vision_opencv/cv_bridge/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/share/visualization_msgs/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/image_common/image_transport/manifest.xml
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg_gen/generated
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/bond_core/bond/msg_gen/generated
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/nodelet_core/nodelet/srv_gen/generated
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/dynamic_reconfigure/msg_gen/generated
+../msg_gen/cpp/include/beginner_tutorials/fpga_data.h: /opt/ros/fuerte/stacks/dynamic_reconfigure/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/beginner_tutorials/fpga_data.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/msg/fpga_data.msg
 
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/beginner_tutorials/fpga_data.h
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp.dir/build.make
 .PHONY : ROSBUILD_genmsg_cpp
 
@@ -57,6 +108,6 @@ CMakeFiles/ROSBUILD_genmsg_cpp.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_genmsg_cpp.dir/clean
 
 CMakeFiles/ROSBUILD_genmsg_cpp.dir/depend:
-	cd /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/beginner_tutorials /home/frobo/fuerte_workspace/sandbox/beginner_tutorials /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/daniel/fuerte_workspace/sandbox/beginner_tutorials /home/daniel/fuerte_workspace/sandbox/beginner_tutorials /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_genmsg_cpp.dir/depend
 

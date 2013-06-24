@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/frobo/fuerte_workspace/sandbox/FroboMsgs
+CMAKE_SOURCE_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build
+CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build
 
 # Utility rule file for clean-test-results.
 
@@ -43,7 +43,7 @@ CMAKE_BINARY_DIR = /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build
 include CMakeFiles/clean-test-results.dir/progress.make
 
 CMakeFiles/clean-test-results:
-	if ! rm -rf /home/frobo/.ros/test_results/FroboMsgs; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
+	if ! rm -rf /home/daniel/.ros/test_results/FroboMsgs; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
 
 clean-test-results: CMakeFiles/clean-test-results
 clean-test-results: CMakeFiles/clean-test-results.dir/build.make
@@ -58,6 +58,6 @@ CMakeFiles/clean-test-results.dir/clean:
 .PHONY : CMakeFiles/clean-test-results.dir/clean
 
 CMakeFiles/clean-test-results.dir/depend:
-	cd /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/FroboMsgs /home/frobo/fuerte_workspace/sandbox/FroboMsgs /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build /home/frobo/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles/clean-test-results.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/daniel/fuerte_workspace/sandbox/FroboMsgs /home/daniel/fuerte_workspace/sandbox/FroboMsgs /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles/clean-test-results.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/clean-test-results.dir/depend
 

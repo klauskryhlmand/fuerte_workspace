@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/frobo/fuerte_workspace/sandbox/beginner_tutorials
+CMAKE_SOURCE_DIR = /home/daniel/fuerte_workspace/sandbox/beginner_tutorials
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build
+CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build
 
 # Utility rule file for ROSBUILD_gensrv_lisp.
 
@@ -57,6 +57,6 @@ CMakeFiles/ROSBUILD_gensrv_lisp.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_gensrv_lisp.dir/clean
 
 CMakeFiles/ROSBUILD_gensrv_lisp.dir/depend:
-	cd /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/frobo/fuerte_workspace/sandbox/beginner_tutorials /home/frobo/fuerte_workspace/sandbox/beginner_tutorials /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build /home/frobo/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/daniel/fuerte_workspace/sandbox/beginner_tutorials /home/daniel/fuerte_workspace/sandbox/beginner_tutorials /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_gensrv_lisp.dir/depend
 
