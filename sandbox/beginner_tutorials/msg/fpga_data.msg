@@ -1,3 +1,0 @@
-uint32 encoder_l
-uint32 encoder_r
-uint32 pwm_value
