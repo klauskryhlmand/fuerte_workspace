@@ -10,7 +10,8 @@ def callback(data):
 
 def listener():
     rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber("chatter", String, callback)
+    rospy.loginfo(rospy.get_name() + ": I heard %s")
+#    rospy.Subscriber("chatter", String, callback)
     rospy.spin()
 
 

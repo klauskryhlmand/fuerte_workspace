@@ -6,14 +6,20 @@ import struct
 
 
 class pwm_o(genpy.Message):
-  _md5sum = "a7a55754d53c25a62a32c681d73ec18f"
+  _md5sum = "1522611c8025ddba76f26a25869646d3"
   _type = "FroboMsgs/pwm_o"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """uint32 pwm_speed
+  _full_text = """uint32 speed_left
+uint32 speed_right
+uint32 direction_left
+uint32 direction_right
+uint32 enable_left
+uint32 enable_right
+uint32 direction
 
 """
-  __slots__ = ['pwm_speed']
-  _slot_types = ['uint32']
+  __slots__ = ['speed_left','speed_right','direction_left','direction_right','enable_left','enable_right','direction']
+  _slot_types = ['uint32','uint32','uint32','uint32','uint32','uint32','uint32']
 
   def __init__(self, *args, **kwds):
     """
@@ -23,7 +29,7 @@ class pwm_o(genpy.Message):
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       pwm_speed
+       speed_left,speed_right,direction_left,direction_right,enable_left,enable_right,direction
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -32,10 +38,28 @@ class pwm_o(genpy.Message):
     if args or kwds:
       super(pwm_o, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.pwm_speed is None:
-        self.pwm_speed = 0
+      if self.speed_left is None:
+        self.speed_left = 0
+      if self.speed_right is None:
+        self.speed_right = 0
+      if self.direction_left is None:
+        self.direction_left = 0
+      if self.direction_right is None:
+        self.direction_right = 0
+      if self.enable_left is None:
+        self.enable_left = 0
+      if self.enable_right is None:
+        self.enable_right = 0
+      if self.direction is None:
+        self.direction = 0
     else:
-      self.pwm_speed = 0
+      self.speed_left = 0
+      self.speed_right = 0
+      self.direction_left = 0
+      self.direction_right = 0
+      self.enable_left = 0
+      self.enable_right = 0
+      self.direction = 0
 
   def _get_types(self):
     """
@@ -49,7 +73,8 @@ class pwm_o(genpy.Message):
     :param buff: buffer, ``StringIO``
     """
     try:
-      buff.write(_struct_I.pack(self.pwm_speed))
+      _x = self
+      buff.write(_struct_7I.pack(_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -60,9 +85,10 @@ class pwm_o(genpy.Message):
     """
     try:
       end = 0
+      _x = self
       start = end
-      end += 4
-      (self.pwm_speed,) = _struct_I.unpack(str[start:end])
+      end += 28
+      (_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction,) = _struct_7I.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -75,7 +101,8 @@ class pwm_o(genpy.Message):
     :param numpy: numpy python module
     """
     try:
-      buff.write(_struct_I.pack(self.pwm_speed))
+      _x = self
+      buff.write(_struct_7I.pack(_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -87,11 +114,13 @@ class pwm_o(genpy.Message):
     """
     try:
       end = 0
+      _x = self
       start = end
-      end += 4
-      (self.pwm_speed,) = _struct_I.unpack(str[start:end])
+      end += 28
+      (_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction,) = _struct_7I.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
+_struct_7I = struct.Struct("<7I")

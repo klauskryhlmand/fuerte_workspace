@@ -4,6 +4,7 @@
 /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
 /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
 /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/clean-test-results.dir
+/home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/control.dir
 /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/lms111_node.dir
 /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/pilot_node.dir
 /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles/rosbuild_precompile.dir

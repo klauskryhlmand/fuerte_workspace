@@ -42,12 +42,75 @@ CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build
 # Include the progress variables for this target.
 include CMakeFiles/ROSBUILD_genmsg_lisp.dir/progress.make
 
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/detected_objects.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_detected_objects.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/float_data.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_float_data.lisp
 CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/pwm_o.lisp
 CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
 CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_pwm_o.lisp
 CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/fpga_data.lisp
 CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
 CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_fpga_data.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/accelerometer.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_accelerometer.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/gyroscope.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_gyroscope.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/hilde_states.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_hilde_states.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/error.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_error.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/magnetometer.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_magnetometer.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/imu_razor_9dof.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_imu_razor_9dof.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/object_row.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_object_row.lisp
+
+../msg_gen/lisp/detected_objects.lisp: ../msg/detected_objects.msg
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/detected_objects.lisp: ../manifest.xml
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/detected_objects.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/detected_objects.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_detected_objects.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/detected_objects.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/detected_objects.lisp
+
+../msg_gen/lisp/_package_detected_objects.lisp: ../msg_gen/lisp/detected_objects.lisp
+
+../msg_gen/lisp/float_data.lisp: ../msg/float_data.msg
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/float_data.lisp: ../manifest.xml
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/float_data.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/float_data.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_float_data.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/float_data.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/float_data.lisp
+
+../msg_gen/lisp/_package_float_data.lisp: ../msg_gen/lisp/float_data.lisp
 
 ../msg_gen/lisp/pwm_o.lisp: ../msg/pwm_o.msg
 ../msg_gen/lisp/pwm_o.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
@@ -58,7 +121,7 @@ CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_fpga_data.lisp
 ../msg_gen/lisp/pwm_o.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
 ../msg_gen/lisp/pwm_o.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../msg_gen/lisp/pwm_o.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/pwm_o.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_pwm_o.lisp"
 	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/pwm_o.msg
 
@@ -75,7 +138,7 @@ CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_fpga_data.lisp
 ../msg_gen/lisp/fpga_data.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
 ../msg_gen/lisp/fpga_data.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../msg_gen/lisp/fpga_data.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/fpga_data.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_fpga_data.lisp"
 	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/fpga_data.msg
 
@@ -83,13 +146,165 @@ CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_fpga_data.lisp
 
 ../msg_gen/lisp/_package_fpga_data.lisp: ../msg_gen/lisp/fpga_data.lisp
 
+../msg_gen/lisp/accelerometer.lisp: ../msg/accelerometer.msg
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/accelerometer.lisp: ../manifest.xml
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/accelerometer.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/accelerometer.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_accelerometer.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/accelerometer.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/accelerometer.lisp
+
+../msg_gen/lisp/_package_accelerometer.lisp: ../msg_gen/lisp/accelerometer.lisp
+
+../msg_gen/lisp/gyroscope.lisp: ../msg/gyroscope.msg
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/gyroscope.lisp: ../manifest.xml
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/gyroscope.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/gyroscope.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_gyroscope.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/gyroscope.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/gyroscope.lisp
+
+../msg_gen/lisp/_package_gyroscope.lisp: ../msg_gen/lisp/gyroscope.lisp
+
+../msg_gen/lisp/hilde_states.lisp: ../msg/hilde_states.msg
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/hilde_states.lisp: ../manifest.xml
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/hilde_states.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/hilde_states.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_hilde_states.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/hilde_states.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/hilde_states.lisp
+
+../msg_gen/lisp/_package_hilde_states.lisp: ../msg_gen/lisp/hilde_states.lisp
+
+../msg_gen/lisp/error.lisp: ../msg/error.msg
+../msg_gen/lisp/error.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/error.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/error.lisp: ../manifest.xml
+../msg_gen/lisp/error.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/error.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/error.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/error.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/error.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/error.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_error.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/error.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/error.lisp
+
+../msg_gen/lisp/_package_error.lisp: ../msg_gen/lisp/error.lisp
+
+../msg_gen/lisp/magnetometer.lisp: ../msg/magnetometer.msg
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/magnetometer.lisp: ../manifest.xml
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/magnetometer.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/magnetometer.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_magnetometer.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/magnetometer.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/magnetometer.lisp
+
+../msg_gen/lisp/_package_magnetometer.lisp: ../msg_gen/lisp/magnetometer.lisp
+
+../msg_gen/lisp/imu_razor_9dof.lisp: ../msg/imu_razor_9dof.msg
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/imu_razor_9dof.lisp: ../manifest.xml
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/imu_razor_9dof.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/imu_razor_9dof.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_imu_razor_9dof.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/imu_razor_9dof.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/imu_razor_9dof.lisp
+
+../msg_gen/lisp/_package_imu_razor_9dof.lisp: ../msg_gen/lisp/imu_razor_9dof.lisp
+
+../msg_gen/lisp/object_row.lisp: ../msg/object_row.msg
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/lisp/object_row.lisp: ../manifest.xml
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/object_row.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/object_row.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_object_row.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/object_row.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/object_row.lisp
+
+../msg_gen/lisp/_package_object_row.lisp: ../msg_gen/lisp/object_row.lisp
+
 ROSBUILD_genmsg_lisp: CMakeFiles/ROSBUILD_genmsg_lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/detected_objects.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_detected_objects.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/float_data.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_float_data.lisp
 ROSBUILD_genmsg_lisp: ../msg_gen/lisp/pwm_o.lisp
 ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
 ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_pwm_o.lisp
 ROSBUILD_genmsg_lisp: ../msg_gen/lisp/fpga_data.lisp
 ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
 ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_fpga_data.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/accelerometer.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_accelerometer.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/gyroscope.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_gyroscope.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/hilde_states.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_hilde_states.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/error.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_error.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/magnetometer.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_magnetometer.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/imu_razor_9dof.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_imu_razor_9dof.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/object_row.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_object_row.lisp
 ROSBUILD_genmsg_lisp: CMakeFiles/ROSBUILD_genmsg_lisp.dir/build.make
 .PHONY : ROSBUILD_genmsg_lisp
 

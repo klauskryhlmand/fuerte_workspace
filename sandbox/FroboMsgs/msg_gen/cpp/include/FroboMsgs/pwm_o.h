@@ -22,17 +22,47 @@ struct pwm_o_ {
   typedef pwm_o_<ContainerAllocator> Type;
 
   pwm_o_()
-  : pwm_speed(0)
+  : speed_left(0)
+  , speed_right(0)
+  , direction_left(0)
+  , direction_right(0)
+  , enable_left(0)
+  , enable_right(0)
+  , direction(0)
   {
   }
 
   pwm_o_(const ContainerAllocator& _alloc)
-  : pwm_speed(0)
+  : speed_left(0)
+  , speed_right(0)
+  , direction_left(0)
+  , direction_right(0)
+  , enable_left(0)
+  , enable_right(0)
+  , direction(0)
   {
   }
 
-  typedef uint32_t _pwm_speed_type;
-  uint32_t pwm_speed;
+  typedef uint32_t _speed_left_type;
+  uint32_t speed_left;
+
+  typedef uint32_t _speed_right_type;
+  uint32_t speed_right;
+
+  typedef uint32_t _direction_left_type;
+  uint32_t direction_left;
+
+  typedef uint32_t _direction_right_type;
+  uint32_t direction_right;
+
+  typedef uint32_t _enable_left_type;
+  uint32_t enable_left;
+
+  typedef uint32_t _enable_right_type;
+  uint32_t enable_right;
+
+  typedef uint32_t _direction_type;
+  uint32_t direction;
 
 
   typedef boost::shared_ptr< ::FroboMsgs::pwm_o_<ContainerAllocator> > Ptr;
@@ -63,12 +93,12 @@ template<class ContainerAllocator>
 struct MD5Sum< ::FroboMsgs::pwm_o_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "a7a55754d53c25a62a32c681d73ec18f";
+    return "1522611c8025ddba76f26a25869646d3";
   }
 
   static const char* value(const  ::FroboMsgs::pwm_o_<ContainerAllocator> &) { return value(); } 
-  static const uint64_t static_value1 = 0xa7a55754d53c25a6ULL;
-  static const uint64_t static_value2 = 0x2a32c681d73ec18fULL;
+  static const uint64_t static_value1 = 0x1522611c8025ddbaULL;
+  static const uint64_t static_value2 = 0x76f26a25869646d3ULL;
 };
 
 template<class ContainerAllocator>
@@ -85,7 +115,13 @@ template<class ContainerAllocator>
 struct Definition< ::FroboMsgs::pwm_o_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "uint32 pwm_speed\n\
+    return "uint32 speed_left\n\
+uint32 speed_right\n\
+uint32 direction_left\n\
+uint32 direction_right\n\
+uint32 enable_left\n\
+uint32 enable_right\n\
+uint32 direction\n\
 \n\
 ";
   }
@@ -106,7 +142,13 @@ template<class ContainerAllocator> struct Serializer< ::FroboMsgs::pwm_o_<Contai
 {
   template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
   {
-    stream.next(m.pwm_speed);
+    stream.next(m.speed_left);
+    stream.next(m.speed_right);
+    stream.next(m.direction_left);
+    stream.next(m.direction_right);
+    stream.next(m.enable_left);
+    stream.next(m.enable_right);
+    stream.next(m.direction);
   }
 
   ROS_DECLARE_ALLINONE_SERIALIZER;
@@ -124,8 +166,20 @@ struct Printer< ::FroboMsgs::pwm_o_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const  ::FroboMsgs::pwm_o_<ContainerAllocator> & v) 
   {
-    s << indent << "pwm_speed: ";
-    Printer<uint32_t>::stream(s, indent + "  ", v.pwm_speed);
+    s << indent << "speed_left: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.speed_left);
+    s << indent << "speed_right: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.speed_right);
+    s << indent << "direction_left: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.direction_left);
+    s << indent << "direction_right: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.direction_right);
+    s << indent << "enable_left: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.enable_left);
+    s << indent << "enable_right: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.enable_right);
+    s << indent << "direction: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.direction);
   }
 };
 

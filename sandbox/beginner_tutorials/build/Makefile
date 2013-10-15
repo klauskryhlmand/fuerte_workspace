@@ -174,6 +174,19 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
+# Target rules for targets named control
+
+# Build rule for target.
+control: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 control
+.PHONY : control
+
+# fast build rule for target.
+control/fast:
+	$(MAKE) -f CMakeFiles/control.dir/build.make CMakeFiles/control.dir/build
+.PHONY : control/fast
+
+#=============================================================================
 # Target rules for targets named lms111_node
 
 # Build rule for target.
@@ -345,6 +358,21 @@ src/Pilot.s:
 .PHONY : src/Pilot.s
 
 # target to build an object file
+src/control.o:
+	$(MAKE) -f CMakeFiles/control.dir/build.make CMakeFiles/control.dir/src/control.o
+.PHONY : src/control.o
+
+# target to preprocess a source file
+src/control.i:
+	$(MAKE) -f CMakeFiles/control.dir/build.make CMakeFiles/control.dir/src/control.i
+.PHONY : src/control.i
+
+# target to generate assembly for a file
+src/control.s:
+	$(MAKE) -f CMakeFiles/control.dir/build.make CMakeFiles/control.dir/src/control.s
+.PHONY : src/control.s
+
+# target to build an object file
 src/lms111_node.o:
 	$(MAKE) -f CMakeFiles/lms111_node.dir/build.make CMakeFiles/lms111_node.dir/src/lms111_node.o
 .PHONY : src/lms111_node.o
@@ -371,6 +399,7 @@ help:
 	@echo "... ROSBUILD_gensrv_cpp"
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
+	@echo "... control"
 	@echo "... edit_cache"
 	@echo "... lms111_node"
 	@echo "... pilot_node"
@@ -388,6 +417,9 @@ help:
 	@echo "... src/Pilot.o"
 	@echo "... src/Pilot.i"
 	@echo "... src/Pilot.s"
+	@echo "... src/control.o"
+	@echo "... src/control.i"
+	@echo "... src/control.s"
 	@echo "... src/lms111_node.o"
 	@echo "... src/lms111_node.i"
 	@echo "... src/lms111_node.s"

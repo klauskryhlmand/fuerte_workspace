@@ -236,13 +236,48 @@ clean: CMakeFiles/clean-test-results.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/control.dir
+
+# All Build rule for target.
+CMakeFiles/control.dir/all: CMakeFiles/rosbuild_precompile.dir/all
+	$(MAKE) -f CMakeFiles/control.dir/build.make CMakeFiles/control.dir/depend
+	$(MAKE) -f CMakeFiles/control.dir/build.make CMakeFiles/control.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles  5
+	@echo "Built target control"
+.PHONY : CMakeFiles/control.dir/all
+
+# Include target in all.
+all: CMakeFiles/control.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/control.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/control.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles 0
+.PHONY : CMakeFiles/control.dir/rule
+
+# Convenience name for target.
+control: CMakeFiles/control.dir/rule
+.PHONY : control
+
+# clean rule for target.
+CMakeFiles/control.dir/clean:
+	$(MAKE) -f CMakeFiles/control.dir/build.make CMakeFiles/control.dir/clean
+.PHONY : CMakeFiles/control.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/control.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/lms111_node.dir
 
 # All Build rule for target.
 CMakeFiles/lms111_node.dir/all: CMakeFiles/rosbuild_precompile.dir/all
 	$(MAKE) -f CMakeFiles/lms111_node.dir/build.make CMakeFiles/lms111_node.dir/depend
 	$(MAKE) -f CMakeFiles/lms111_node.dir/build.make CMakeFiles/lms111_node.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles  6
 	@echo "Built target lms111_node"
 .PHONY : CMakeFiles/lms111_node.dir/all
 
@@ -277,7 +312,7 @@ clean: CMakeFiles/lms111_node.dir/clean
 CMakeFiles/pilot_node.dir/all: CMakeFiles/rosbuild_precompile.dir/all
 	$(MAKE) -f CMakeFiles/pilot_node.dir/build.make CMakeFiles/pilot_node.dir/depend
 	$(MAKE) -f CMakeFiles/pilot_node.dir/build.make CMakeFiles/pilot_node.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/beginner_tutorials/build/CMakeFiles  7
 	@echo "Built target pilot_node"
 .PHONY : CMakeFiles/pilot_node.dir/all
 

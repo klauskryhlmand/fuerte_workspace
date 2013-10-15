@@ -42,8 +42,45 @@ CMAKE_BINARY_DIR = /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build
 # Include the progress variables for this target.
 include CMakeFiles/ROSBUILD_genmsg_cpp.dir/progress.make
 
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/detected_objects.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/float_data.h
 CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/pwm_o.h
 CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/fpga_data.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/accelerometer.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/gyroscope.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/hilde_states.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/error.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/magnetometer.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/object_row.h
+
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: ../msg/detected_objects.msg
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/detected_objects.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/detected_objects.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/detected_objects.msg
+
+../msg_gen/cpp/include/FroboMsgs/float_data.h: ../msg/float_data.msg
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/float_data.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/float_data.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/float_data.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/float_data.msg
 
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: ../msg/pwm_o.msg
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
@@ -54,7 +91,7 @@ CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/fpga_data.h
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: /opt/ros/fuerte/share/roscpp/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/pwm_o.h: /opt/ros/fuerte/share/rospy/manifest.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/pwm_o.h"
 	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/pwm_o.msg
 
@@ -67,13 +104,119 @@ CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/fpga_data.h
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: /opt/ros/fuerte/share/roscpp/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../msg_gen/cpp/include/FroboMsgs/fpga_data.h: /opt/ros/fuerte/share/rospy/manifest.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/fpga_data.h"
 	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/fpga_data.msg
 
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: ../msg/accelerometer.msg
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/accelerometer.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/accelerometer.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/accelerometer.msg
+
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: ../msg/gyroscope.msg
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/gyroscope.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/gyroscope.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/gyroscope.msg
+
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: ../msg/hilde_states.msg
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/hilde_states.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/hilde_states.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/hilde_states.msg
+
+../msg_gen/cpp/include/FroboMsgs/error.h: ../msg/error.msg
+../msg_gen/cpp/include/FroboMsgs/error.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/error.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/error.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/error.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/error.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/error.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/error.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/error.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/error.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/error.msg
+
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: ../msg/magnetometer.msg
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/magnetometer.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/magnetometer.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/magnetometer.msg
+
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: ../msg/imu_razor_9dof.msg
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/imu_razor_9dof.msg
+
+../msg_gen/cpp/include/FroboMsgs/object_row.h: ../msg/object_row.msg
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/std_msgs/msg/Header.msg
+../msg_gen/cpp/include/FroboMsgs/object_row.h: ../manifest.xml
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/roslib/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/FroboMsgs/object_row.h: /opt/ros/fuerte/share/rospy/manifest.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/daniel/fuerte_workspace/sandbox/FroboMsgs/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/FroboMsgs/object_row.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/daniel/fuerte_workspace/sandbox/FroboMsgs/msg/object_row.msg
+
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/detected_objects.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/float_data.h
 ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/pwm_o.h
 ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/fpga_data.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/accelerometer.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/gyroscope.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/hilde_states.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/error.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/magnetometer.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/imu_razor_9dof.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/FroboMsgs/object_row.h
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp.dir/build.make
 .PHONY : ROSBUILD_genmsg_cpp
 

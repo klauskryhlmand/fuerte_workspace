@@ -15,30 +15,30 @@ Pilot::Pilot()
 	// ROS PARAMETERS
 	nh.param<string>("laser_scan_topic", laser_scan_topic, "laser_scan_topic");
 	nh.param<int>("show_image", show_image, 1);
-	/*nh.param<double>("robot_clearence_width", robot_clearence_width, 0.2);
+	nh.param<double>("robot_clearence_width", robot_clearence_width, 0.2);
 	nh.param<double>("robot_stop_zone", robot_stop_zone, 0.2);
-	nh.param<double>("robot_turn_zone", robot_turn_zone, 0.3);
+	nh.param<double>("robot_turn_zone", robot_turn_zone, 0.7);
 	nh.param<double>("robot_turn_zone_extra_width", robot_turn_zone_extra_width, 0.05);
 	nh.param<string>("object_topic", object_topic, "object_topic");
 	nh.param<string>("object_row_topic", object_row_topic, "object_row_topic");
-	nh.param<string>("wheel_speeds_topic", wheel_speeds_topic, "wheel_speeds_topic");
+	//nh.param<string>("wheel_speeds_topic", wheel_speeds_topic, "wheel_speeds_topic");
 
 	// For row boxes
 	nh.param<double>("row_box_start_value", row_box_start_value, -0.2);
 	nh.param<double>("row_box_height", row_box_height, 1);
 	nh.param<double>("row_box_width", row_box_width, 0.2);
-	nh.param<int>("row_box_count", row_box_count, 5);*/
+	nh.param<int>("row_box_count", row_box_count, 5);
 
 	// ROS PUBLISHERS AND SUBSCRIBERS
 	laser_subscriber = n.subscribe<sensor_msgs::LaserScan>(laser_scan_topic.c_str(), 1, &Pilot::laserScanCallback, this);
-	//object_publisher = n.advertise<fmMsgs::detected_objects>(object_topic.c_str(), 1);
-	//object_row_publisher = n.advertise<fmMsgs::object_row>(object_row_topic.c_str(), 1);
+	object_publisher = n.advertise<FroboMsgs::detected_objects>(object_topic.c_str(), 1);
+	object_row_publisher = n.advertise<FroboMsgs::object_row>(object_row_topic.c_str(), 1);
 	//wheel_speeds_subscriber = n.subscribe<fmMsgs::float_data>(wheel_speeds_topic.c_str(), 1, &SimpleObjectAvoidance::wheelCallback, this);
 	
 	// Init messages
-	//object_row_msg.size = row_box_count;
-	//object_row_msg.resolution = row_box_height / row_box_count;
-	//object_row_msg.row_start_position = row_box_start_value;
+	object_row_msg.size = row_box_count;
+	object_row_msg.resolution = row_box_height / row_box_count;
+	object_row_msg.row_start_position = row_box_start_value;
 	
 	
 	// Create images
@@ -53,21 +53,21 @@ Pilot::Pilot()
 		// Show image test
 		//cvShowImage(framedWindowName, rawData_img);
 	} 
-}
-	/*
+
+	
 	// Initial calculations
 	for(int n = 0; n < row_box_count; n++) {
 		object_row_msg.left_row.push_back(0);
 		object_row_msg.right_row.push_back(0);
 	}
 	row_individual_box_height = row_box_height / row_box_count;
-}
 
-SimpleObjectAvoidance::~SimpleObjectAvoidance() {
+}
+/*Pilot::~Pilot() {
 	if (show_image){
 		cvDestroyWindow(framedWindowName);
 	}
-}
+
 
 void SimpleObjectAvoidance::wheelCallback(const fmMsgs::float_data::ConstPtr& speeds) {
 	new_speeds = 1;
@@ -89,10 +89,10 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 	projector.projectLaser(*laser_scan, cloud);
 	
 	// Reset row vectors
-	//for(int n = 0; n < row_box_count; n++) {
-	//	object_row_msg.left_row[n] = 0;
-	//	object_row_msg.right_row[n] = 0;
-	//}
+	for(int n = 0; n < row_box_count; n++) {
+		object_row_msg.left_row[n] = 0;
+		object_row_msg.right_row[n] = 0;
+	}
 	
 	int size = cloud.points.size();
 	CvPoint point1;
@@ -108,9 +108,9 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 		}
 		
 		CvPoint recta, rectb;
-}
+
 		// Draw Stop zone
-		/*recta.x = 300;
+		recta.x = 300;
 		recta.y = 300 - robot_clearence_width * 100;
 		rectb.x = 300 + robot_stop_zone * 100;
 		rectb.y = 300 + robot_clearence_width * 100;
@@ -142,9 +142,10 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 		rectb.x = recta.x + box_height * 100;
 		rectb.y = 300 - (robot_clearence_width + row_box_width) * 100;
 		cvRectangle(raw_img,recta, rectb, CV_RGB(0,128,255),1,1,0);
-		
-		}
 	}
+	
+		
+	
 	// Clear the objects message
 	object_msg.left_blocked = 0;
 	object_msg.right_blocked = 0;
@@ -209,7 +210,7 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 				}
 			}
 		}
-		*//*
+		
 		// Row detection
 		if(x > row_box_start_value && x < row_box_start_value + row_box_height)
 		{
@@ -265,6 +266,7 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 	}
 }
 
+}
 int main(int argc, char** argv){
 	// Initialize ros
 	ros::init(argc, argv, "pilot");

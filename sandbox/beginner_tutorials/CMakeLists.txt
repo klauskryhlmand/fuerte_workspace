@@ -23,6 +23,8 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 rosbuild_add_executable(lms111_node src/lms111_node.cpp)
 rosbuild_add_executable(pilot_node src/Pilot.cpp)
+#rosbuild_add_executable(pot_decision src/PotDecision.cpp)
+rosbuild_add_executable(control src/control.cpp)
 
 #include_directories(/usr/include/)
 #link_directories(/usr/lib/)
