@@ -1,5 +1,5 @@
-uint32 speed_left
-uint32 speed_right
+float64 speed_left
+float64 speed_right
 uint32 direction_left
 uint32 direction_right
 uint32 enable_left

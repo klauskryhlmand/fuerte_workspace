@@ -6,11 +6,11 @@ import struct
 
 
 class pwm_o(genpy.Message):
-  _md5sum = "1522611c8025ddba76f26a25869646d3"
+  _md5sum = "46d00fbd421c930ccd6d0a3aefbae682"
   _type = "FroboMsgs/pwm_o"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """uint32 speed_left
-uint32 speed_right
+  _full_text = """float64 speed_left
+float64 speed_right
 uint32 direction_left
 uint32 direction_right
 uint32 enable_left
@@ -19,7 +19,7 @@ uint32 direction
 
 """
   __slots__ = ['speed_left','speed_right','direction_left','direction_right','enable_left','enable_right','direction']
-  _slot_types = ['uint32','uint32','uint32','uint32','uint32','uint32','uint32']
+  _slot_types = ['float64','float64','uint32','uint32','uint32','uint32','uint32']
 
   def __init__(self, *args, **kwds):
     """
@@ -39,9 +39,9 @@ uint32 direction
       super(pwm_o, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
       if self.speed_left is None:
-        self.speed_left = 0
+        self.speed_left = 0.
       if self.speed_right is None:
-        self.speed_right = 0
+        self.speed_right = 0.
       if self.direction_left is None:
         self.direction_left = 0
       if self.direction_right is None:
@@ -53,8 +53,8 @@ uint32 direction
       if self.direction is None:
         self.direction = 0
     else:
-      self.speed_left = 0
-      self.speed_right = 0
+      self.speed_left = 0.
+      self.speed_right = 0.
       self.direction_left = 0
       self.direction_right = 0
       self.enable_left = 0
@@ -74,7 +74,7 @@ uint32 direction
     """
     try:
       _x = self
-      buff.write(_struct_7I.pack(_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction))
+      buff.write(_struct_2d5I.pack(_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -87,8 +87,8 @@ uint32 direction
       end = 0
       _x = self
       start = end
-      end += 28
-      (_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction,) = _struct_7I.unpack(str[start:end])
+      end += 36
+      (_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction,) = _struct_2d5I.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -102,7 +102,7 @@ uint32 direction
     """
     try:
       _x = self
-      buff.write(_struct_7I.pack(_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction))
+      buff.write(_struct_2d5I.pack(_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -116,11 +116,11 @@ uint32 direction
       end = 0
       _x = self
       start = end
-      end += 28
-      (_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction,) = _struct_7I.unpack(str[start:end])
+      end += 36
+      (_x.speed_left, _x.speed_right, _x.direction_left, _x.direction_right, _x.enable_left, _x.enable_right, _x.direction,) = _struct_2d5I.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_7I = struct.Struct("<7I")
+_struct_2d5I = struct.Struct("<2d5I")

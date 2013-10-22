@@ -15,7 +15,7 @@ def talker():
      rospy.init_node('pwm_talker')    
      while not rospy.is_shutdown():
          rospy.loginfo("pwm_talker running")
-         pub.publish(pwm_o(50,25,1,1,1,1,1))
+         pub.publish(pwm_o(3.0,1.0,1,1,1,1,1))
          rospy.sleep(1.0)
  
 
