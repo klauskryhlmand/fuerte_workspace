@@ -12,7 +12,7 @@
 #include "math.h"
 #include "pid.h"
 #include "FroboMsgs/object_row.h"
-//#include "FroboMsgs/state.h"
+#include "FroboMsgs/state.h"
 //#include "fmMsgs/wii_state.h"
 #include "vector"
 #include "std_msgs/Int8.h"
@@ -89,7 +89,7 @@ public:
 	void controlLoop();
 	void makePath(string pathstr);
 	void objectRowCallback(const FroboMsgs::object_row::ConstPtr& row);
-	void encoderCallback(const FroboMsgs::fpga_data::ConstPtr& data);
+	void encoderCallback(const FroboMsgs::fpga_data data);
 	//void wheelCallback(const fmMsgs::float_data::ConstPtr& speeds);
 	//void gyroCallback(const fmMsgs::gyroscope::ConstPtr& gyro);
 	void objectCallback(const FroboMsgs::detected_objects::ConstPtr& objects);

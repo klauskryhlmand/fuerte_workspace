@@ -19,6 +19,7 @@ str = "Connection open"
 rospy.loginfo(str)
 
 def pwmCallback(msg):
+    #20Hex -> 10m/s
     speed_desired_left = hex(msg.speed_left)[2:]
     speed_desired_right = hex(msg.speed_right)[2:]
     dir_left = hex(msg.direction_left)[2:]

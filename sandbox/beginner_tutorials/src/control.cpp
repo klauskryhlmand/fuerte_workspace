@@ -45,20 +45,30 @@ typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 
 	 };
 //	int test [4] = {2,2,2,2};
-	vector<int> prevpath;
+//	vector<int> prevpath;
 	vector<pathelement> path; //rempath(test,test + sizeof(test) / sizeof(int));
 	int next_turn_direction;
 	int int_rows;
+	int rowSize;
+	int rowcount = 0;
+	int holecount = 0;
 	int state = STM_START;
+	double left_error, right_error;
 	int previous_state = STM_START;
-	int encoder_right_moved;
-	int encoder_right_offset, encoder_left_offset;
-	int encoder_left_moved;
+	unsigned int encoder_right_moved;
+	unsigned int encoder_right_offset, encoder_left_offset;
+	unsigned int encoder_left_moved;
 	int turn90ticks;
 	int exitRowTicks;
 	int returnTicks;
 	bool startEnc = false;
-	string pathstr = "2R-1L-2R-3L-4L-0-2R-4R-1L";
+	bool first_new_stop = true;
+	int fill_left, fill_right;
+	double fill_rate_right;
+	double fill_rate_left;
+	int finding_row;
+	//string pathstr = "2R-1L-2R-3L-4L-0-2R-4R-1L";
+	string pathstr = "1R-1R-1R-1R-1R-1R-1R-1R-1R-1R-1R-1R-1R";
 
 Control::Control() {
 	new_object_row = 0;
@@ -68,10 +78,9 @@ Control::Control() {
 	object_row_start_position = 0;
 	object_row_data_last_update = ros::Time(0);
 	object_row_end_position_left = 1000;
-    object_row_end_position_right = 1000;
+   	object_row_end_position_right = 1000;
 	//row_state = RST_NO_ROW;
-    makePath(pathstr);
-	
+	//makePath(pathstr);
 }
 
 Control::~Control() {
@@ -109,9 +118,6 @@ void Control::makePath(string pathstr) {
 void Control::controlLoop() {
 	
 	
-	int rowcount = 0;
-	int holecount = 0;
-
 	switch (state) {
 		case STM_START:
 				state = STM_DETECT_ROW;
@@ -123,98 +129,111 @@ void Control::controlLoop() {
 			break;
 		case STM_DETECT_ROW:
 
-			int_rows = path.at(0).rowsize;
+			/*int_rows = path.at(0).rowsize;
 			next_turn_direction = path.at(0).turn_direction;
 
-			path.erase(path.begin());
-
+			path.erase(path.begin());*/
 			state = STM_DRIVE;
 			break;
 		case STM_DRIVE:
-			// Driving. Calculate twist when new box-info comes in
+			ROS_WARN("STM_DRIVE");
 			control.direction = 5;
-			
-			if (end_l < 1 && end_r < 1) {
-				state = STM_EXIT_ROW;
-				startEnc = true;
-				ROS_WARN("end of row detected");
-				if (next_turn_direction == LEFT)
-					ROS_WARN("GOING LEFT");
-				else if (next_turn_direction == RIGHT)
-					ROS_WARN("GOING RIGHT");
-				else
-					ROS_WARN("MAKING U-TURN");
-			}					
+				if (end_l < 1 && end_r < 1) {
+							state = STM_EXIT_ROW;
+							startEnc = true;
+							ROS_WARN("end of row detected");
+							if (next_turn_direction == LEFT)
+								ROS_WARN("GOING LEFT");
+							else if (next_turn_direction == RIGHT)
+								ROS_WARN("GOING RIGHT");
+							else
+								ROS_WARN("MAKING U-TURN");
+						}
 
-			
-			if (new_right_object == 1 || new_left_object == 1)
-			{
-				if (new_right_object == 1 && new_left_object == 1)
-				{
-					double right_error = atan((0.25 - sin(object_right_angle)*object_right_distance)/(cos(object_right_angle)*object_right_distance))*Preg;
-					double left_error = atan((0.25 - sin(object_left_angle)*object_left_distance)/(cos(object_left_angle)*object_left_distance))*Preg;
-					error = left_error - right_error;
-					int speed_right = regSpeed + error;
-					int speed_left = regSpeed - error;
-					if (speed_right > regSpeed) {
-						control.speed_right = regSpeed;
-						control.speed_left = 0;
-					}
-					else if (speed_left > regSpeed){
-						control.speed_right = 0;
-						control.speed_left = regSpeed;
-					}
-					else {
-						control.speed_right = speed_right;
-						control.speed_left = speed_left;
-					}
-				}
-				else if (new_right_object) {
-double right_error = atan((0.25 - sin(object_right_angle)*object_right_distance)/(cos(object_right_angle)*object_right_distance))*Preg;
-					if (right_error < moveSpeed && right_error > 0) {
-						ROS_INFO("Slow turn left");
-						control.speed_right = regSpeed + right_error;
-						control.speed_left = regSpeed - right_error;
-					}
-					else if(right_error >= moveSpeed){
-						ROS_INFO("fast turn left");
-						control.speed_right = regSpeed;
-						control.speed_left = 0;
-					}
-				}
-				else if(new_left_object) {
-double left_error = atan((0.25 - sin(object_left_angle)*object_left_distance)/(cos(object_left_angle)*object_left_distance))*Preg;
-					if (left_error < moveSpeed && left_error > 0) {
-						ROS_INFO("Slow turn right");
-						control.speed_left = regSpeed + left_error;
-						control.speed_right = regSpeed - left_error;
-					}
-					else if(left_error >= moveSpeed){
-						ROS_INFO("fast turn right");
-						control.speed_left = regSpeed;
-						control.speed_right = 0;
-					}
-				}
-			}
-			else if (new_right_object == 0 && new_left_object == 0)
-			{
-				ROS_INFO("drive straight");
-				control.speed_right = moveSpeed;
-				control.speed_left = moveSpeed;
-			}
-									
+
+						if (new_right_object == 1 || new_left_object == 1)
+						{	
+							control.direction = 5;
+							control.speed_right = moveSpeed;
+							control.speed_left = moveSpeed;
+							if (new_right_object == 1 && new_left_object == 1)
+							{
+								right_error = atan((0.25 - sin(object_right_angle)*(object_right_distance+0.00001))/(cos(object_right_angle)*(object_right_distance+0.00001)))*Preg;
+								left_error = atan((0.25 - sin(object_left_angle)*object_left_distance+0.00001)/(cos(object_left_angle)*(object_left_distance+0.00001)))*Preg;
+								error = left_error - right_error;
+								ROS_WARN("right error: %f left error: %f", right_error, left_error);
+								int speed_right = moveSpeed - error;
+								int speed_left = moveSpeed + error;
+								if (speed_right > regSpeed) {
+									control.speed_right = regSpeed;
+									control.speed_left = 0;
+								}
+								else if (speed_left > regSpeed){
+									control.speed_right = 0;
+									control.speed_left = regSpeed;
+								}
+								else {
+									control.speed_right = speed_right;
+									control.speed_left = speed_left;
+								}
+							}
+							else if (new_right_object) {/*
+								control.direction = 4;
+								control.speed_right = moveSpeed;
+								control.speed_left = moveSpeed;*/
+					right_error = atan((0.25 - sin(object_right_angle)*object_right_distance)/(cos(object_right_angle)*object_right_distance))*Preg;
+								ROS_WARN("right error: %f", right_error);
+								if (right_error < moveSpeed && right_error > 0) {
+									ROS_INFO("Slow turn left");
+									control.speed_right = moveSpeed + right_error;
+									control.speed_left = moveSpeed - right_error;
+								}
+								else if(right_error >= moveSpeed){
+									ROS_INFO("fast turn left");
+									control.speed_right = regSpeed;
+									control.speed_left = 0;
+								}
+							}
+							else if(new_left_object) {
+							/*	control.direction = 4;
+								control.speed_right = moveSpeed;
+								control.speed_left = moveSpeed; */
+			left_error = atan((0.25 - sin(object_left_angle)*object_left_distance)/(cos(object_left_angle)*object_left_distance))*Preg;
+								ROS_WARN("left error: %f", left_error);
+								if (left_error < moveSpeed && left_error > 0) {
+									ROS_INFO("Slow turn right");
+									control.speed_left = moveSpeed + left_error;
+									control.speed_right = moveSpeed - left_error;
+								}
+								else if(left_error >= moveSpeed){
+									ROS_INFO("fast turn right");
+									control.speed_left = regSpeed;
+									control.speed_right = 0;
+								}		
+							}
+						}
+						else if (new_right_object == 0 && new_left_object == 0)
+						{
+							ROS_INFO("drive straight");
+							//control.direction = 5;
+							control.speed_right = moveSpeed;
+							control.speed_left = moveSpeed;
+						}
+
 			break;
 		case STM_EXIT_ROW:
-			ROS_INFO("EXIT ROW");
+			//ROS_INFO("EXIT ROW");
 			control.direction = 5;
 			control.speed_right = moveSpeed;
 			control.speed_left = moveSpeed;
 			if (startEnc) {
 				initEncoders();
 				startEnc = false;			
-			}	
+			}
+			ROS_WARN("Encoders moved: %d", encoder_left_moved + encoder_right_moved);
 			if ((encoder_left_moved + encoder_right_moved) > exitRowTicks) {
 			state = STM_HEADLAND;
+			ROS_WARN("ENTERING HEADLAND!");
 			}
 			break;
 		case STM_HEADLAND:
@@ -225,6 +244,7 @@ double left_error = atan((0.25 - sin(object_left_angle)*object_left_distance)/(c
 			else {
 				state = STM_TURNING;
 				startEnc = true;
+				ROS_WARN("TURNING!");
 			}
 			break;
 		case STM_TURNING:
@@ -243,13 +263,42 @@ double left_error = atan((0.25 - sin(object_left_angle)*object_left_distance)/(c
 				startEnc = false;
 			}
 			if (next_turn_direction == RIGHT) {
-				if (end_r > -1 || encoder_right_moved + encoder_left_moved > turn90ticks) {
+				if (new_right_object) {
+					control.speed_right = regSpeed;
+					control.speed_left = 0;				
+				}
+				//else {
+				//	control.speed_right = moveSpeed;
+				//	control.speed_left = moveSpeed;								
+				//}
+				//ROS_WARN("Encoder value = %u", encoder_right_moved);
+				if (previous_state == STM_ENTER_ROW) {
+					if (encoder_left_moved > turn90ticks) {
+						state = STM_DETECT_ROW;					
+					}
+				}
+				else if (end_r > -1 || encoder_left_moved > turn90ticks) {
 					state = STM_HEADLAND_ROW;
+					ROS_WARN("90 degrees turned, entering headland_row");
 				}
 			}
 			else if (next_turn_direction == LEFT) {
-				if (end_l > -1 || encoder_left_moved + encoder_right_moved > turn90ticks) {
+				if (new_left_object) {
+					control.speed_right = 0;
+					control.speed_left = regSpeed;				
+				}
+				//else {
+				//	control.speed_right = moveSpeed;
+				//	control.speed_left = moveSpeed;								
+				//}				
+				if (previous_state == STM_ENTER_ROW) {
+					if (encoder_right_moved > turn90ticks) {
+						state = STM_DETECT_ROW;					
+					}
+				}
+				else if (end_l > -1 || encoder_right_moved > turn90ticks) {
 					state = STM_HEADLAND_ROW;
+					ROS_WARN("90 degrees turned, entering headland_row");
 				}
 			}
 			break;
@@ -257,17 +306,136 @@ double left_error = atan((0.25 - sin(object_left_angle)*object_left_distance)/(c
 			
 			break;
 		case STM_HEADLAND_ROW:
+			control.direction = 5;
+			ROS_WARN("Inside Row, looking for hole");
+			if (next_turn_direction == RIGHT) {
+				
+				control.speed_right = moveSpeed;
+				control.speed_left = moveSpeed;
+				
+				if (new_right_object) {
+					ROS_WARN("TURN ZONE REACHED, TURNING SLOW");
+					control.speed_right = 0;
+					control.speed_left = moveSpeed;				
+				}
+									
 
+				if (end_r > rowSize/2) {
+					if (int_rows == rowcount) {
+						state = STM_ENTER_ROW;
+						finding_row = 0;
+						ROS_WARN("Hole found, starting to turn");
+					}
+					else {
+						state = STM_HEADLAND_HOLE;
+						ROS_WARN("Another row needed, continuing");
+					}
+				}
+			}
+			else if (next_turn_direction == LEFT) {
+				control.speed_right = moveSpeed;
+				control.speed_left = moveSpeed;
+				
+				if (new_left_object) {
+					ROS_WARN("TURN ZONE REACHED, TURNING SLOW");
+					control.speed_right = moveSpeed;
+					control.speed_left = 0;				
+				}
+				
+				if (end_r > rowSize/2) {
+					if (int_rows == rowcount) {
+						state = STM_ENTER_ROW;
+						finding_row = 0;
+						ROS_WARN("Hole found, starting to turn");
+					}
+					else {
+						state = STM_HEADLAND_HOLE;
+						ROS_WARN("Another row needed, continuing");
+					}
+				}
+
+			}
+			break;
+		case STM_HEADLAND_HOLE:
+
+			if (next_turn_direction == RIGHT) {
+		
+				if (new_right_object) {
+					ROS_WARN("TURN ZONE REACHED, TURNING SLOW");
+					control.speed_right = 0;
+					control.speed_left = moveSpeed;				
+				}
+				else {
+					control.speed_right = moveSpeed;
+					control.speed_left = moveSpeed;				
+				}				
+
+				if (end_r < rowSize/5) {
+					state = STM_HEADLAND_ROW;
+					rowcount++;
+					ROS_WARN("New row found");
+				}
+			}
+			else if (next_turn_direction == LEFT) {
+			
+				if (new_left_object) {
+					ROS_WARN("TURN ZONE REACHED, TURNING SLOW");
+					control.speed_right = moveSpeed;
+					control.speed_left = 0;				
+				}
+				else {
+					control.speed_right = moveSpeed;
+					control.speed_left = moveSpeed;				
+				}				
+				
+				if (end_l < rowSize/5) {
+					state = STM_HEADLAND_ROW;
+					rowcount++;
+					ROS_WARN("New row found");
+				}
+			}
+			break;
+		case STM_ENTER_ROW:
+			previous_state = STM_ENTER_ROW;
+			startEnc = true;
+			state = STM_TURNING;
+			/*if (next_turn_direction == RIGHT) {
+				control.speed_right = 0;
+				control.speed_left = moveSpeed;
+				if (end_r > -1 && finding_row != 2) finding_row = 1;
+				if (finding_row == 1 && end_l > -1) finding_row = 2;
+				if (finding_row == 2 && fill_rate_right > 0.5) {
+					ROS_WARN("NEW ROW FOUND, GETTING NEW PATH");
+					state = STM_DETECT_ROW;
+					control.speed_right = 0;
+					control.speed_left = 0;
+				}
+			}
+			else if (next_turn_direction == LEFT) {
+				control.speed_right = 0;
+				control.speed_left = moveSpeed;
+				if (end_l > -1 && finding_row != 2) finding_row = 1;
+				if (finding_row == 1 && end_r > -1) finding_row = 2;
+				if (finding_row == 2 && fill_rate_left > 0.5) {
+					ROS_WARN("NEW ROW FOUND, GETTING NEW PATH");
+					state = STM_DETECT_ROW;
+					control.speed_right = 0;
+					control.speed_left = 0;
+				}
+			}	 */
 			break;
 		case STM_STOP:
-			if (new_stop == 0) {
+			/*if (new_stop == 0) {
+				ROS_WARN("ROS STATE: %d" , previous_state);
 				state = previous_state;
+				first_new_stop = true;
 			}
 			control.direction = 5;
 			control.speed_right = 0;
 			control.speed_left = 0;
-			end_of_row = 0;
-			ROS_WARN("State: STOP!");
+			//end_of_row = 0;
+			ROS_WARN("State: STOP!");*/
+			state = STM_DRIVE;
 			break;
 	}
 	
@@ -289,13 +457,20 @@ void Control::objectRowCallback(const FroboMsgs::object_row::ConstPtr& row) {
 //	object_row_resolution = row->resolution;
 	int l = 0;
 	int r = 0;
+	rowSize = row->size;
+	fill_left = 0;
+	fill_right = 0;
 	for (int i = 0; i < row->size;i++) {
-		if (row->left_row[i] > 0)
+		if (row->left_row[i] > 0) {
 			end_l = i;
+			fill_left++;
+		}
 		else
 			l++;
-		if(row->right_row[i] > 0)
+		if(row->right_row[i] > 0) {
 			end_r = i;
+			fill_right++;
+		}
 		else
 			r++;
 	}
@@ -303,8 +478,11 @@ void Control::objectRowCallback(const FroboMsgs::object_row::ConstPtr& row) {
 		end_l = -1;
 	if (r == row->size)
 		end_r = -1;
-
-	ROS_INFO("endl: %d endr: %d",end_l,end_r);
+	
+	fill_rate_right = fill_right / rowSize;
+	fill_rate_left = fill_left / rowSize;
+	
+	//ROS_INFO("endl: %d endr: %d",end_l,end_r);
 	
 	new_object_row = 1;	
 
@@ -322,10 +500,11 @@ void Control::objectRowCallback(const FroboMsgs::object_row::ConstPtr& row) {
 	
 	new_object_row = 1;*/
 }
-void Control::encoderCallback(const FroboMsgs::fpga_data::ConstPtr& data) {
-	encoder_left = data->encoder_l;
-	encoder_right = data->encoder_r;
+void Control::encoderCallback(const FroboMsgs::fpga_data data) {
+	encoder_left = data.encoder_l;
+	encoder_right = data.encoder_r;
 	
+	//ROS_WARN("encoder left: %d encoder right: %d",encoder_left,encoder_right);
 	if (encoder_right_moved > 1000000 && encoder_left_moved < 1000000) {
 		encoder_right_moved = encoder_left_moved;
 	}
@@ -346,7 +525,10 @@ void Control::objectCallback(const FroboMsgs::detected_objects::ConstPtr& object
 	new_stop = objects->stop_zone_occupied;
 	
 	if (new_stop == 1) {
-		previous_state = state;
+		if (first_new_stop) {
+			previous_state = state;
+			first_new_stop = false;
+		}
 		state = STM_STOP;
 	}	
 			

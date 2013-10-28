@@ -163,7 +163,6 @@ public:
 	// Publisher
 	ros::Publisher twist_pub;
 	ros::Publisher row_state_pub;
-	ros::Publisher control_pub;
 	
 	// PID
 	PID cte_pid; 

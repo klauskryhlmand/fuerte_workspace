@@ -75,7 +75,7 @@ PotDecision::PotDecision() {
 PotDecision::~PotDecision() {
 
 }
-/*
+
 void PotDecision::run_state_machine() {
 	static int state = STM_START;
 	int publish_twist = 0;
@@ -463,7 +463,7 @@ void PotDecision::run_state_machine() {
 	row_state_pub.publish(row_state_msg);
 }
 
-*/
+
 void PotDecision::extract_object_row_data() {
 	int l_end_found = -1, r_end_found = -1;
 	double fill_rate_left = 0, fill_rate_right = 0;
@@ -512,15 +512,15 @@ void PotDecision::extract_object_row_data() {
 	object_row_fill_percent_left = fill_rate_left / object_row_left.size();
 	object_row_fill_percent_right = fill_rate_right / object_row_right.size();
 	
-	if(object_row_fill_percent_left > object_row_threshold && object_row_fill_percent_right > object_row_threshold ) //&& !left_hole_valid && !right_hole_valid)
+	if(object_row_fill_percent_left > object_row_threshold && object_row_fill_percent_right > object_row_threshold && !left_hole_valid && !right_hole_valid)
 	{
 		// Between rows
 		row_state = RST_BETWEEN_ROWS;
-	} else if(object_row_fill_percent_left > object_row_threshold) // && !left_hole_valid)
+	} else if(object_row_fill_percent_left > object_row_threshold && !left_hole_valid)
 	{
 		// Row to the left
 		row_state = RST_LEFT_ROW;
-	} else if(object_row_fill_percent_right > object_row_threshold) // && !right_hole_valid)
+	} else if(object_row_fill_percent_right > object_row_threshold && !right_hole_valid)
 	{
 		// Row to the left
 		row_state = RST_RIGHT_ROW;

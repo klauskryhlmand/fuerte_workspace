@@ -17,7 +17,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 #uncomment if you have defined messages
-#rosbuild_genmsg()
+rosbuild_genmsg()
 #uncomment if you have defined services
 #rosbuild_gensrv()
 
@@ -25,6 +25,9 @@ rosbuild_add_executable(lms111_node src/lms111_node.cpp)
 rosbuild_add_executable(pilot_node src/Pilot.cpp)
 #rosbuild_add_executable(pot_decision src/PotDecision.cpp)
 rosbuild_add_executable(control src/control.cpp)
+
+rosbuild_add_executable(TroelsPlanner_sim src/TroelsPlanner_sim.cpp)
+rosbuild_add_executable(TroelsAI_sim src/TroelsAI_sim.cpp)
 
 #include_directories(/usr/include/)
 #link_directories(/usr/lib/)

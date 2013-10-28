@@ -17,7 +17,7 @@ Pilot::Pilot()
 	nh.param<int>("show_image", show_image, 1);
 	nh.param<double>("robot_clearence_width", robot_clearence_width, 0.2);
 	nh.param<double>("robot_stop_zone", robot_stop_zone, 0.2);
-	nh.param<double>("robot_turn_zone", robot_turn_zone, 0.7);
+	nh.param<double>("robot_turn_zone", robot_turn_zone, 0.3);
 	nh.param<double>("robot_turn_zone_extra_width", robot_turn_zone_extra_width, 0.05);
 	nh.param<string>("object_topic", object_topic, "object_topic");
 	nh.param<string>("object_row_topic", object_row_topic, "object_row_topic");
@@ -67,7 +67,8 @@ Pilot::Pilot()
 	if (show_image){
 		cvDestroyWindow(framedWindowName);
 	}
-
+}*/
+/*
 
 void SimpleObjectAvoidance::wheelCallback(const fmMsgs::float_data::ConstPtr& speeds) {
 	new_speeds = 1;
@@ -142,6 +143,7 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 		rectb.x = recta.x + box_height * 100;
 		rectb.y = 300 - (robot_clearence_width + row_box_width) * 100;
 		cvRectangle(raw_img,recta, rectb, CV_RGB(0,128,255),1,1,0);
+		}
 	}
 	
 		
@@ -150,7 +152,7 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 	object_msg.left_blocked = 0;
 	object_msg.right_blocked = 0;
 	object_msg.stop_zone_occupied = 0;
-	
+	//ROS_INFO("objects reset");
 	// Check quadrants without OpenCV
 	double r, alpha, x, y;
 	for (int i = 0; i < size; i++) {
@@ -209,8 +211,9 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 					cvCircle(raw_img,point1,1,CV_RGB(0,255,255));	// Marks the point with a circle
 				}
 			}
-		}
+	//	ROS_INFO("end of detect");
 		
+		}
 		// Row detection
 		if(x > row_box_start_value && x < row_box_start_value + row_box_height)
 		{
@@ -218,7 +221,7 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 			if(y > robot_clearence_width && y < robot_clearence_width + row_box_width) {
 				for(int n = 0; n < row_box_count; n++)
 				{
-					if (x > (row_box_start_value + n * row_individual_box_height) && x < ((row_box_start_value + n * row_individual_box_height) + row_individual_box_height)) {
+					if (x > (row_box_start_value + n * row_individual_box_height) && x < ((row_box_start_value + n * 							row_individual_box_height) + row_individual_box_height)) {
 						object_row_msg.right_row[n]++;
 					}
 				}
@@ -250,7 +253,7 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 	
 	//ROS_INFO("Right row: %d %d %d %d %d %d %d %d %d %d", right_row[0], right_row[1], right_row[2], right_row[3], right_row[4], right_row[5], right_row[6], right_row[7], right_row[8], right_row[9]);
 	//ROS_INFO("Left row: %d %d %d %d %d %d %d %d %d %d", left_row[0], left_row[1], left_row[2], left_row[3], left_row[4], left_row[5], left_row[6], left_row[7], left_row[8], left_row[9]);
-	
+	//ROS_INFO("Publisher reached");
 	++object_row_msg.header.seq;
 	object_row_msg.header.stamp = ros::Time::now();
 	object_row_publisher.publish(object_row_msg);
@@ -263,8 +266,9 @@ void Pilot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan
 	//}*/
 	if(show_image) {
 		cvShowImage(framedWindowName,raw_img);
+		cvWaitKey(1);
 	}
-}
+
 
 }
 int main(int argc, char** argv){
