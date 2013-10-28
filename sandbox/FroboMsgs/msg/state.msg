@@ -1,0 +1,5 @@
+#IN_ROW 0
+#END_OF_ROW 1
+#TURNING 2
+
+int8 state
