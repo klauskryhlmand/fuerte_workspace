@@ -3,6 +3,7 @@
 
 <group ns="frobo">
 		<!--<include file = "$(find frefrobosim)/launch/FRE_world.launch" />-->
+
 		<node pkg="frefrobosim" name="simulation" type="simulation"> </node>
 		
 		<!--<node pkg="beginner_tutorials" name="talker" type="talker.py"> </node> -->
