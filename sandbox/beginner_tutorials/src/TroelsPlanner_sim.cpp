@@ -58,12 +58,18 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 	double dist;
 	// create img data from cloud data
 
+	double close_hole = 0;
+	double close_hole_dist = 0.13;
+	double close_hole_angle = 110;
+	//double close_angle = 180;
+
 	double max_hole = 0;
 	double hole = 0;
+	double hole_angle = 20;
 	double angle = 180;
 	double temp_angle = 0;
 	double temp_angle2 = 0;
-	double view_interest = 0.5;
+	double view_interest = 1;
 
 	double highest = 0;
 	double lowest = 100000;
@@ -77,20 +83,29 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 		{
 			lowest = laser_scan->ranges[i];
 		}
+
+		//determine close hole size
+		if(laser_scan->ranges[i] > close_hole_dist)
+		{
+			close_hole++;
+		}
+
 		//determine hole size
 		if(laser_scan->ranges[i] > view_interest)
 		{
 			hole++;
 		}
 		//end of hole determine how good it is
-		if((laser_scan->ranges[i] <= view_interest || i == laser_scan->ranges.size()-1) && hole*270.0/laser_scan->ranges.size() > 35.0)
+		if((laser_scan->ranges[i] <= view_interest || i == laser_scan->ranges.size()-1) 
+&& hole*270.0/laser_scan->ranges.size() > hole_angle
+ && close_hole*270.0/laser_scan->ranges.size() > close_hole_angle)
 		{
 			//calculate center of the hole
 			temp_angle = (i - hole/2.0)*270/laser_scan->ranges.size();
 			temp_angle = temp_angle - 135;
 			
 			//if the hole is really big follow a side instead of center
-			if(hole*270.0/laser_scan->ranges.size() > 92.0)
+			if(hole*270.0/laser_scan->ranges.size() > 100.0)
 			{
 				//double left_dist = 100;
 				//double right_dist = 100;
@@ -98,13 +113,13 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 //				if( i > laser_scan->ranges.size()*3/6)
 //				left_dist = laser_scan->ranges[i]*cos(i*Pi*3.0/2.0/laser_scan->ranges.size()-Pi/2)				
 //				right_dist = laser_scan->ranges[i-hole-1]*cos(i*Pi*3.0/2.0/laser_scan->ranges.size())				
-				temp_angle2 = (i - 44.0)*270/laser_scan->ranges.size();
+				temp_angle2 = (i - 50.0)*270/laser_scan->ranges.size();
 				temp_angle2 = temp_angle2 - 135;
 				if(abs(temp_angle2) < abs(temp_angle))
 				{
 					temp_angle = temp_angle2;
 				}
-				temp_angle2 = (i - hole + 44.0)*270/laser_scan->ranges.size();
+				temp_angle2 = (i - hole + 50.0)*270/laser_scan->ranges.size();
 				temp_angle2 = temp_angle2 - 135;
 				if(abs(temp_angle2) < abs(temp_angle))
 				{
@@ -118,8 +133,18 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 				max_hole = hole;
 				angle = temp_angle;
 			}
+		}
+
+		//reset holes
+		if(laser_scan->ranges[i] <= view_interest)
+		{
 			hole = 0;
 		}
+		if(laser_scan->ranges[i] <= close_hole_dist)
+		{
+			close_hole = 0;
+		}
+
 	}
 	laser_info.force = angle/30;
 	if(laser_info.force > 1) laser_info.force = 1;
