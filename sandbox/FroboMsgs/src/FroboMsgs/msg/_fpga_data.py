@@ -6,16 +6,16 @@ import struct
 
 
 class fpga_data(genpy.Message):
-  _md5sum = "378edc8b8a9c23602b7d54ff55da0269"
+  _md5sum = "3c02b68401e694577188aef04af094da"
   _type = "FroboMsgs/fpga_data"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """uint32 encoder_l
-uint32 encoder_r
+  _full_text = """float64 encoder_l
+float64 encoder_r
 uint32 pwm_value
 
 """
   __slots__ = ['encoder_l','encoder_r','pwm_value']
-  _slot_types = ['uint32','uint32','uint32']
+  _slot_types = ['float64','float64','uint32']
 
   def __init__(self, *args, **kwds):
     """
@@ -35,14 +35,14 @@ uint32 pwm_value
       super(fpga_data, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
       if self.encoder_l is None:
-        self.encoder_l = 0
+        self.encoder_l = 0.
       if self.encoder_r is None:
-        self.encoder_r = 0
+        self.encoder_r = 0.
       if self.pwm_value is None:
         self.pwm_value = 0
     else:
-      self.encoder_l = 0
-      self.encoder_r = 0
+      self.encoder_l = 0.
+      self.encoder_r = 0.
       self.pwm_value = 0
 
   def _get_types(self):
@@ -58,7 +58,7 @@ uint32 pwm_value
     """
     try:
       _x = self
-      buff.write(_struct_3I.pack(_x.encoder_l, _x.encoder_r, _x.pwm_value))
+      buff.write(_struct_2dI.pack(_x.encoder_l, _x.encoder_r, _x.pwm_value))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -71,8 +71,8 @@ uint32 pwm_value
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.encoder_l, _x.encoder_r, _x.pwm_value,) = _struct_3I.unpack(str[start:end])
+      end += 20
+      (_x.encoder_l, _x.encoder_r, _x.pwm_value,) = _struct_2dI.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -86,7 +86,7 @@ uint32 pwm_value
     """
     try:
       _x = self
-      buff.write(_struct_3I.pack(_x.encoder_l, _x.encoder_r, _x.pwm_value))
+      buff.write(_struct_2dI.pack(_x.encoder_l, _x.encoder_r, _x.pwm_value))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -100,11 +100,11 @@ uint32 pwm_value
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.encoder_l, _x.encoder_r, _x.pwm_value,) = _struct_3I.unpack(str[start:end])
+      end += 20
+      (_x.encoder_l, _x.encoder_r, _x.pwm_value,) = _struct_2dI.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_3I = struct.Struct("<3I")
+_struct_2dI = struct.Struct("<2dI")

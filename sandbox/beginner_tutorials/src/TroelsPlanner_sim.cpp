@@ -146,7 +146,7 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 		}
 
 	}
-	laser_info.force = angle/30;
+	laser_info.force = -angle/30;
 	if(laser_info.force > 1) laser_info.force = 1;
 	if(laser_info.force < -1) laser_info.force = -1;
 	if(max_hole*270.0/laser_scan->ranges.size() > 180.0)

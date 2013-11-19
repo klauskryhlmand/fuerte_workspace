@@ -22,10 +22,12 @@
 using namespace std;
 
 string laser_info_topic, wheel_speeds_topic;
-const double Max_speed = 3.4;//0.0034;
-const int forward_turn_ticks = 500;
-const int sharp_turn_ticks = 1500;
-const int turn180_ticks = 1700;
+const double Max_speed = 0.5;//0.0034;
+const double Max_speed_rot = 0.3;//0.0034;
+const double forward_turn_ticks = 0.5;
+const double sharp_turn_ticks = 1.5;
+const double sharp_turn_ratio = 0.25;
+const double turn180_ticks = 1700;
 
 struct return_msg
 {
@@ -50,10 +52,10 @@ turn_states turn_state = Init;
 gen_states state = drive_in_line;
 
 bool turning = false;
-unsigned int encL_old;
-unsigned int encR_old;
-unsigned int encL;
-unsigned int encR;
+double encL_old = 0;
+double encR_old = 0;
+double encL = 0;
+double encR = 0;
 bool turn_left;
 void turn(FroboMsgs::pwm_o &msg)
 {
@@ -63,10 +65,10 @@ void turn(FroboMsgs::pwm_o &msg)
 			//save encoder val
 			encL_old = encL;
 			encR_old = encR;
-			msg.speed_left = Max_speed/2;
-			msg.speed_right = Max_speed/2;
+			msg.speed_left = Max_speed_rot;
+			msg.speed_right = Max_speed_rot;
 
-			turn_left = 10;
+			turning = true;
 			turn_state = Drive_forward;
 
 			if(end_of_row_act[eoraPTR].action == 'F')
@@ -79,14 +81,14 @@ void turn(FroboMsgs::pwm_o &msg)
 			break;
 
 		case Drive_forward:
-			msg.speed_left = Max_speed/2;
-			msg.speed_right = Max_speed/2;
-			if(encL-encL_old > forward_turn_ticks && encL-encL_old < 1000000)
+			msg.speed_left = Max_speed_rot;
+			msg.speed_right = Max_speed_rot;
+			if(encL-encL_old > forward_turn_ticks && encL-encL_old < 100)
 			{
 				msg.speed_left = 0;
 			}
 
-			if(encR - encR_old > forward_turn_ticks && encR - encR_old < 1000000)
+			if(encR - encR_old > forward_turn_ticks && encR - encR_old < 100)
 			{
 				msg.speed_right = 0;
 			}
@@ -103,22 +105,32 @@ void turn(FroboMsgs::pwm_o &msg)
 		case Turn_fast:
 			if(end_of_row_act[eoraPTR].action == 'R')
 			{
-				msg.speed_left = Max_speed;
-				msg.speed_right = 0;
-				if(encL - encL_old > sharp_turn_ticks && encL - encL_old < 1000000)
+				msg.speed_left = Max_speed_rot;
+				msg.speed_right = msg.speed_left * sharp_turn_ratio;
+				if(encL - encL_old > sharp_turn_ticks && encL - encL_old < 100)
 				{
 					turn_state = Tune_turn;
 					msg.speed_left = 0;
 				}
-			}
-			else if(end_of_row_act[eoraPTR].action == 'L')
-			{
-				msg.speed_right = Max_speed;
-				msg.speed_left = 0;
-				if(encR - encR_old > sharp_turn_ticks && encR - encR_old < 1000000)
+				if(encR - encR_old > sharp_turn_ticks * sharp_turn_ratio && encR - encR_old < 100)
 				{
 					turn_state = Tune_turn;
 					msg.speed_right = 0;
+				}
+			}
+			else if(end_of_row_act[eoraPTR].action == 'L')
+			{
+				msg.speed_right = Max_speed_rot;
+				msg.speed_left = msg.speed_right * sharp_turn_ratio;
+				if(encR - encR_old > sharp_turn_ticks && encR - encR_old < 100)
+				{
+					turn_state = Tune_turn;
+					msg.speed_right = 0;
+				}
+				if(encL - encL_old > sharp_turn_ticks * sharp_turn_ratio && encL - encL_old < 100)
+				{
+					turn_state = Tune_turn;
+					msg.speed_left = 0;
 				}
 			}
 			else if(end_of_row_act[eoraPTR].action == 'O')
@@ -126,11 +138,11 @@ void turn(FroboMsgs::pwm_o &msg)
 				msg.speed_left = Max_speed/2;
 				msg.speed_right = Max_speed/2;
 				msg.direction = 4;
-				if(encR_old - encR > turn180_ticks && encR_old - encR < 1000000)
+				if(encR_old - encR > turn180_ticks && encR_old - encR < 100)
 				{
 					msg.speed_right = 0;
 				}
-				if(encL - encL_old > turn180_ticks && encL - encL_old < 1000000)
+				if(encL - encL_old > turn180_ticks && encL - encL_old < 100)
 				{
 					msg.speed_left = 0;
 				}
@@ -138,6 +150,12 @@ void turn(FroboMsgs::pwm_o &msg)
 				{
 					turn_state = Tune_turn;
 				}
+			}
+			else
+			{
+				msg.speed_left = 0;
+				msg.speed_right = 0;
+				ROS_ERROR("finished");
 			}
 			break;
 
@@ -162,7 +180,8 @@ void laserInfoCallback(const beginner_tutorials::laser_info ls_inf)
 	msg.direction = 5;
 	msg.enable_left = 0;
 	msg.enable_right = 0;
-
+	msg.speed_left = 0;
+	msg.speed_right = 0;
 
 	switch (state)
 	{
@@ -179,37 +198,37 @@ Switch state logic
 //				ROS_WARN("state: avoid_obst");
 //				break;
 //			}
-//			else if(ls_inf.end_of_row)
-//			{
-//				//end of row: turn
-//				msg.speed_left = 0;
-//				msg.speed_right = 0;
-//				if(end_of_row_act[eoraPTR].action == 'F')
-//				{
-//					state = finished;
-//					ROS_WARN("state: finished");
-//					break;
-//				}
-//				else if(end_of_row_act[eoraPTR].action == 'O')
-//				{
-//					state = drive_at_end_right;
-//					ROS_WARN("state: drive_at_end_right");
-//					break;
-//				}
-//				else if(end_of_row_act[eoraPTR].action == 'R')
-//				{
-//					state = drive_at_end_right;
-//					ROS_WARN("state: drive_at_end_right");
-//					break;
-//				}
-//				else if(end_of_row_act[eoraPTR].action == 'L')
-//				{
-//					state = drive_at_end_left;
-//					ROS_WARN("state: drive_at_end_left");
-//					break;
-//				}
-//			}
 			if(false){}
+			else if(ls_inf.end_of_row)
+			{
+				//end of row: turn
+				msg.speed_left = 0;
+				msg.speed_right = 0;
+				if(end_of_row_act[eoraPTR].action == 'F')
+				{
+					state = finished;
+					ROS_WARN("state: finished");
+					break;
+				}
+				else if(end_of_row_act[eoraPTR].action == 'O')
+				{
+					state = drive_at_end_right;
+					ROS_WARN("state: drive_at_end_right");
+					break;
+				}
+				else if(end_of_row_act[eoraPTR].action == 'R')
+				{
+					state = drive_at_end_right;
+					ROS_WARN("state: drive_at_end_right");
+					break;
+				}
+				else if(end_of_row_act[eoraPTR].action == 'L')
+				{
+					state = drive_at_end_left;
+					ROS_WARN("state: drive_at_end_left");
+					break;
+				}
+			}
 			else
 			{
 ///**********************************************************************************************
@@ -245,9 +264,9 @@ Switch state logic
 				if(msg.speed_left < Max_speed/4) msg.speed_left = Max_speed/4;
 				if(msg.speed_right < Max_speed/4) msg.speed_right = Max_speed/4;
 
-				ROS_WARN("state: row drive");
-				ROS_WARN("left speed: %f", msg.speed_left);
-				ROS_WARN("right speed: %f", msg.speed_right);
+				ROS_ERROR("state: row drive");
+				ROS_ERROR("left speed: %f", msg.speed_left);
+				ROS_ERROR("right speed: %f", msg.speed_right);
 			}
 			break;
 
@@ -266,75 +285,89 @@ Switch state logic
 //				ROS_WARN("state: avoid_obst");
 //				break;
 //			}
-//			else if(!ls_inf.end_of_row)
+/**********************************************************************************************
+Drive at end of line left
+***********************************************************************************************/
+			//msg.speed_left = Max_speed;
+			//msg.speed_right = Max_speed;
+//
+//			if(ls_inf.carefull > 3)
+//			{
+//				msg.speed_left = msg.speed_left/(ls_inf.carefull + 1.0)/3.0;
+//				msg.speed_right = msg.speed_right/(ls_inf.carefull + 1.0);
+//			}
+//			else
+//			{
+//				msg.speed_left = msg.speed_left/12.0;
+//				msg.speed_right = msg.speed_right/4.0;
+//			}
+//
+//			if(msg.speed_left < Max_speed/32.0) msg.speed_left = Max_speed/32.0;
+//			if(msg.speed_right < Max_speed/8.0) msg.speed_right = Max_speed/8.0;
+//			msg.speed_left = 0;
+//
+//			//switch state logic
+//			if(!ls_inf.end_of_row && ls_inf.force < -0.8)
 //			{
 //				msg.speed_left = 0;
 //				msg.speed_right = 0;
 //				state = drive_in_line;
 //				ROS_WARN("state: drive in line");
 //			}
+			turn(msg);
+			if(!turning) state = drive_in_line;
 
-/**********************************************************************************************
-Drive at end of line left
-***********************************************************************************************/
-			msg.speed_left = Max_speed;
-			msg.speed_right = Max_speed;
+			ROS_ERROR("state: turn left");
+			ROS_ERROR("left speed: %f", msg.speed_left);
+			ROS_ERROR("right speed: %f", msg.speed_right);
 
-			//left = positive;
-			if(ls_inf.end_of_row || ls_inf.force > 0)
-			{
-				msg.speed_left = 0;
-			}
-			else
-			{
-				//obstacles to the right;
-				msg.speed_right += ls_inf.force*Max_speed*2;
-			}
-
-			if(ls_inf.carefull+1 < 2)
-			{
-				msg.speed_left = msg.speed_left/(ls_inf.carefull + 1.0);
-				msg.speed_right = msg.speed_right/(ls_inf.carefull + 1.0);
-			}
-			else
-			{
-				msg.speed_left = msg.speed_left/2;
-				msg.speed_right = msg.speed_right/2;
-			}
-
-			if(msg.speed_left < Max_speed/4) msg.speed_left = Max_speed/4;
-			if(msg.speed_right < Max_speed/4) msg.speed_right = Max_speed/4;
-
-			ROS_WARN("state: row drive");
-			ROS_WARN("left speed: %d", msg.speed_left);
-			ROS_WARN("right speed: %d", msg.speed_right);
-
-			msg.speed_left = 0;
-			msg.speed_right = 0;
+			//msg.speed_left = 0;
+			//msg.speed_right = 0;
 			break;
+
+
+
 
 		case drive_at_end_right:
 /**********************************************************************************************
-temporary Switch state logic
+Drive at end of line right
 ***********************************************************************************************/
-			if(ls_inf.blocked)
-			{
-				//blocked: stop
-				msg.speed_left = 0;
-				msg.speed_right = 0;
-				state = avoid_obst;
-				ROS_WARN("state: avoid_obst");
-				break;
-			}
-			else if(!ls_inf.end_of_row)
-			{
-				msg.speed_left = 0;
-				msg.speed_right = 0;
-				state = drive_in_line;
-				ROS_WARN("state: drive in line");
-			}
-			msg.speed_left = 0;
-			msg.speed_right = 0;
+//			msg.speed_left = Max_speed;
+//			msg.speed_right = Max_speed;
+//
+//			if(ls_inf.carefull > 3)
+//			{
+//				msg.speed_left = msg.speed_left/(ls_inf.carefull + 1.0);
+//				msg.speed_right = msg.speed_right/(ls_inf.carefull + 1.0)/3.0;
+//			}
+//			else
+//			{
+//				msg.speed_left = msg.speed_left/4.0;
+//				msg.speed_right = msg.speed_right/12.0;
+//			}
+//
+//			if(msg.speed_left < Max_speed/8.0) msg.speed_left = Max_speed/8.0;
+//			if(msg.speed_right < Max_speed/32.0) msg.speed_right = Max_speed/32.0;
+//			msg.speed_right = 0;
+//
+//			//switch state logic
+//			if(!ls_inf.end_of_row && ls_inf.force > 0.8)
+//			{
+//				msg.speed_left = 0;
+//				msg.speed_right = 0;
+//				state = drive_in_line;
+//				ROS_WARN("state: drive in line");
+//			}
+			turn(msg);
+
+			if(!turning) state = drive_in_line;
+
+			ROS_ERROR("state: turn right");
+			ROS_ERROR("left speed: %f", msg.speed_left);
+			ROS_ERROR("right speed: %f", msg.speed_right);
+
+			//msg.speed_left = 0;
+			//msg.speed_right = 0;
 			break;
 
 		case drive_in_left:
@@ -359,8 +392,8 @@ temporary Switch state logic
 			}
 
 
-			msg.speed_left = 0;
-			msg.speed_right = 0;
+			//msg.speed_left = 0;
+			//msg.speed_right = 0;
 			break;
 
 		case drive_in_right:
@@ -404,7 +437,14 @@ temporary Switch state logic
 			msg.speed_right = 0;
 			break;
 
+		case finished:
+			ROS_ERROR("state: finished");
+			msg.speed_left = 0;
+			msg.speed_right = 0;
+			break;
+		
 		default:
+			ROS_ERROR("state: default WTF!!!!");
 			break;
 	}
 	speed_pub.publish(msg);
@@ -414,21 +454,32 @@ void encInfoCallback(const FroboMsgs::fpga_data enc_inf)
 {
 	encL = enc_inf.encoder_l;
 	encR = enc_inf.encoder_r;
+
+	ROS_ERROR("enc l: %f", enc_inf.encoder_l);
+	ROS_ERROR("enc r: %f", enc_inf.encoder_r);
 }
 
 
 
 int main(int argc, char** argv){
 	//Get actions
-	for(int i = 0; i < 20; i += 2)
+	for(int i = 0; i < 60; i += 6)
 	{
 		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i].action = 'O';
+		end_of_row_act[i].action = 'L';
 		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i+1].action = 'O';
+		end_of_row_act[i+1].action = 'R';
+		end_of_row_act.push_back(turn_act());
+		end_of_row_act[i+2].action = 'L';
+		end_of_row_act.push_back(turn_act());
+		end_of_row_act[i+3].action = 'L';
+		end_of_row_act.push_back(turn_act());
+		end_of_row_act[i+4].action = 'R';
+		end_of_row_act.push_back(turn_act());
+		end_of_row_act[i+5].action = 'L';
 	}
 	end_of_row_act.push_back(turn_act());
-	end_of_row_act[20].action = 'F';
+	end_of_row_act[60].action = 'F';
 	eoraPTR = 0;
 
 	// Initialize ros
@@ -442,7 +493,7 @@ int main(int argc, char** argv){
 
 	// ROS PUBLISHERS AND SUBSCRIBERS
 	laser_sub = n.subscribe<beginner_tutorials::laser_info>(laser_info_topic.c_str(), 1, &laserInfoCallback);
-	enc_sub = n.subscribe<FroboMsgs::fpga_data>("encoder_l", 1, &encInfoCallback);
+	enc_sub = n.subscribe<FroboMsgs::fpga_data>("encoder", 2, &encInfoCallback);
 	speed_pub = n.advertise<FroboMsgs::pwm_o>(wheel_speeds_topic.c_str(), 1);
 
 
