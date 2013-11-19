@@ -22,9 +22,9 @@
 using namespace std;
 
 string laser_info_topic, wheel_speeds_topic;
-const double Max_speed = 0.5;//0.0034;
-const double Max_speed_rot = 0.3;//0.0034;
-const double forward_turn_ticks = 0.5;
+const double Max_speed = 2;//0.0034;
+const double Max_speed_rot = 0.2;//0.0034;
+const double forward_turn_ticks = 1;
 const double sharp_turn_ticks = 1.5;
 const double sharp_turn_ratio = 0.25;
 const double turn180_ticks = 1700;
