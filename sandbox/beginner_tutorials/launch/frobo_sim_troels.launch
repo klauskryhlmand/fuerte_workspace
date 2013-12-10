@@ -4,7 +4,17 @@
 <group ns="frobo">
 		<!--<include file = "$(find frefrobosim)/launch/FRE_world.launch" />-->
 
-		<node pkg="frefrobosim" name="simulation" type="simulation"> </node>
+		<node pkg="frefrobosim" name="simulation" type="simulation">
+
+			<param name="csvFileName" value="$(find frefrobosim)/output/first" />
+			<param name="max_positive_acc_l" value="1.7" />
+			<param name="max_positive_acc_r" value="1.7" />
+			<param name="max_frition_acc_l" value="0.5" />
+			<param name="max_frition_acc_r" value="0.5" />
+			<param name="max_breaking_l" value="0.5" />
+			<param name="max_breaking_r" value="0.5" />
+
+		</node>
 		
 		<!--<node pkg="beginner_tutorials" name="talker" type="talker.py"> </node> -->
 

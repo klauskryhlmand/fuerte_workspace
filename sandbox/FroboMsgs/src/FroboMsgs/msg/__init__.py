@@ -1,7 +1,7 @@
 from ._magnetometer import *
+from ._detected_objects import *
 from ._accelerometer import *
 from ._float_data import *
-from ._pwm_o import *
 from ._hilde_states import *
 from ._state import *
 from ._imu_razor_9dof import *
@@ -9,6 +9,6 @@ from ._object_row import *
 from ._error import *
 from ._fpga_data import *
 from ._serial import *
-from ._detected_objects import *
+from ._pwm_o import *
 from ._gyroscope import *
 from ._row import *
