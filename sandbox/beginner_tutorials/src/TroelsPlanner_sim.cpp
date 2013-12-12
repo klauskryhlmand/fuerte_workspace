@@ -105,7 +105,7 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 			temp_angle = temp_angle - 135;
 			
 			//if the hole is really big follow a side instead of center
-			if(hole*270.0/laser_scan->ranges.size() > 100.0)
+			if(hole*270.0/laser_scan->ranges.size() > 30.0)
 			{
 				//double left_dist = 100;
 				//double right_dist = 100;
@@ -113,15 +113,19 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 //				if( i > laser_scan->ranges.size()*3/6)
 //				left_dist = laser_scan->ranges[i]*cos(i*Pi*3.0/2.0/laser_scan->ranges.size()-Pi/2)				
 //				right_dist = laser_scan->ranges[i-hole-1]*cos(i*Pi*3.0/2.0/laser_scan->ranges.size())				
-				temp_angle2 = (i - 50.0)*270/laser_scan->ranges.size();
+				temp_angle2 = (i - 15)*270/laser_scan->ranges.size();
 				temp_angle2 = temp_angle2 - 135;
 				if(abs(temp_angle2) < abs(temp_angle))
 				{
 					temp_angle = temp_angle2;
 				}
-				temp_angle2 = (i - hole + 50.0)*270/laser_scan->ranges.size();
+				temp_angle2 = (i - hole + 15)*270/laser_scan->ranges.size();
 				temp_angle2 = temp_angle2 - 135;
-				if(abs(temp_angle2) < abs(temp_angle))
+				if(temp_angle2 * temp_angle < 0)
+				{
+					temp_angle = 0;
+				}					
+				else if(abs(temp_angle2) < abs(temp_angle))
 				{
 					temp_angle = temp_angle2;
 				}
