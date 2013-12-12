@@ -207,13 +207,13 @@ void laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& laser_scan)
 	msg.force = laser_info.force;
 	msg.carefull = laser_info.carefull;
 
-	ROS_WARN("force: %f", msg.force);
-	ROS_WARN("careful: %f", msg.carefull);
-	ROS_WARN("endrow: %d", msg.end_of_row);
-	ROS_WARN("blocked: %d", msg.blocked);
-	ROS_WARN("highest: %f", highest);
-	ROS_WARN("lowest: %f", lowest);
-	ROS_WARN("angle: %f", angle);
+	ROS_INFO("force: %f", msg.force);
+	ROS_INFO("careful: %f", msg.carefull);
+	ROS_INFO("endrow: %d", msg.end_of_row);
+	ROS_INFO("blocked: %d", msg.blocked);
+	ROS_INFO("highest: %f", highest);
+	ROS_INFO("lowest: %f", lowest);
+	ROS_INFO("angle: %f", angle);
 
 	laser_pub.publish(msg);
 
