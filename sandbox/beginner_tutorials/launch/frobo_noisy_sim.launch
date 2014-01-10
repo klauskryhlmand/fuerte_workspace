@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<launch>
+
+<group ns="frobo">
+		<!--<include file = "$(find frefrobosim)/launch/FRE_world.launch" />-->
+
+		<node pkg="frefrobosim" name="simulation" type="simulation">
+
+			<param name="csvFileName" value="$(find frefrobosim)/output/professional_noise4" />
+			<param name="max_positive_acc_l" value="2.7" />
+			<param name="max_positive_acc_r" value="2.7" />
+			<param name="max_frition_acc_l" value="0.5" />
+			<param name="max_frition_acc_r" value="0.5" />
+			<param name="max_breaking_l" value="1.5" />
+			<param name="max_breaking_r" value="1.5" />
+
+
+			<param name="noiseOn" type="bool" value="true" />
+			<param name="speedNoise" value="0.01" />
+			<param name="encoderNoise" value="0.01" />
+
+		</node>
+		<node pkg="frefrobosim" name="laserNoiseAdder" type="laserNoiseAdder.py">
+			<param name="laser_scan_topic" value="laser_msgs_1" />
+			<param name="laser_scan_topic_noise" value="laser_msgs_1_noise" />
+		</node>
+
+
+		<!--<node pkg="beginner_tutorials" name="talker" type="talker.py"> </node> -->
+
+		 <node pkg="beginner_tutorials" type="TroelsPlanner_sim" name="senario_det" output="screen"> 
+			<param name="laser_scan_topic" value="laser_msgs_1_noise" />
+			<param name="show_image" value="0" />
+			<param name="object_topic" value="object_topic" />
+<!--
+			<param name="object_row_topic" value="object_row_topic" />
+			<param name="wheel_speeds_topic" value="/Hilde/wheel_speed_topic" />
+			<param name="robot_clearence_width" value="0.26" />
+			<param name="robot_stop_zone" value="0.2" />
+			<param name="robot_turn_zone" value="0.3" />
+			<param name="robot_turn_zone_extra_width" value="0.05" />
+			
+			<param name="row_box_start_value" value="-0.10" />
+			<param name="row_box_width" value="0.30" />
+			<param name="row_box_height" value="1" />
+			<param name="row_box_count" value="10" />-->
+		</node>	
+
+		 <node pkg="beginner_tutorials" type="TroelsAI_sim" name="AI" 			output="screen"> 
+			<param name="show_image" value="0" />
+			<param name="object_topic" value="object_topic" />
+			<param name="wheel_speeds_topic" value="pwm" />
+<!--
+			<param name="object_row_topic" value="object_row_topic" />
+			<param name="wheel_speeds_topic" value="/Hilde/wheel_speed_topic" />
+			<param name="robot_clearence_width" value="0.26" />
+			<param name="robot_stop_zone" value="0.2" />
+			<param name="robot_turn_zone" value="0.3" />
+			<param name="robot_turn_zone_extra_width" value="0.05" />
+			
+			<param name="row_box_start_value" value="-0.10" />
+			<param name="row_box_width" value="0.30" />
+			<param name="row_box_height" value="1" />
+			<param name="row_box_count" value="10" />-->
+		</node>
+		
+		<!--<node pkg="beginner_tutorials" name="lms111_front" type="lms111_node">
+			<param name="host" value="192.168.0.11"/>
+			<param name="topic_id" value="laser_msgs_1"/>
+			<param name="frame_id" value="base_laser"/>
+		</node> -->
+		
+	</group>
+</launch>

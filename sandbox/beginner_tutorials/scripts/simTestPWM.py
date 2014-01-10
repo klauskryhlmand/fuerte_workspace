@@ -12,11 +12,11 @@ import FroboMsgs
 
 
 def talker():
-     pub = rospy.Publisher('pwm', pwm_o)
+     pub = rospy.Publisher('frobo/pwm', pwm_o)
      rospy.init_node('pwm_talker')    
      while not rospy.is_shutdown():
          rospy.loginfo("pwm_talker running")
-         pub.publish(pwm_o(0,2,1,1,1,1,1))
+         pub.publish(pwm_o(1,3,1,1,1,1,1))
          rospy.sleep(0.1)
  
 
