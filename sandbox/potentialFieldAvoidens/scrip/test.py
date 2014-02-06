@@ -8,6 +8,7 @@ import roslib; roslib.load_manifest('potentialFieldAvoidens')
 import rospy
 from FroboMsgs.msg import fpga_data
 
+
 class objectAvoidens():
     def __init__(self):
         rospy.init_node('objectAvodens')
