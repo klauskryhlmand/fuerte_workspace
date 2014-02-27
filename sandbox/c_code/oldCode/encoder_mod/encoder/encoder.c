@@ -113,7 +113,7 @@ ISR(INT1_vect)
 	}
 	if(TEST_BIT_LOW(PINB,PB2))
 	{
-		moved_left--;
+		moved_left++;
 	}
 }
 
