@@ -114,13 +114,15 @@ void scheduler()
 			systikOverflowCompare = timer_tick;
 			INT16U remainder = 0;
 			for (int i = 0; i < numberOfTask; ++i) {
-//				if (allTask[i].nextRun > 0xF000) {
-					remainder = 0xFFFF - allTask[i].nextRun;
-					if (remainder > allTask[i].time) {
-						remainder = remainder % allTask[i].time;
-					}
-					allTask[i].nextRun = allTask[i].time - remainder;
-//				}
+				if (i != nextTask) {
+					//				if (allTask[i].nextRun > 0xF000) {
+										remainder = 0xFFFF - allTask[i].nextRun;
+										if (remainder > allTask[i].time) {
+											remainder = remainder % allTask[i].time;
+										}
+										allTask[i].nextRun = allTask[i].time - remainder;
+					//				}
+				}
 			}
 		}
 
