@@ -138,7 +138,7 @@ void scheduler()
 			allTask[nextTask].nextRun += allTask[nextTask].time;
 		}
 		else {
-			if (timer_tick > allTask[nextTask].nextRun) {
+			if (timer_tick >= allTask[nextTask].nextRun) {
 				(*allTask[nextTask].functionPtr)();
 				nextTask = -1;
 			}
