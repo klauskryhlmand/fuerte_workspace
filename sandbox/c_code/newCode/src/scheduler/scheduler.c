@@ -31,7 +31,7 @@ struct task (*allTask);
 void timer1_init(void)
 {
 	TCCR1B |= (1<<WGM12) /** | (1<<WGM13) | (1<<CS12)**/ | (1<<CS10); // current setting is no prescaler table for possibly settings can
-																	  // be found in data sheet for AT90CAN128 on page 139
+	// be found in data sheet for AT90CAN128 on page 139
 	TIMSK1 |= (1<<OCIE1A); //| (1<<ICES1); // enable comper on OCR1A
 
 	OCR1A = 16000;
@@ -106,6 +106,18 @@ void scheduler()
 		schedulerNotRun = FALSE;
 
 		// deals with rescheduling task when timer_tick overflows
+//		if(timer_tick == 0)
+//		{
+//			INT16U remainder = 0;
+//			for (int i = 0; i < numberOfTask; i++) {
+//				remainder = 0xFFFF - allTask[i].nextRun;
+//				if (remainder > allTask[i].time) {
+//					remainder = remainder % allTask[i].time;
+//				}
+//				allTask[i].nextRun = allTask[i].time - remainder;
+//			}
+//		}
+
 		if(timer_tick > systikOverflowCompare)
 		{
 			systikOverflowCompare = timer_tick;
@@ -113,18 +125,30 @@ void scheduler()
 		else {
 			systikOverflowCompare = timer_tick;
 			INT16U remainder = 0;
-			for (int i = 0; i < numberOfTask; ++i) {
-				if (i != nextTask) {
-					//				if (allTask[i].nextRun > 0xF000) {
-										remainder = 0xFFFF - allTask[i].nextRun;
-										if (remainder > allTask[i].time) {
-											remainder = remainder % allTask[i].time;
-										}
-										allTask[i].nextRun = allTask[i].time - remainder;
-					//				}
+			for (int i = 0; i < numberOfTask; i++) {
+//				if (i == nextTask) {
+//					if (allTask[i].nextRun > 0xF000) {
+//						remainder = 0xFFFF - allTask[i].nextRun;
+//						if (remainder > allTask[i].time) {
+//							remainder = remainder % allTask[i].time;
+//						}
+//						allTask[i].nextRun = allTask[i].time - remainder;
+//					}
+//				}else {
+//					remainder = 0xFFFF - allTask[i].nextRun;
+//					if (remainder > allTask[i].time) {
+//						remainder = remainder % allTask[i].time;
+//					}
+//					allTask[i].nextRun = allTask[i].time - remainder;
+//				}
+				remainder = 0xFFFF - allTask[i].nextRun;
+				if (remainder > allTask[i].time) {
+					remainder = remainder % allTask[i].time;
 				}
+				allTask[i].nextRun = allTask[i].time - remainder;
 			}
 		}
+
 
 		// schedules next task or runs currently scheduled task
 		if (nextTask == -1) {
@@ -143,5 +167,7 @@ void scheduler()
 				nextTask = -1;
 			}
 		}
+
+
 	}
 }
