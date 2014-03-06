@@ -49,8 +49,14 @@ ISR(TIMER1_COMPA_vect)
  ******************************************************************************/
 {
 	cli();
-	timer_tick++;
-	//	toggleBit(PORTE,PE5);
+//	if(timer_tick == 0xFFFF)
+//	{
+//		timer_tick = 0;
+//	}else
+//	{
+		++timer_tick;
+//	}
+		//	toggleBit(PORTE,PE5);
 	schedulerNotRun = TRUE;
 	TCNT1=0x00;
 	sei();
@@ -101,6 +107,10 @@ void schedulSetup()
 
 void scheduler()
 {
+	if(timer_tick == 0xFFFF)
+	{
+		timer_tick = 0;
+	}
 	if(schedulerNotRun == TRUE)
 	{
 		schedulerNotRun = FALSE;
@@ -123,9 +133,10 @@ void scheduler()
 			systikOverflowCompare = timer_tick;
 		}
 		else {
-			systikOverflowCompare = timer_tick;
+//			systikOverflowCompare = 0;
+//			timer_tick = 1;
 			INT16U remainder = 0;
-			for (int i = 0; i < numberOfTask; i++) {
+			for (int i = 0; i < numberOfTask; ++i) {
 //				if (i == nextTask) {
 //					if (allTask[i].nextRun > 0xF000) {
 //						remainder = 0xFFFF - allTask[i].nextRun;
@@ -141,7 +152,10 @@ void scheduler()
 //					}
 //					allTask[i].nextRun = allTask[i].time - remainder;
 //				}
-				remainder = 0xFFFF - allTask[i].nextRun;
+//				if(0xFFFF > allTask[i].nextRun)
+//				{
+//				remainder = 0xFFFF - allTask[i].nextRun;
+//				}
 				if (remainder > allTask[i].time) {
 					remainder = remainder % allTask[i].time;
 				}
