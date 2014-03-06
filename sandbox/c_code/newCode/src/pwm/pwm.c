@@ -33,26 +33,44 @@ void pwm_init(void)
 *   Function :
 ******************************************************************************/
 {
-	DDRD |= (1<<DDD4); // enable PD4 (led pin) as output
-	DDRD |= (1<<DDD5); // enable PD5 (led pin) as output
-	DDRD |= (1<<DDD6); // enable PD6 (led pin) as output
-	DDRD |= (1<<DDD3); // enable PD3 (led pin) as output skal laves om til PD7
+	DDRB |= (1<<DDB5); // enable PB5 (led pin) as output
+	DDRB |= (1<<DDB6); // enable PB6 (led pin) as output
+	DDRE |= (1<<DDE3); // enable PE3 (led pin) as output
+	DDRE |= (1<<DDE4); // enable PE4 (led pin) as output
 
-	TCCR0A|= (1<<WGM00);	//can be found i data sheath on page 102
-	TCCR0A|= (1<<WGM01);
-//	TCCR0A|= (1<<COM0A0);	//set OC0A to inverted output if add
-	TCCR0A|= (1<<COM0A1);	//set OC0A to non-inverted output
-//	TCCR0A|= (1<<COM0B0);	//set OC0A to inverted output if add
-	TCCR0A|= (1<<COM0B1);	//set OC0B to inverted output
+	TCCR1A|= (1<<WGM10);	
+	TCCR1A|= (1<<WGM11);
+	TCCR1A|= (1<<COM1A1);	
+	TCCR1A|= (1<<COM1B1);	
+	TCCR1A|= (1<<COM1C1);	
 
-//	TCCR0B |= (1<<CS00);	// see page 105 for prescaler set up
-	TCCR0B |= (1<<CS01);
-//	TCCR0B |= (1<<CS02);
+/*	TCCR3A|= (1<<WGM30);	
+	TCCR3A|= (1<<WGM31);
+	TCCR3A|= (1<<COM3A1);	
+	TCCR3A|= (1<<COM3B1);	
+	TCCR3A|= (1<<COM3C1);	
+*/
+	
+	TCCR1B |= (1<<CS10);	
+//	TCCR1B |= (1<<CS11);	// clock/1024 (15khz) see page 139
+	TCCR1B |= (1<<CS12);
+/*
+	TCCR3B |= (1<<CS30);	
+//	TCCR3B |= (1<<CS31);	// clock/1024 (15khz) see page 139
+	TCCR3B |= (1<<CS32);
+*/
+	SET_BIT_HIGH(PORTE,PE3);
+	SET_BIT_HIGH(PORTE,PE4);
 
-	SET_BIT_HIGH(PORTD,PD3);
-	SET_BIT_HIGH(PORTD,PD4);
-	OCR0A = 255;
-	OCR0B = 255;
+	OCR1AL = 255;	//PB5
+	OCR1BL = 255;	//PB6
+	OCR1CL = 255;
+
+	//OCR3AL = 255;	//PE3
+	//OCR3BL = 255;	//PE4
+	//OCR3CL = 255;
+	
+	
 }
 
 void set_pwm_speed_direction(INT8U speed,INT8U one_char)
@@ -67,39 +85,39 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		if(speed <= 99)
 		{
 			new_speed = speed;
-			SET_BIT_LOW(PORTD,PD4);
-			OCR0A = 255 - (new_speed*255)/100;
+			SET_BIT_LOW(PORTE,PE3);
+			OCR1AL = 255 - (new_speed*255)/100;
 		}
-		if(speed == 100)
+		else if(speed == 100)
 		{
-			SET_BIT_HIGH(PORTD,PD4);
-			OCR0A = 255;
+			SET_BIT_HIGH(PORTE,PE3);
+			OCR1AL = 255;
 		}
-		if(100 < speed && 200 >= speed)
+		else if(100 < speed && 200 >= speed)
 		{
 			new_speed = speed;
-			SET_BIT_HIGH(PORTD,PD4);
-			OCR0A = 255 - ((new_speed)*255)/100;
+			SET_BIT_HIGH(PORTE,PE3);
+			OCR1AL = 255 - (new_speed*255)/100;
 		}
 	}
-	else
+	else if (one_char == 'l')
 	{
 		if(speed <= 99)
 		{
 			new_speed = speed;
-			SET_BIT_LOW(PORTD,PD3);
-			OCR0B = 255 - (new_speed*255)/100;
+			SET_BIT_LOW(PORTE,PE4);
+			OCR1BL = 255 - (new_speed*255)/100;
 		}
-		if(speed == 100)
+		else if(speed == 100)
 		{
-			SET_BIT_HIGH(PORTD,PD3);
-			OCR0B = 255;
+			SET_BIT_HIGH(PORTE,PD4);
+			OCR1BL = 255;
 		}
-		if(100 < speed && 200 >= speed)
+		else if(100 < speed && 200 >= speed)
 		{
 			new_speed = speed;
-			SET_BIT_HIGH(PORTD,PD3);
-			OCR0B = 255 - ((new_speed)*255)/100;
+			SET_BIT_HIGH(PORTE,PD4);
+			OCR1BL = 255 - (new_speed*255)/100;
 		}
 	}
 }
