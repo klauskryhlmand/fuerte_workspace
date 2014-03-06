@@ -16,6 +16,7 @@
 
 #include "scheduler.h"
 
+#include "../pwm/pwm.h"
 
 
 INT16U timer_tick = 0;
@@ -89,16 +90,27 @@ void aliveTask(void)
 
 void aliveTask2(void)
 {
-	TOGGLE_BIT(PORTE,PD5);
+//	TOGGLE_BIT(PORTE,PD5);
 }
 
 
+INT8U pwmTestSpeed = 0;
+void pwmtestTask()
+{
+	TOGGLE_BIT(PORTE,PD5);
+	set_pwm_speed_direction(pwmTestSpeed,'r');
+	set_pwm_speed_direction(pwmTestSpeed,'l');
+	pwmTestSpeed = pwmTestSpeed + 10;
+	if (pwmTestSpeed > 200) {
+		pwmTestSpeed = 0;
+	}
+}
+
 void schedulSetup()
 {
-
 	initAliveTasks();
 
-	numberOfTask = 2; // must set number of task here
+	numberOfTask = 3; // must set number of task here
 
 	struct task allTaks[numberOfTask];
 
@@ -112,9 +124,15 @@ void schedulSetup()
 	aliveTaskStruck2.nextRun = 0;
 	aliveTaskStruck2.functionPtr = &aliveTask2;
 
+	struct task pwmTest;
+	pwmTest.time = 5000;
+	pwmTest.nextRun = 0;
+	pwmTest.functionPtr = &pwmtestTask;
+
 
 	allTaks[0] = aliveTaskStruck;
 	allTaks[1] = aliveTaskStruck2;
+	allTaks[2] = pwmTest;
 
 	allTask = allTaks;
 	timer_tick = 0;

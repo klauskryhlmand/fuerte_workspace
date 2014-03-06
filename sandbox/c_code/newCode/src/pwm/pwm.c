@@ -38,8 +38,9 @@ void pwm_init(void)
 	DDRE |= (1<<DDE3); // enable PE3 (led pin) as output
 	DDRE |= (1<<DDE4); // enable PE4 (led pin) as output
 
-	TCCR1A|= (1<<WGM10);	
-	TCCR1A|= (1<<WGM11);
+	TCCR1A|= (1<<WGM10);	//  Phase Correct
+	TCCR1A|= (1<<WGM11);	// 10 bit
+//	TCCR1A|= (1<<WGM12); 	// CTC mode if only the only set
 	TCCR1A|= (1<<COM1A1);	
 	TCCR1A|= (1<<COM1B1);	
 	TCCR1A|= (1<<COM1C1);	
@@ -51,9 +52,9 @@ void pwm_init(void)
 	TCCR3A|= (1<<COM3C1);	
 */
 	
-	TCCR1B |= (1<<CS10);	
+	TCCR1B |= (1<<CS10);
 //	TCCR1B |= (1<<CS11);	// clock/1024 (15khz) see page 139
-	TCCR1B |= (1<<CS12);
+//	TCCR1B |= (1<<CS12);
 /*
 	TCCR3B |= (1<<CS30);	
 //	TCCR3B |= (1<<CS31);	// clock/1024 (15khz) see page 139
@@ -62,9 +63,9 @@ void pwm_init(void)
 	SET_BIT_HIGH(PORTE,PE3);
 	SET_BIT_HIGH(PORTE,PE4);
 
-	OCR1AL = 255;	//PB5
-	OCR1BL = 255;	//PB6
-	OCR1CL = 255;
+	OCR1AL = 85;	//PB5  // dont seem to change any thing
+	OCR1BL = 85;	//PB6
+	OCR1CL = 85;
 
 	//OCR3AL = 255;	//PE3
 	//OCR3BL = 255;	//PE4
@@ -100,7 +101,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 			OCR1AL = 255 - (new_speed*255)/100;
 		}
 	}
-	else if (one_char == 'l')
+	else if (one_char == 'l') // why add this check Klaus ?
 	{
 		if(speed <= 99)
 		{
@@ -110,13 +111,13 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		}
 		else if(speed == 100)
 		{
-			SET_BIT_HIGH(PORTE,PD4);
+			SET_BIT_HIGH(PORTE,PE4);
 			OCR1BL = 255;
 		}
 		else if(100 < speed && 200 >= speed)
 		{
 			new_speed = speed;
-			SET_BIT_HIGH(PORTE,PD4);
+			SET_BIT_HIGH(PORTE,PE4);
 			OCR1BL = 255 - (new_speed*255)/100;
 		}
 	}

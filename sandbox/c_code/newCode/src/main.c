@@ -8,7 +8,7 @@
 #include <inttypes.h>
 #include <avr/io.h>
 
-//#include "pwm/pwm.h"
+#include "pwm/pwm.h"
 
 # define F_CPU 16000000UL // clock frekvns   on
 
@@ -26,15 +26,13 @@
 
 int main(void)
 {
-//	pwm_init();
-	//	encoder_init();
-	timer1_init();
+	pwm_init();
 	schedulSetup();
 
 
 	while(1)
 	{
-				scheduler();
+		scheduler();
 	};
 
 	return 0;
