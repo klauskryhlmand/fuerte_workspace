@@ -30,22 +30,22 @@ struct task (*allTask);
 
 void timer1_init(void)
 {
-	TCCR1B |= (1<<WGM12) /** | (1<<WGM13) | (1<<CS12)**/ | (1<<CS10); // current setting is no prescaler table for possibly settings can
-	// be found in data sheet for AT90CAN128 on page 139
-	TIMSK1 |= (1<<OCIE1A); //| (1<<ICES1); // enable comper on OCR1A
-
-	OCR1A = 16000;
-	sei();
+//	TCCR1B |= (1<<WGM12) | (1<<COM1A1) /** | (1<<WGM13) | (1<<CS12)**/ | (1<<CS10); // current setting is no prescaler table for possibly settings can
+//	// be found in data sheet for AT90CAN128 on page 139
+//	TIMSK1 |= (1<<OCIE1A); //| (1<<ICES1); // enable comper on OCR1A
+//
+//	OCR1A = 16000;
+//	sei();
 	//	SREG |= (1<<7);
 }
 
 void timer0_init(void)
 {
-	TCCR1B |= (1<<WGM12) /** | (1<<WGM13) | (1<<CS12)**/ | (1<<CS10); // current setting is no prescaler table for possibly settings can
+	TCCR0A |= (1<<WGM01) | (1<<COM0A1) | (1<<CS00) /** | (1<<CS02); **/ | (1<<CS01); // current setting is no prescaler table for possibly settings can
 	// be found in data sheet for AT90CAN128 on page 139
-	TIMSK1 |= (1<<OCIE1A); //| (1<<ICES1); // enable comper on OCR1A
+	TIMSK0 |= (1<<OCIE0A); // enable comper on OCR1A
 
-	OCR0A = 160;
+	OCR0A = 250;
 	sei();
 	//	SREG |= (1<<7);
 }
@@ -57,26 +57,24 @@ ISR(TIMER1_COMPA_vect)
  *   Function :
  ******************************************************************************/
 {
-	cli();
-	timer_tick++;
-	schedulerNotRun = TRUE;
-	TCNT1=0x00;
-	sei();
-}
-
-//ISR(TIMER0_COMPA_vect)
-///*****************************************************************************
-// *   Input    :
-// *   Output   :
-// *   Function :
-// ******************************************************************************/
-//{
 //	cli();
 //	++timer_tick;
 //	schedulerNotRun = TRUE;
-//	TCNT1=0x00;
 //	sei();
-//}
+}
+
+ISR(TIMER0_COMP_vect)
+/*****************************************************************************
+ *   Input    :
+ *   Output   :
+ *   Function :
+ ******************************************************************************/
+{
+	cli();
+	++timer_tick;
+	schedulerNotRun = TRUE;
+	sei();
+}
 
 void initAliveTasks()
 {
@@ -97,7 +95,7 @@ void aliveTask2(void)
 
 void schedulSetup()
 {
-	timer0_init();
+
 	initAliveTasks();
 
 	numberOfTask = 2; // must set number of task here
@@ -119,6 +117,8 @@ void schedulSetup()
 	allTaks[1] = aliveTaskStruck2;
 
 	allTask = allTaks;
+	timer_tick = 0;
+	timer0_init();
 }
 
 void scheduler()
@@ -127,17 +127,15 @@ void scheduler()
 	{
 		schedulerNotRun = FALSE;
 
-		// deals with rescheduling task when timer_tick overflows
-		if(timer_tick > systikOverflowCompare)
+		//		 deals with rescheduling task when timer_tick overflows
+		if(timer_tick == 0)
 		{
-			systikOverflowCompare = timer_tick;
-		}
-		else {
 			INT16U remainder = 0;
 			for (int i = 0; i < numberOfTask; ++i) {
-				if (remainder > allTask[i].time) {
+				remainder = 0xFFFF - allTask[i].nextRun;
+//				if (remainder > allTask[i].time) {
 					remainder = remainder % allTask[i].time;
-				}
+//				}
 				allTask[i].nextRun = allTask[i].time - remainder;
 			}
 		}
@@ -154,13 +152,11 @@ void scheduler()
 			allTask[nextTask].nextRun += allTask[nextTask].time;
 		}
 		else {
-			if (timer_tick >= allTask[nextTask].nextRun) {
+			if (timer_tick > allTask[nextTask].nextRun) {
 				(*allTask[nextTask].functionPtr)();
 				nextTask = -1;
 			}
 		}
-
-
 	}
 }
 
@@ -184,10 +180,13 @@ void scheduler()
 //				remainder = 0xFFFF - allTask[i].nextRun;
 //				}
 
-
-//		if(timer_tick == 0)
+//		if(timer_tick > systikOverflowCompare)
 //		{
+//			systikOverflowCompare = timer_tick;
+//		}
+//		else {
 //			INT16U remainder = 0;
+//
 //			for (int i = 0; i < numberOfTask; i++) {
 //				remainder = 0xFFFF - allTask[i].nextRun;
 //				if (remainder > allTask[i].time) {
@@ -195,4 +194,11 @@ void scheduler()
 //				}
 //				allTask[i].nextRun = allTask[i].time - remainder;
 //			}
+//			//			for (int i = 0; i < numberOfTask; i++) {
+//			//				if (remainder > allTask[i].time) {
+//			//					remainder = remainder % allTask[i].time;
+//			//				}
+//			//				allTask[i].nextRun = allTask[i].time - remainder;
+//			//			}
 //		}
+
