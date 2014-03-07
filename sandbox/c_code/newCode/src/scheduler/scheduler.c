@@ -21,6 +21,8 @@
 #include "../uart/avr_serial.h"
 
 
+#include <stdio.h>
+
 INT16U timer_tick = 0;
 INT16U systikOverflowCompare = 0;
 
@@ -92,8 +94,11 @@ void aliveTask(void)
 
 void aliveTask2(void)
 {
+	char str[4];
+	sprintf(str, "%d", 42);
+	serial_tx_string(str);
 //	serial_tx_string(intToCharArray(42));
-	serial_tx('e');
+//	serial_tx('e');
 //	TOGGLE_BIT(PORTE,PD5);
 }
 
@@ -129,7 +134,7 @@ void schedulSetup()
 	aliveTaskStruck2.functionPtr = &aliveTask2;
 
 	struct task pwmTest;
-	pwmTest.time = 5000;
+	pwmTest.time = 5;
 	pwmTest.nextRun = 0;
 	pwmTest.functionPtr = &pwmtestTask;
 
@@ -161,19 +166,17 @@ void scheduler()
 //				}
 				allTask[i].nextRun = allTask[i].time - remainder;
 			}
-			serial_tx('t');
 		}
 
 		// schedules next task or runs currently scheduled task
 		if (nextTask == -1) {
 			INT16U theNext = 0xFFFF;
 			for (int i = 0; i < numberOfTask; i++) {
-				if(allTask[i].nextRun + allTask[i].time < theNext) {
-					nextTask = i;
-					theNext = allTask[i].nextRun + allTask[i].time;
+				if(allTask[i].nextRun + allTask[i].time < theNext) {	// when near to overflow can cause long task to go over there
+					nextTask = i;										// by be scheduled many times current fix only alwos for 5s task delay
+					theNext = allTask[i].nextRun + allTask[i].time;		// perment fix is need Daniel Lindekilde Ravn
 				}
 			}
-			serial_tx('d');
 			allTask[nextTask].nextRun += allTask[nextTask].time;
 		}
 		else {

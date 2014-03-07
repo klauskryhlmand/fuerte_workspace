@@ -8,10 +8,13 @@
 **/
 
 #include "util.h"
+#include "stdio.h"
+
 
 char* intToCharArray(INT8U aInt)
 {
-	char str[5];
+	char str[4];
 	sprintf(str, "%d", aInt);
+//	str[3] = '\0';
 	return str;
 }
