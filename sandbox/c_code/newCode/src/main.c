@@ -15,7 +15,8 @@
 #include <util/delay.h>
 #include <avr/cpufunc.h>
 
-//#include <avr/interrupt.h>
+
+#include "uart/avr_serial.h"
 
 #include "inc/emp_type.h"
 #include "inc/glob_def.h"
@@ -28,11 +29,11 @@ int main(void)
 {
 	pwm_init();
 	schedulSetup();
-
-
+	serial_init();
 
 	while(1)
 	{
+
 		scheduler();
 	};
 

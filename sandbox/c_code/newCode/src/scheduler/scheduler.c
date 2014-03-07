@@ -17,6 +17,8 @@
 #include "scheduler.h"
 
 #include "../pwm/pwm.h"
+#include "../inc/util.h"
+#include "../uart/avr_serial.h"
 
 
 INT16U timer_tick = 0;
@@ -71,10 +73,10 @@ ISR(TIMER0_COMP_vect)
  *   Function :
  ******************************************************************************/
 {
-	cli();
+//	cli();
 	++timer_tick;
 	schedulerNotRun = TRUE;
-	sei();
+//	sei();
 }
 
 void initAliveTasks()
@@ -90,6 +92,8 @@ void aliveTask(void)
 
 void aliveTask2(void)
 {
+//	serial_tx_string(intToCharArray(42));
+	serial_tx('e');
 //	TOGGLE_BIT(PORTE,PD5);
 }
 
@@ -146,8 +150,9 @@ void scheduler()
 		schedulerNotRun = FALSE;
 
 		//		 deals with rescheduling task when timer_tick overflows
-		if(timer_tick == 0)
+		if(timer_tick == 60000)
 		{
+			timer_tick = 0;
 			INT16U remainder = 0;
 			for (int i = 0; i < numberOfTask; ++i) {
 				remainder = 0xFFFF - allTask[i].nextRun;
@@ -156,17 +161,19 @@ void scheduler()
 //				}
 				allTask[i].nextRun = allTask[i].time - remainder;
 			}
+			serial_tx('t');
 		}
 
 		// schedules next task or runs currently scheduled task
 		if (nextTask == -1) {
 			INT16U theNext = 0xFFFF;
-			for (int i = 0; i < numberOfTask; ++i) {
+			for (int i = 0; i < numberOfTask; i++) {
 				if(allTask[i].nextRun + allTask[i].time < theNext) {
 					nextTask = i;
 					theNext = allTask[i].nextRun + allTask[i].time;
 				}
 			}
+			serial_tx('d');
 			allTask[nextTask].nextRun += allTask[nextTask].time;
 		}
 		else {
