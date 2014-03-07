@@ -31,7 +31,7 @@ int main()
 
 //		s[0] = 'a';
 //		s[1] = 'b';
-//		serial_tx('a');
+		serial_tx('a');
 		for (int i = 0; i<1000;i++) {
 			if (i == 999)
 				counter++;
@@ -44,7 +44,8 @@ int main()
 //		serial_tx_direct('e');
 //		serial_tx_direct('\n');
 
-//		serial_tx('b');
+		serial_tx('\n');
+		serial_tx('b');
 		//    	    		if (serial_rx_avail()) {
 		//    	    			EXT_LED_ON;
 		////    	    			flag = 100;
