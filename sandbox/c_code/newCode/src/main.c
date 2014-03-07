@@ -30,6 +30,7 @@ int main(void)
 	schedulSetup();
 
 
+
 	while(1)
 	{
 		scheduler();

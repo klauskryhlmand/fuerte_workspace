@@ -24,28 +24,33 @@ int main()
 	serial_init();				//initialiserer USART
 	unsigned int counter = 0;
 	char c = 'c';                    //initialiserer lysdioden
-//	unsigned char s[6];
+	unsigned char s[7];
 	sei();                          //starter interrupt funktionaliteten
 	while(1) {
 		//toggle_led();
 
-//		s[0] = 'a';
-//		s[1] = 'b';
-		serial_tx('a');
+		s[0] = 'h';
+		s[1] = 'e';
+		s[2] = 'l';
+		s[3] = 'l';
+		s[4] = 'o';
+		s[5] = '\n';
+		s[6] = '\0';
+
 		for (int i = 0; i<1000;i++) {
 			if (i == 999)
 				counter++;
 		}
 
 //		input = serial_rx();
-//		serial_tx_string(s);
+		serial_tx_string(s);
 //		serial_tx_direct(c);
 //		serial_tx_direct('\n');
 //		serial_tx_direct('e');
-//		serial_tx_direct('\n');
+////		serial_tx_direct('\n');
+//		serial_tx('b');
+//		serial_tx('\n');
 
-		serial_tx('\n');
-		serial_tx('b');
 		//    	    		if (serial_rx_avail()) {
 		//    	    			EXT_LED_ON;
 		////    	    			flag = 100;
