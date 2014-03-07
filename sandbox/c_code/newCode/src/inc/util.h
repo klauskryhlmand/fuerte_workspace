@@ -1,9 +1,11 @@
-/*
- * util.h
- *
- *  Created on: Mar 7, 2014
- *      Author: daniel
- */
+/**
+ *	Project Name:     FreFrobo c utilities
+ *	File name:        util.h
+ *	Creation date:    Fri Mar  7 16:30:16 CET 2014
+ *	Author:           Daniel Lindekilde Ravn
+ *	SDU email:        darav08@student.sdu.dk
+ *	gmail:            daniel.ravn43@gmail.com
+**/
 
 #ifndef UTIL_H_
 #define UTIL_H_
