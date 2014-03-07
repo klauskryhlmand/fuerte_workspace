@@ -22,43 +22,54 @@ int main()
 	INT_LED_INIT;
 	unsigned char input;
 	serial_init();				//initialiserer USART
-    unsigned int counter = 0;
-	char c = "c";                    //initialiserer lysdioden
-    sei();                          //starter interrupt funktionaliteten
-    while(1) {
-    	//toggle_led();
+	unsigned int counter = 0;
+	char c = 'c';                    //initialiserer lysdioden
+//	unsigned char s[6];
+	sei();                          //starter interrupt funktionaliteten
+	while(1) {
+		//toggle_led();
 
-    	for (int i = 0; i<1000;i++) {
-    		if (i == 999)
-    		counter++;
-    	}
-    	input = serial_rx();
-    	serial_tx(input);
-    	    		if (serial_rx_avail()) {
-    	    			EXT_LED_ON;
-//    	    			flag = 100;
-    	    		}
-    	//INT_LED_OFF;
-    	if (counter > 1000)
-     	{
-    		input = serial_rx();
-    		if (input == 'g') {
-    			EXT_LED_ON;
-    			flag = 100;
-    		}
-    		serial_tx_direct(c);
-    	if (flag == 1) {
-    		INT_LED_OFF;
-    		flag = 0;
-    	}
-    	else if (flag == 0) {
-    		INT_LED_ON;
-    		flag = 1;
-    	}
-    	counter = 0;
-    	}
-  //  	_delay_ms(1000);                       //fastholder microcontrolleren i en evighedsløkke
-    }
+//		s[0] = 'a';
+//		s[1] = 'b';
+//		serial_tx('a');
+		for (int i = 0; i<1000;i++) {
+			if (i == 999)
+				counter++;
+		}
+
+//		input = serial_rx();
+//		serial_tx_string(s);
+//		serial_tx_direct(c);
+//		serial_tx_direct('\n');
+//		serial_tx_direct('e');
+//		serial_tx_direct('\n');
+
+//		serial_tx('b');
+		//    	    		if (serial_rx_avail()) {
+		//    	    			EXT_LED_ON;
+		////    	    			flag = 100;
+		//    	    		}
+		//INT_LED_OFF;
+		if (counter > 1000)
+		{
+			//    		input = serial_rx();
+//			if (input == 'g') {
+//				EXT_LED_ON;
+//				flag = 100;
+//			}
+//			serial_tx_direct(c);
+			if (flag == 1) {
+				INT_LED_OFF;
+				flag = 0;
+			}
+			else if (flag == 0) {
+				INT_LED_ON;
+				flag = 1;
+			}
+			counter = 0;
+		}
+		//  	_delay_ms(1000);                       //fastholder microcontrolleren i en evighedsløkke
+	}
 }
 
 /*ISR (USART_RX_vect) {
@@ -81,5 +92,5 @@ ISR (USART_TX_vect)	//  Transmit interrupt
 
 
 //End of file
-*/
+ */
 
