@@ -63,9 +63,9 @@ void pwm_init(void)
 	SET_BIT_HIGH(PORTE,PE3);
 	SET_BIT_HIGH(PORTE,PE4);
 
-	OCR1AL = 85;	//PB5  // dont seem to change any thing
-	OCR1BL = 85;	//PB6
-	OCR1CL = 85;
+	OCR1AL = 255;	//PB5  // with current can only get very low pwm must changes to use HIGH regiset to OCR1AH
+	OCR1BL = 255;	//PB6
+	OCR1CL = 255;
 
 	//OCR3AL = 255;	//PE3
 	//OCR3BL = 255;	//PE4

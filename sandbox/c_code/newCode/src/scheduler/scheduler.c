@@ -92,14 +92,13 @@ void aliveTask(void)
 	TOGGLE_BIT(PORTE,PD6);
 }
 
-INT16U testTIMe = 0;
-
+//INT8U testTIMe = 0;
+//char str[4];
 void aliveTask2(void)
 {
-	testTIMe = timer_tick;
-	char str[6];
+//	testTIMe = timer_tick/1000;
 //	sprintf(str, "%d", testTIMe);
-	str[5] = '\0';
+//	str[5] = '\0';
 //	serial_tx_string(str);
 //	serial_tx('\n');
 //	serial_tx_string(intToCharArray(42));

@@ -54,7 +54,7 @@
 #define FOSC 		16000000	/* oscillator frequency [Hz] */
 #define BAUD 		57600		/* baud rate */
 #define USART_1					/* serial port */
-/* #define DOUBLE_SPEED_MODE */
+//#define DOUBLE_SPEED_MODE/* #define DOUBLE_SPEED_MODE */
 
 /***************************************************************************/
 /* defines */
