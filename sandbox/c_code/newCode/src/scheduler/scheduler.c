@@ -75,10 +75,10 @@ ISR(TIMER0_COMP_vect)
  *   Function :
  ******************************************************************************/
 {
-//	cli();
+	cli();
 	++timer_tick;
 	schedulerNotRun = TRUE;
-//	sei();
+	sei();
 }
 
 void initAliveTasks()
@@ -92,13 +92,18 @@ void aliveTask(void)
 	TOGGLE_BIT(PORTE,PD6);
 }
 
+INT16U testTIMe = 0;
+
 void aliveTask2(void)
 {
-	char str[4];
-	sprintf(str, "%d", 42);
-	serial_tx_string(str);
+	testTIMe = timer_tick;
+	char str[6];
+//	sprintf(str, "%d", testTIMe);
+	str[5] = '\0';
+//	serial_tx_string(str);
+//	serial_tx('\n');
 //	serial_tx_string(intToCharArray(42));
-//	serial_tx('e');
+	serial_tx('e');
 //	TOGGLE_BIT(PORTE,PD5);
 }
 
@@ -158,30 +163,50 @@ void scheduler()
 		if(timer_tick == 60000)
 		{
 			timer_tick = 0;
+			serial_tx('d');
 			INT16U remainder = 0;
 			for (int i = 0; i < numberOfTask; ++i) {
-				remainder = 0xFFFF - allTask[i].nextRun;
-//				if (remainder > allTask[i].time) {
-					remainder = remainder % allTask[i].time;
-//				}
-				allTask[i].nextRun = allTask[i].time - remainder;
+				if(allTask[i].nextRun <= 6000)
+				{
+					remainder = 60000 - allTask[i].nextRun;
+	//				if (remainder > allTask[i].time) {
+						remainder = remainder % allTask[i].time;
+	//				}
+					allTask[i].nextRun = allTask[i].time - remainder;
+				}else {
+					allTask[i].nextRun = allTask[i].nextRun - 60000;
+				}
 			}
 		}
 
 		// schedules next task or runs currently scheduled task
 		if (nextTask == -1) {
 			INT16U theNext = 0xFFFF;
-			for (int i = 0; i < numberOfTask; i++) {
-				if(allTask[i].nextRun + allTask[i].time < theNext) {	// when near to overflow can cause long task to go over there
-					nextTask = i;										// by be scheduled many times current fix only alwos for 5s task delay
-					theNext = allTask[i].nextRun + allTask[i].time;		// perment fix is need Daniel Lindekilde Ravn
-				}
+			for (int i = 0; i < numberOfTask; ++i) {
+//				if(allTask[i].nextRun < allTask[i].nextRun + allTask[i].time)
+//				{
+					if(allTask[i].nextRun + allTask[i].time < theNext) {	// when near to overflow can cause long task to go over there
+						nextTask = i;										// by be scheduled many times current fix only alwos for 5s task delay
+						theNext = allTask[i].nextRun + allTask[i].time;		// perment fix is need Daniel Lindekilde Ravn
+					}
+//				}else {
+//					serial_tx('o');
+//					INT16U remainder = 0;
+//					for (int j = 0; j < numberOfTask; ++j) {
+//						remainder = 0xFFFF - allTask[j].nextRun;
+//		//				if (remainder > allTask[i].time) {
+//							remainder = remainder % allTask[j].time;
+//		//				}
+//						allTask[j].nextRun = allTask[j].time - remainder;
+//					}
+//				}
 			}
 			allTask[nextTask].nextRun += allTask[nextTask].time;
 		}
 		else {
 			if (timer_tick > allTask[nextTask].nextRun) {
 				(*allTask[nextTask].functionPtr)();
+//				serial_tx('r');
 				nextTask = -1;
 			}
 		}
