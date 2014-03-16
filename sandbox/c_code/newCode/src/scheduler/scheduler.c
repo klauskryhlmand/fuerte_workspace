@@ -111,7 +111,7 @@ INT8U pwmTestSpeed = 0;
 void pwmtestTask()
 {
 	TOGGLE_BIT(PORTE,PD5);
-	set_pwm_speed_direction(pwmTestSpeed,'r');
+//	set_pwm_speed_direction(pwmTestSpeed,'r');
 	set_pwm_speed_direction(pwmTestSpeed,'l');
 	pwmTestSpeed = pwmTestSpeed + 10;
 	if (pwmTestSpeed > 200) {
@@ -138,7 +138,7 @@ void schedulSetup()
 	aliveTaskStruck2.functionPtr = &aliveTask2;
 
 	struct task pwmTest;
-	pwmTest.time = 5;
+	pwmTest.time = 500;
 	pwmTest.nextRun = 0;
 	pwmTest.functionPtr = &pwmtestTask;
 
