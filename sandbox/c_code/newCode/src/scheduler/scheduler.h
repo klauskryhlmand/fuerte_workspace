@@ -14,11 +14,11 @@ struct task{
 	void (*functionPtr)(void);
 };
 
-void timer1_init(void);
+void sendTikTime();
 
-void aliveTask(void);
-
-void aliveTask2(void);
+//void aliveTask(void);
+//
+//void aliveTask2(void);
 
 void schedulSetup(void);
 

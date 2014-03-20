@@ -33,16 +33,29 @@ BOOLEAN schedulerNotRun = FALSE;
 struct task (*allTask);
 
 
-void timer1_init(void)
+void sendTikTime()
 {
+	INT16U timeCopy = timer_tick;
+	unsigned char c = 'T';
+	unsigned char l = 0xFF & timeCopy;
+	timeCopy = timeCopy >> 4;
+	unsigned char h = 0xFF & timeCopy;
+
+	serial_tx(c);
+	serial_tx(h);
+	serial_tx(l);
+}
+
+//void timer1_init(void)
+//{
 //	TCCR1B |= (1<<WGM12) | (1<<COM1A1) /** | (1<<WGM13) | (1<<CS12)**/ | (1<<CS10); // current setting is no prescaler table for possibly settings can
 //	// be found in data sheet for AT90CAN128 on page 139
 //	TIMSK1 |= (1<<OCIE1A); //| (1<<ICES1); // enable comper on OCR1A
 //
 //	OCR1A = 16000;
 //	sei();
-	//	SREG |= (1<<7);
-}
+//	SREG |= (1<<7);
+//}
 
 void timer0_init(void)
 {
@@ -55,18 +68,18 @@ void timer0_init(void)
 	//	SREG |= (1<<7);
 }
 
-ISR(TIMER1_COMPA_vect)
-/*****************************************************************************
- *   Input    :
- *   Output   :
- *   Function :
- ******************************************************************************/
-{
-//	cli();
-//	++timer_tick;
-//	schedulerNotRun = TRUE;
-//	sei();
-}
+//ISR(TIMER1_COMPA_vect)
+///*****************************************************************************
+// *   Input    :
+// *   Output   :
+// *   Function :
+// ******************************************************************************/
+//{
+////	cli();
+////	++timer_tick;
+////	schedulerNotRun = TRUE;
+////	sei();
+//}
 
 ISR(TIMER0_COMP_vect)
 /*****************************************************************************
@@ -92,18 +105,22 @@ void aliveTask(void)
 	TOGGLE_BIT(PORTE,PD6);
 }
 
-//INT8U testTIMe = 0;
-//char str[4];
 void aliveTask2(void)
 {
-//	testTIMe = timer_tick/1000;
-//	sprintf(str, "%d", testTIMe);
-//	str[5] = '\0';
-//	serial_tx_string(str);
-//	serial_tx('\n');
-//	serial_tx_string(intToCharArray(42));
+	serial_tx('a');
+	serial_tx('l');
+	serial_tx('i');
+	serial_tx('v');
 	serial_tx('e');
-//	TOGGLE_BIT(PORTE,PD5);
+
+	serial_tx(' ');
+
+	serial_tx('t');
+
+	sendTikTime();
+
+	serial_tx('\n');
+
 }
 
 
@@ -111,7 +128,7 @@ INT8U pwmTestSpeed = 0;
 void pwmtestTask()
 {
 	TOGGLE_BIT(PORTE,PD5);
-//	set_pwm_speed_direction(pwmTestSpeed,'r');
+	set_pwm_speed_direction(pwmTestSpeed,'r');
 	set_pwm_speed_direction(pwmTestSpeed,'l');
 	pwmTestSpeed = pwmTestSpeed + 10;
 	if (pwmTestSpeed > 200) {
@@ -182,23 +199,10 @@ void scheduler()
 		if (nextTask == -1) {
 			INT16U theNext = 0xFFFF;
 			for (int i = 0; i < numberOfTask; ++i) {
-//				if(allTask[i].nextRun < allTask[i].nextRun + allTask[i].time)
-//				{
 					if(allTask[i].nextRun + allTask[i].time < theNext) {	// when near to overflow can cause long task to go over there
 						nextTask = i;										// by be scheduled many times current fix only alwos for 5s task delay
 						theNext = allTask[i].nextRun + allTask[i].time;		// perment fix is need Daniel Lindekilde Ravn
 					}
-//				}else {
-//					serial_tx('o');
-//					INT16U remainder = 0;
-//					for (int j = 0; j < numberOfTask; ++j) {
-//						remainder = 0xFFFF - allTask[j].nextRun;
-//		//				if (remainder > allTask[i].time) {
-//							remainder = remainder % allTask[j].time;
-//		//				}
-//						allTask[j].nextRun = allTask[j].time - remainder;
-//					}
-//				}
 			}
 			allTask[nextTask].nextRun += allTask[nextTask].time;
 		}
@@ -212,45 +216,4 @@ void scheduler()
 	}
 }
 
-//				if (i == nextTask) {
-//					if (allTask[i].nextRun > 0xF000) {
-//						remainder = 0xFFFF - allTask[i].nextRun;
-//						if (remainder > allTask[i].time) {
-//							remainder = remainder % allTask[i].time;
-//						}
-//						allTask[i].nextRun = allTask[i].time - remainder;
-//					}
-//				}else {
-//					remainder = 0xFFFF - allTask[i].nextRun;
-//					if (remainder > allTask[i].time) {
-//						remainder = remainder % allTask[i].time;
-//					}
-//					allTask[i].nextRun = allTask[i].time - remainder;
-//				}
-//				if(0xFFFF > allTask[i].nextRun)
-//				{
-//				remainder = 0xFFFF - allTask[i].nextRun;
-//				}
-
-//		if(timer_tick > systikOverflowCompare)
-//		{
-//			systikOverflowCompare = timer_tick;
-//		}
-//		else {
-//			INT16U remainder = 0;
-//
-//			for (int i = 0; i < numberOfTask; i++) {
-//				remainder = 0xFFFF - allTask[i].nextRun;
-//				if (remainder > allTask[i].time) {
-//					remainder = remainder % allTask[i].time;
-//				}
-//				allTask[i].nextRun = allTask[i].time - remainder;
-//			}
-//			//			for (int i = 0; i < numberOfTask; i++) {
-//			//				if (remainder > allTask[i].time) {
-//			//					remainder = remainder % allTask[i].time;
-//			//				}
-//			//				allTask[i].nextRun = allTask[i].time - remainder;
-//			//			}
-//		}
 
