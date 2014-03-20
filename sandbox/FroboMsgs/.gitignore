@@ -16,4 +16,4 @@ CATKIN_IGNORE
 cmake_install.cmake
 msg_gen/
 .metadata
-src/FroboMsgs/
+src/FroboMsgs/*
