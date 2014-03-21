@@ -9,7 +9,7 @@
 * Change Log:
 ******************************************************************************
 * Date    Id    Change
-* 10/08/2011
+* 21/03/2014
 *--------------------
 * 
 * 
@@ -25,9 +25,9 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Variables   *******************************/
-INT8S moved_right = 0;
-INT8S moved_left = 0;
-INT8S Dummy = 0;
+INT32S moved_right = 0;
+INT32S moved_left = 0;
+INT32S Dummy = 0;
 /*****************************   Functions   *******************************/
 
 void encoder_init(void)
@@ -37,15 +37,15 @@ void encoder_init(void)
 *   Function :
 ******************************************************************************/
 {
-	EICRA |= (1<<ISC00) | (1<<ISC01);	// sets INT0 on pin PD2 to interrupt on flank to high
-	EICRA |= (1<<ISC10) | (1<<ISC11);	// sets INT1 on pin PD3 to interrupt on flank to high
+	EICRA |= (1<<ISC00) | (1<<ISC01);	// sets INT0 on pin PD0 to interrupt on flank to high
+	EICRA |= (1<<ISC10) | (1<<ISC11);	// sets INT1 on pin PD1 to interrupt on flank to high
 	EIMSK |= (1<<INT0) | (1<<INT1);		// enables interrupt for INT0 and INT1
 
 	SREG |= (1<<7);	// //enables global interrupt
 }
 
 
-INT8S get_left(void)
+INT16S get_left(void)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -57,7 +57,7 @@ INT8S get_left(void)
 	return Dummy;
 }
 
-INT8S get_right(void)
+INT16S get_right(void)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -79,15 +79,16 @@ ISR(INT0_vect)
 *   Function :
 ******************************************************************************/
 {
-	if(TEST_BIT_HIGH(PINC,PC3))
+//	cli();
+	if(TEST_BIT_HIGH(PINA,PA0))
 	{
-		moved_right--;
+		--moved_right;
 	}
-	if(TEST_BIT_LOW(PINC,PC3))
+	if(TEST_BIT_LOW(PINA,PA0))
 	{
-		moved_right++;
+		++moved_right;
 	}
-
+//	sei();
 }
 
 ISR(INT1_vect)
@@ -97,14 +98,16 @@ ISR(INT1_vect)
 *   Function :
 ******************************************************************************/
 {
-	if(TEST_BIT_HIGH(PINB,PB2))
+//	cli();
+	if(TEST_BIT_HIGH(PINA,PA1))
 	{
-		moved_left--;
+		--moved_left;
 	}
-	if(TEST_BIT_LOW(PINB,PB2))
+	if(TEST_BIT_LOW(PINA,PA1))
 	{
-		moved_left++;
+		++moved_left;
 	}
+//	sei();
 }
 
 /****************************** End Of Module *******************************/

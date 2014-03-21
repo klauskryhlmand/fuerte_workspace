@@ -13,8 +13,8 @@ struct task{
 	INT16U nextRun;
 	void (*functionPtr)(void);
 };
-
-void sendTikTime();
+void uart_send_INT16S(INT16S value, unsigned char handle_part1, unsigned char handle_part2);
+void uart_send_INT16U(INT16U value, unsigned char handle_part1, unsigned char handle_part2);
 
 //void aliveTask(void);
 //

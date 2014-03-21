@@ -17,11 +17,9 @@
 #include "scheduler.h"
 
 #include "../pwm/pwm.h"
-#include "../inc/util.h"
+#include "../encoder/encoder.h"
 #include "../uart/avr_serial.h"
 
-
-#include <stdio.h>
 
 INT16U timer_tick = 0;
 INT16U systikOverflowCompare = 0;
@@ -32,16 +30,33 @@ BOOLEAN schedulerNotRun = FALSE;
 
 struct task (*allTask);
 
+#define GET_8_LOW_BIT(word,out)    out = (0xFF & word)
+#define GET_8_HIGH_BIT(word,out)    out = (0xFF & (value >> 8))
 
-void sendTikTime()
+void uart_send_INT16S(INT16S value, unsigned char handle_part1, unsigned char handle_part2)
 {
-	INT16U timeCopy = timer_tick;
-	unsigned char c = 'T';
-	unsigned char l = 0xFF & timeCopy;
-	timeCopy = timeCopy >> 4;
-	unsigned char h = 0xFF & timeCopy;
+	unsigned char l;
+	GET_8_LOW_BIT(value,l);
+	unsigned char h;
+	GET_8_HIGH_BIT(value,h);
 
-	serial_tx(c);
+	serial_tx(handle_part1);
+	serial_tx(handle_part2);
+	serial_tx(h);
+	serial_tx(l);
+}
+
+void uart_send_INT16U(INT16U value, unsigned char handle_part1, unsigned char handle_part2)
+{
+	unsigned char l;
+	GET_8_LOW_BIT(value,l);
+//	value = value >> 8;
+//	unsigned char h = 0xFF & value;
+	unsigned char h;
+	GET_8_HIGH_BIT(value,h);
+
+	serial_tx(handle_part1);
+	serial_tx(handle_part2);
 	serial_tx(h);
 	serial_tx(l);
 }
@@ -115,9 +130,15 @@ void aliveTask2(void)
 
 	serial_tx(' ');
 
-	serial_tx('t');
+	uart_send_INT16U(timer_tick,'T','T');
 
-	sendTikTime();
+	serial_tx(' ');
+
+	uart_send_INT16S(get_left(),'E','L');
+
+	serial_tx(' ');
+
+	uart_send_INT16S(get_right(),'E','R');
 
 	serial_tx('\n');
 
@@ -155,7 +176,7 @@ void schedulSetup()
 	aliveTaskStruck2.functionPtr = &aliveTask2;
 
 	struct task pwmTest;
-	pwmTest.time = 500;
+	pwmTest.time = 30;
 	pwmTest.nextRun = 0;
 	pwmTest.functionPtr = &pwmtestTask;
 
@@ -182,7 +203,7 @@ void scheduler()
 			serial_tx('d');
 			INT16U remainder = 0;
 			for (int i = 0; i < numberOfTask; ++i) {
-				if(allTask[i].nextRun <= 6000)
+				if(allTask[i].nextRun <= 60000)
 				{
 					remainder = 60000 - allTask[i].nextRun;
 	//				if (remainder > allTask[i].time) {

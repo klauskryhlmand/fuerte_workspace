@@ -10,11 +10,9 @@
 
 #include "pwm/pwm.h"
 
+#include "encoder/encoder.h"
+
 # define F_CPU 16000000UL // clock frekvns   on
-
-#include <util/delay.h>
-#include <avr/cpufunc.h>
-
 
 #include "uart/avr_serial.h"
 
@@ -24,9 +22,9 @@
 #include "scheduler/scheduler.h"
 
 
-
 int main(void)
 {
+	encoder_init();
 	pwm_init();
 	schedulSetup();
 	serial_init();
