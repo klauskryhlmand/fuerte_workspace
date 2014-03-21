@@ -157,11 +157,16 @@ void pwmtestTask()
 	}
 }
 
+void dummyTask()
+{
+
+}
+
 void schedulSetup()
 {
 	initAliveTasks();
 
-	numberOfTask = 3; // must set number of task here
+	numberOfTask = 4; // must set number of task here
 
 	struct task allTaks[numberOfTask];
 
@@ -176,14 +181,20 @@ void schedulSetup()
 	aliveTaskStruck2.functionPtr = &aliveTask2;
 
 	struct task pwmTest;
-	pwmTest.time = 30;
+	pwmTest.time = 200;
 	pwmTest.nextRun = 0;
 	pwmTest.functionPtr = &pwmtestTask;
+
+	struct task dummy;
+	dummy.time = 20000;
+	dummy.nextRun = 0;
+	dummy.functionPtr = &dummyTask;
 
 
 	allTaks[0] = aliveTaskStruck;
 	allTaks[1] = aliveTaskStruck2;
 	allTaks[2] = pwmTest;
+	allTaks[3] = dummy;
 
 	allTask = allTaks;
 	timer_tick = 0;

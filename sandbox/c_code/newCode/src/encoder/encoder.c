@@ -25,9 +25,9 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Variables   *******************************/
-INT32S moved_right = 0;
-INT32S moved_left = 0;
-INT32S Dummy = 0;
+INT16S moved_right = 0;
+INT16S moved_left = 0;
+INT16S Dummy = 0;
 /*****************************   Functions   *******************************/
 
 void encoder_init(void)
