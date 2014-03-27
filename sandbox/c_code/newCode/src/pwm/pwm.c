@@ -89,7 +89,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed;
 			SET_BIT_LOW(PORTE,PE3);
-			OCR1AL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
+			OCR1AL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33;
 			OCR1AH = new_speed/33;
 		}
 		else if(speed == 100)
@@ -102,7 +102,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed-100;
 			SET_BIT_HIGH(PORTE,PE3);
-			OCR1AL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
+			OCR1AL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33;
 			OCR1AH = new_speed/33;
 		}
 	}
@@ -112,7 +112,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed;
 			SET_BIT_LOW(PORTE,PE4);
-			OCR1BL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
+			OCR1BL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33;
 			OCR1BH = new_speed/33;
 		}
 		else if(speed == 100)
@@ -125,7 +125,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed-100;
 			SET_BIT_HIGH(PORTE,PE4);
-			OCR1BL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
+			OCR1BL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33;
 			OCR1BH = new_speed/33;
 		}
 	}

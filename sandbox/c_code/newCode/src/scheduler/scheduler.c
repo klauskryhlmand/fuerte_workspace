@@ -139,11 +139,7 @@ void aliveTask2(void)
 //
 	uart_send_INT16S(get_left(),'E','L');
 
-	serial_tx('\n');
-
 	uart_send_INT16S(get_right(),'E','R');
-
-	serial_tx('\n');
 
 }
 
@@ -152,8 +148,8 @@ INT8U pwmTestSpeed = 0;
 void pwmtestTask()
 {
 	TOGGLE_BIT(PORTE,PD5);
-	set_pwm_speed_direction(pwmTestSpeed,'r');
-	set_pwm_speed_direction(pwmTestSpeed,'l');
+	set_pwm_speed_direction(100,'r');
+	set_pwm_speed_direction(100,'l');
 	pwmTestSpeed = pwmTestSpeed + 10;
 	if (pwmTestSpeed > 200) {
 		pwmTestSpeed = 0;
@@ -165,12 +161,12 @@ void commands()
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'L' && message[3] == 'R')
 	{
 		uart_send_INT16S(get_left(),'E','L');
-		serial_tx('\n');
+
 	}
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'R' && message[3] == 'R')
 	{
 		uart_send_INT16S(get_right(),'E','R');
-		serial_tx('\n');
+
 	}
 
 }
