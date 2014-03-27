@@ -3,6 +3,7 @@
  *
  *  Created on: Mar 2, 2014
  *      Author: daniel
+ *     version: 0.1
  */
 
 #include <inttypes.h>
@@ -29,6 +30,8 @@ INT8S nextTask = -1;
 BOOLEAN schedulerNotRun = FALSE;
 
 struct task (*allTask);
+
+unsigned char message[4];
 
 #define GET_8_LOW_BIT(word,out)    out = (0xFF & word)
 #define GET_8_HIGH_BIT(word,out)    out = (0xFF & (value >> 8))
@@ -122,21 +125,21 @@ void aliveTask(void)
 
 void aliveTask2(void)
 {
-	serial_tx('a');
-	serial_tx('l');
-	serial_tx('i');
-	serial_tx('v');
-	serial_tx('e');
-
-	serial_tx(' ');
-
-	uart_send_INT16U(timer_tick,'T','T');
-
-	serial_tx(' ');
-
+//	serial_tx('a');
+//	serial_tx('l');
+//	serial_tx('i');
+//	serial_tx('v');
+//	serial_tx('e');
+//
+//	serial_tx(' ');
+//
+//	uart_send_INT16U(timer_tick,'T','T');
+//
+//	serial_tx(' ');
+//
 	uart_send_INT16S(get_left(),'E','L');
 
-	serial_tx(' ');
+	serial_tx('\n');
 
 	uart_send_INT16S(get_right(),'E','R');
 
@@ -157,6 +160,45 @@ void pwmtestTask()
 	}
 }
 
+void commands()
+{
+	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'L' && message[3] == 'R')
+	{
+		uart_send_INT16S(get_left(),'E','L');
+		serial_tx('\n');
+	}
+	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'R' && message[3] == 'R')
+	{
+		uart_send_INT16S(get_right(),'E','R');
+		serial_tx('\n');
+	}
+
+}
+
+
+
+void resiveTask()
+{
+	int i = 0;
+	while(serial_rx_avail())
+	{
+		message[i++] = serial_rx();
+		if(i > 3)
+		{
+			serial_tx(message[0]);
+			serial_tx(message[1]);
+			serial_tx(message[2]);
+			serial_tx(message[3]);
+			serial_tx(' ');
+
+			commands();
+
+			i = 0;
+		}
+	}
+}
+
+
 void dummyTask()
 {
 
@@ -166,7 +208,7 @@ void schedulSetup()
 {
 	initAliveTasks();
 
-	numberOfTask = 4; // must set number of task here
+	numberOfTask = 5; // must set number of task here
 
 	struct task allTaks[numberOfTask];
 
@@ -185,6 +227,11 @@ void schedulSetup()
 	pwmTest.nextRun = 0;
 	pwmTest.functionPtr = &pwmtestTask;
 
+	struct task resiveTaskStruct;
+	resiveTaskStruct.time = 50;
+	resiveTaskStruct.nextRun = 0;
+	resiveTaskStruct.functionPtr = &resiveTask;
+
 	struct task dummy;
 	dummy.time = 20000;
 	dummy.nextRun = 0;
@@ -194,7 +241,8 @@ void schedulSetup()
 	allTaks[0] = aliveTaskStruck;
 	allTaks[1] = aliveTaskStruck2;
 	allTaks[2] = pwmTest;
-	allTaks[3] = dummy;
+	allTaks[3] = resiveTaskStruct;
+	allTaks[4] = dummy;
 
 	allTask = allTaks;
 	timer_tick = 0;
@@ -211,7 +259,7 @@ void scheduler()
 		if(timer_tick == 60000)
 		{
 			timer_tick = 0;
-			serial_tx('d');
+//			serial_tx('d');
 			INT16U remainder = 0;
 			for (int i = 0; i < numberOfTask; ++i) {
 				if(allTask[i].nextRun <= 60000)

@@ -24,6 +24,7 @@
 
 /*****************************   Variables   *******************************/
 INT16U new_speed = 0;
+INT16U temp = 0;
 /*****************************   Functions   *******************************/
 
 void pwm_init(void)
@@ -64,7 +65,9 @@ void pwm_init(void)
 	SET_BIT_HIGH(PORTE,PE4);
 
 	OCR1AL = 255;	//PB5  // with current can only get very low pwm must changes to use HIGH regiset to OCR1AH
+	OCR1AH = 3;
 	OCR1BL = 255;	//PB6
+	OCR1BH = 3;
 	OCR1CL = 255;
 
 	//OCR3AL = 255;	//PE3
@@ -87,16 +90,20 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed;
 			SET_BIT_LOW(PORTE,PE3);
+			temp = new_speed/33;
 			OCR1AL = 255 - (new_speed*255)/100;
+			OCR1AL = temp * 
+			OCR1AH = new_speed/33;
 		}
 		else if(speed == 100)
 		{
 			SET_BIT_HIGH(PORTE,PE3);
 			OCR1AL = 255;
+			OCR1AH = 3;
 		}
 		else if(100 < speed && 200 >= speed)
 		{
-			new_speed = speed;
+			new_speed = speed-100;
 			SET_BIT_HIGH(PORTE,PE3);
 			OCR1AL = 255 - (new_speed*255)/100;
 		}
@@ -113,6 +120,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			SET_BIT_HIGH(PORTE,PE4);
 			OCR1BL = 255;
+			OCR1BH = 3;
 		}
 		else if(100 < speed && 200 >= speed)
 		{
