@@ -4,7 +4,6 @@ from std_msgs.msg import Int16, Float64
    
 import serial
 import threading
-import re
 import time
 import signal
 
@@ -39,7 +38,7 @@ class Microcontroller_connector:
 			high = ord(self.serial.read(size=1))
 			low = ord(self.serial.read(size=1))
 			if (high > 127):
-				total = 65535-(high*256+low)			
+				total = 65535-(high*256+low)
 			else:
 				total = high*256+low
 			rospy.loginfo(str(firstl)+str(secondl)+str(total))

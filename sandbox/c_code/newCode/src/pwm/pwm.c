@@ -38,6 +38,12 @@ void pwm_init(void)
 	DDRE |= (1<<DDE3); // enable PE3 (led pin) as output
 	DDRE |= (1<<DDE4); // enable PE4 (led pin) as output
 
+	DDRA |= (1<<DDB2); // enable PA2 (led pin) as output for enable left
+	DDRA |= (1<<DDB3); // enable PA3 (led pin) as output for enable right
+
+	SET_BIT_LOW(PORTA,PA2);
+	SET_BIT_LOW(PORTA,PA3);
+
 	TCCR1A|= (1<<WGM10);	//  Phase Correct
 	TCCR1A|= (1<<WGM11);	// 10 bit
 //	TCCR1A|= (1<<WGM12); 	// CTC mode if only the only set
@@ -73,6 +79,8 @@ void pwm_init(void)
 	//OCR3BL = 255;	//PE4
 	//OCR3CL = 255;
 	
+	set_pwm_speed_direction(100,'r');
+	set_pwm_speed_direction(100,'l');
 	
 }
 

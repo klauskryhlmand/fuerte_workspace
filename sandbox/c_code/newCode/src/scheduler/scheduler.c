@@ -120,52 +120,74 @@ void initAliveTasks()
 
 void aliveTask(void)
 {
-	TOGGLE_BIT(PORTE,PD6);
+	TOGGLE_BIT(PORTE,PE6);
 }
 
 void aliveTask2(void)
 {
+	TOGGLE_BIT(PORTE,PE5);
 //	serial_tx('a');
 //	serial_tx('l');
 //	serial_tx('i');
 //	serial_tx('v');
 //	serial_tx('e');
 //
-//	serial_tx(' ');
-//
 //	uart_send_INT16U(timer_tick,'T','T');
 //
-//	serial_tx(' ');
+//	uart_send_INT16U(get_left(),'E','L');
 //
-	uart_send_INT16U(get_left(),'E','L');
-
-	uart_send_INT16U(get_right(),'E','R');
+//	uart_send_INT16U(get_right(),'E','R');
 
 }
 
 
-INT8U pwmTestSpeed = 0;
-void pwmtestTask()
-{
-	TOGGLE_BIT(PORTE,PD5);
-	set_pwm_speed_direction(100,'r');
-	set_pwm_speed_direction(100,'l');
-	pwmTestSpeed = pwmTestSpeed + 10;
-	if (pwmTestSpeed > 200) {
-		pwmTestSpeed = 0;
-	}
-}
+//INT8U pwmTestSpeed = 0;
+//void pwmtestTask()
+//{
+//	TOGGLE_BIT(PORTE,PE5);
+//	set_pwm_speed_direction(100,'r');
+//	set_pwm_speed_direction(100,'l');
+//	pwmTestSpeed = pwmTestSpeed + 10;
+//	if (pwmTestSpeed > 200) {
+//		pwmTestSpeed = 0;
+//	}
+//}
 
 void commands()
 {
+	// read encoder left regiset
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'L' && message[3] == 'R')
 	{
 		uart_send_INT16U(get_left(),'E','L');
 	}
+	// read encoder left regiset
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'R' && message[3] == 'R')
 	{
 		uart_send_INT16U(get_right(),'E','R');
 	}
+
+	// set moter left enable
+	if(message[0] == 'S' && message[1] == 'M' && message[2] == 'L' && message[3] == 'E')
+	{
+		SET_BIT_HIGH(PORTA,PA2);
+	}
+	// set moter right enable
+	if(message[0] == 'S' && message[1] == 'M' && message[2] == 'R' && message[3] == 'E')
+	{
+		SET_BIT_HIGH(PORTA,PA3);
+	}
+
+	// set moter left disenable
+	if(message[0] == 'S' && message[1] == 'M' && message[2] == 'L' && message[3] == 'D')
+	{
+		SET_BIT_LOW(PORTA,PA2);
+	}
+	// set moter right disenable
+	if(message[0] == 'S' && message[1] == 'M' && message[2] == 'R' && message[3] == 'D')
+	{
+		SET_BIT_LOW(PORTA,PA3);
+	}
+
 
 }
 
@@ -185,6 +207,11 @@ void resiveTask()
 	}
 }
 
+void speedControleTask()
+{
+
+}
+
 
 void dummyTask()
 {
@@ -195,7 +222,7 @@ void schedulSetup()
 {
 	initAliveTasks();
 
-	numberOfTask = 5; // must set number of task here
+	numberOfTask = 4; // must set number of task here
 
 	struct task allTaks[numberOfTask];
 
@@ -205,14 +232,14 @@ void schedulSetup()
 	aliveTaskStruck.functionPtr = &aliveTask;
 
 	struct task aliveTaskStruck2;
-	aliveTaskStruck2.time = 100;
+	aliveTaskStruck2.time = 500;
 	aliveTaskStruck2.nextRun = 0;
 	aliveTaskStruck2.functionPtr = &aliveTask2;
 
-	struct task pwmTest;
-	pwmTest.time = 200;
-	pwmTest.nextRun = 0;
-	pwmTest.functionPtr = &pwmtestTask;
+//	struct task pwmTest;
+//	pwmTest.time = 200;
+//	pwmTest.nextRun = 0;
+//	pwmTest.functionPtr = &pwmtestTask;
 
 	struct task resiveTaskStruct;
 	resiveTaskStruct.time = 50;
@@ -227,9 +254,8 @@ void schedulSetup()
 
 	allTaks[0] = aliveTaskStruck;
 	allTaks[1] = aliveTaskStruck2;
-	allTaks[2] = pwmTest;
-	allTaks[3] = resiveTaskStruct;
-	allTaks[4] = dummy;
+	allTaks[2] = resiveTaskStruct;
+	allTaks[3] = dummy;
 
 	allTask = allTaks;
 	timer_tick = 0;
