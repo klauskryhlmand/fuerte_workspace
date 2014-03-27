@@ -137,9 +137,9 @@ void aliveTask2(void)
 //
 //	serial_tx(' ');
 //
-	uart_send_INT16S(get_left(),'E','L');
+	uart_send_INT16U(get_left(),'E','L');
 
-	uart_send_INT16S(get_right(),'E','R');
+	uart_send_INT16U(get_right(),'E','R');
 
 }
 
@@ -160,13 +160,11 @@ void commands()
 {
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'L' && message[3] == 'R')
 	{
-		uart_send_INT16S(get_left(),'E','L');
-
+		uart_send_INT16U(get_left(),'E','L');
 	}
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'R' && message[3] == 'R')
 	{
-		uart_send_INT16S(get_right(),'E','R');
-
+		uart_send_INT16U(get_right(),'E','R');
 	}
 
 }
@@ -181,14 +179,7 @@ void resiveTask()
 		message[i++] = serial_rx();
 		if(i > 3)
 		{
-			serial_tx(message[0]);
-			serial_tx(message[1]);
-			serial_tx(message[2]);
-			serial_tx(message[3]);
-			serial_tx(' ');
-
 			commands();
-
 			i = 0;
 		}
 	}
@@ -214,7 +205,7 @@ void schedulSetup()
 	aliveTaskStruck.functionPtr = &aliveTask;
 
 	struct task aliveTaskStruck2;
-	aliveTaskStruck2.time = 2000;
+	aliveTaskStruck2.time = 100;
 	aliveTaskStruck2.nextRun = 0;
 	aliveTaskStruck2.functionPtr = &aliveTask2;
 

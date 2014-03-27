@@ -31,11 +31,37 @@ class Microcontroller_connector:
 #		ser.write(in_cmd)
 
 	def talker(self):
+		leftcounter = 0
+		rightcounter = 0
 		while not rospy.is_shutdown():
-			rospy.loginfo(str(self.serial.read(size=1)))
+			firstl = self.serial.read(size=1)
+			secondl = self.serial.read(size=1)
+			high = ord(self.serial.read(size=1))
+			low = ord(self.serial.read(size=1))
+			if (high > 127):
+				total = 65535-(high*256+low)			
+			else:
+				total = high*256+low
+			rospy.loginfo(str(firstl)+str(secondl)+str(total))
+
+			if (secondl == 'L'):
+				if (high > 127):
+					leftcounter = leftcounter - total
+				else:
+					leftcounter = total + leftcounter
+			elif (secondl == 'R'):
+				if (high > 127):
+					rightcounter = rightcounter - total
+				else:
+					rightcounter = total + rightcounter
+			rospy.loginfo('left: '+str(leftcounter*0.0005))
+			rospy.loginfo('right: '+str(rightcounter*0.0005))
+			rospy.loginfo('high: '+str(high))
+			rospy.loginfo('low: '+str(low))
+				
 #			rospy.loginfo(str(self.serial.read(size=2)))
 #			rospy.loginfo(str(int(self.serial.read(size=1),16)))
-			rospy.loginfo(str(int(self.serial.read(size=1),16)))
+			#rospy.loginfo(str(int(self.serial.read(size=1),16)))
 #			ser.write("r00\n")
 #			Sleep(0.001)
 #			encoder_le = int(ser.read(size=9),16)

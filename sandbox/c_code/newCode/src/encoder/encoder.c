@@ -25,9 +25,9 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Variables   *******************************/
-INT16S moved_right = 0;
-INT16S moved_left = 0;
-INT16S Dummy = 0;
+INT16U moved_right = 0;
+INT16U moved_left = 0;
+INT16U Dummy = 0;
 /*****************************   Functions   *******************************/
 
 void encoder_init(void)
@@ -45,7 +45,7 @@ void encoder_init(void)
 }
 
 
-INT16S get_left(void)
+INT16U get_left(void)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -57,7 +57,7 @@ INT16S get_left(void)
 	return Dummy;
 }
 
-INT16S get_right(void)
+INT16U get_right(void)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -82,11 +82,11 @@ ISR(INT0_vect)
 //	cli();
 	if(TEST_BIT_HIGH(PINA,PA0))
 	{
-		--moved_right;
+		moved_left = moved_left + 1;
 	}
 	if(TEST_BIT_LOW(PINA,PA0))
 	{
-		++moved_right;
+		moved_left = moved_left - 1;
 	}
 //	sei();
 }
@@ -101,11 +101,11 @@ ISR(INT1_vect)
 //	cli();
 	if(TEST_BIT_HIGH(PINA,PA1))
 	{
-		--moved_left;
+		moved_right = moved_right - 1;
 	}
 	if(TEST_BIT_LOW(PINA,PA1))
 	{
-		++moved_left;
+		moved_right = moved_right + 1;
 	}
 //	sei();
 }
