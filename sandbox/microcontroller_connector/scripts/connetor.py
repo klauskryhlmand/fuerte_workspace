@@ -1,11 +1,11 @@
 #!/usr/bin/env python
+import roslib; roslib.load_manifest('beginner_tutorials')
 import rospy
 from std_msgs.msg import Int16, Float64
-   
+from FroboMsgs.msg import pwm_micro
 import serial
-import threading
 import time
-import signal
+
 
 class Microcontroller_connector:
 	"""Microcontroller_connector"""
@@ -14,20 +14,33 @@ class Microcontroller_connector:
 		rospy.loginfo('Microcontroller connector started')
 		self.serial = serial.Serial('/dev/ttyUSB0', baudrate=57600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
 		if self.serial.isOpen():
-			print "Connection open"
+			rospy.loginfo('Connection is open')
+		else:
+			rospy.loginfo('Connection failed to open')
 #		pub = rospy.Publisher('encoder_l', fpga_data)
-#		rospy.Subscriber('pwm', pwm_o, pwmCallback)
+		rospy.Subscriber('pwm', pwm_micro, self.pwmCallback)
 		self.talker()
+		pass
 
 	def pwmCallback(self,msg):
-		pass
+		rospy.loginfo('left pwmCallback was: ' + str(msg.speed_left))
+		rospy.loginfo('right pwmCallback was: ' + str(msg.speed_right))
+		speed_left = int(msg.speed_left * 100)
+		speed_right = int(msg.speed_right * 100)
+		if speed_left > 255:
+			speed_left = 255
+		if speed_right > 255:
+			speed_right = 255
+		msgMicroControler = 'MSBS' + chr(speed_left) + chr(speed_right)
+		self.serial.write(msgMicroControler)
+#		rospy.loginfo('send msgMicroControler: ' + str(msgMicroControler))
 #		speed_desired_left = hex(msg.speed_left)[2:]
 #		speed_desired_right = hex(msg.speed_right)[2:]
 #		dir = hex(msg.direction)[2:]
 #		en = hex(msg.enable)[2:]
 #	
 #		in_cmd = "w04 " + speed_desired_left.zfill(3) + speed_desired_right.zfill(3) + dir + en
-#		ser.write(in_cmd)
+		pass
 
 	def talker(self):
 		leftcounter = 0

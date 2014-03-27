@@ -189,6 +189,41 @@ void commands()
 	}
 
 
+
+	//moter speed Bothe set
+	if(message[0] == 'M' && message[1] == 'S' && message[2] == 'B' && message[3] == 'S')
+	{
+		INT8U templ = 100;
+		INT8U tempr = 100;
+		if(serial_rx_avail())
+		{
+			templ = (INT8U)serial_rx();
+			tempr = (INT8U)serial_rx();
+		}
+		set_pwm_speed_direction(templ,'l');
+		set_pwm_speed_direction(tempr,'r');
+	}else if (message[2] == 'R') { 					//moter speed right set
+		INT8U temp = 0;
+		serial_tx('r');
+		if(serial_rx_avail())
+		{
+			serial_tx('r');
+			temp = (INT8U)serial_rx();
+			serial_tx(temp);
+		}
+		set_pwm_speed_direction(temp,'r');
+	}else {											//moter speed left set
+		INT8U temp = 0;
+		serial_tx('l');
+		if(serial_rx_avail())
+		{
+			serial_tx('l');
+			temp = (INT8U)serial_rx();
+			serial_tx(temp);
+		}
+		set_pwm_speed_direction(temp,'l');
+	}
+
 }
 
 
@@ -222,7 +257,7 @@ void schedulSetup()
 {
 	initAliveTasks();
 
-	numberOfTask = 4; // must set number of task here
+	numberOfTask = 5; // must set number of task here
 
 	struct task allTaks[numberOfTask];
 
@@ -241,6 +276,11 @@ void schedulSetup()
 //	pwmTest.nextRun = 0;
 //	pwmTest.functionPtr = &pwmtestTask;
 
+	struct task pid;
+	pid.time = 20;
+	pid.nextRun = 0;
+	pid.functionPtr = &speedControleTask;
+
 	struct task resiveTaskStruct;
 	resiveTaskStruct.time = 50;
 	resiveTaskStruct.nextRun = 0;
@@ -255,7 +295,8 @@ void schedulSetup()
 	allTaks[0] = aliveTaskStruck;
 	allTaks[1] = aliveTaskStruck2;
 	allTaks[2] = resiveTaskStruct;
-	allTaks[3] = dummy;
+	allTaks[3] = pid;
+	allTaks[4] = dummy;
 
 	allTask = allTaks;
 	timer_tick = 0;
