@@ -24,7 +24,6 @@
 
 /*****************************   Variables   *******************************/
 INT16U new_speed = 0;
-INT16U temp = 0;
 /*****************************   Functions   *******************************/
 
 void pwm_init(void)
@@ -90,9 +89,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed;
 			SET_BIT_LOW(PORTE,PE3);
-			temp = new_speed/33;
-			OCR1AL = 255 - (new_speed*255)/100;
-			OCR1AL = temp * 
+			OCR1AL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
 			OCR1AH = new_speed/33;
 		}
 		else if(speed == 100)
@@ -105,7 +102,8 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed-100;
 			SET_BIT_HIGH(PORTE,PE3);
-			OCR1AL = 255 - (new_speed*255)/100;
+			OCR1AL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
+			OCR1AH = new_speed/33;
 		}
 	}
 	else if (one_char == 'l') // why add this check Klaus ?
@@ -114,7 +112,8 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		{
 			new_speed = speed;
 			SET_BIT_LOW(PORTE,PE4);
-			OCR1BL = 255 - (new_speed*255)/100;
+			OCR1BL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
+			OCR1BH = new_speed/33;
 		}
 		else if(speed == 100)
 		{
@@ -124,9 +123,10 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 		}
 		else if(100 < speed && 200 >= speed)
 		{
-			new_speed = speed;
+			new_speed = speed-100;
 			SET_BIT_HIGH(PORTE,PE4);
-			OCR1BL = 255 - (new_speed*255)/100;
+			OCR1BL = ((new_speed - (new_speed/33) * 33) * 255 ) / 33
+			OCR1BH = new_speed/33;
 		}
 	}
 }
