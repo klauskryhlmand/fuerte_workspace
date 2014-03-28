@@ -39,7 +39,7 @@ unsigned char direction_left;
 unsigned char direction_right;
 
 #define twoEncoderTicklength 20
-#define controlerTimeStep 1000 // can not be more than 1000. Will cause devices by 0
+#define controlerTimeStep 20 // can not be more than 1000. Will cause devices by 0
 
 
 #define GET_8_LOW_BIT(word,out)    out = (0xFF & word)
@@ -169,7 +169,6 @@ INT16S lastEnconderWantedRight = 0;
 
 void speedControleTask()
 {
-	TOGGLE_BIT(PORTE,PE5);
 	INT8U localDesiredSpeedLeft = desired_speed_left;
 	INT8U localDesiredSpeedRight = desired_speed_right;
 
@@ -177,15 +176,15 @@ void speedControleTask()
 	INT16S enconderWantedRight = 0;
 	if(direction_left == 'b')
 	{
-		enconderWantedLeft = -1 * ((localDesiredSpeedLeft) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+		enconderWantedLeft = -1 * ((localDesiredSpeedLeft) * twoEncoderTicklength) / (1000 / (controlerTimeStep));
 	}else if(direction_left == 'f'){
-		enconderWantedLeft = ((localDesiredSpeedLeft) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+		enconderWantedLeft = ((localDesiredSpeedLeft) * twoEncoderTicklength) / (1000 / (controlerTimeStep));
 	}
 
 	if (direction_right == 'b') {
-		enconderWantedRight = -1 * ((localDesiredSpeedRight) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+		enconderWantedRight = -1 * ((localDesiredSpeedRight) * twoEncoderTicklength) / (1000 / (controlerTimeStep));
 	}else if(direction_right == 'f'){
-		enconderWantedRight = ((localDesiredSpeedRight) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+		enconderWantedRight = ((localDesiredSpeedRight) * twoEncoderTicklength) / (1000 / (controlerTimeStep));
 	}
 
 	INT16S tempTickLeft = get_left();
@@ -197,15 +196,38 @@ void speedControleTask()
 	lastEnconderWantedLeft = enconderWantedLeft;
 	lastEnconderWantedRight = enconderWantedRight;
 
-
-	set_pwm_speed_direction((INT8U)enconderWantedRight,'r');
-	set_pwm_speed_direction((INT8U)enconderWantedLeft,'l');
+//
+//	set_pwm_speed_direction(localDesiredSpeedRight,'r');
+//	set_pwm_speed_direction(localDesiredSpeedLeft,'l');
 
 //	enconderWantedLeft += errorLeft;
 //	enconderWantedRight += errorRight;
 
-//	set_pwm_speed_direction(get_current_speed('r') + errorRight,'r');
-//	set_pwm_speed_direction(get_current_speed('l') + errorLeft,'l');
+	INT16S tempSpeed_r = (INT16S)get_current_speed('r');
+	INT16S tempSpeed_l = (INT16S)get_current_speed('l');
+
+	if(tempSpeed_r + errorRight < 0)
+	{
+		set_pwm_speed_direction(0,'r');
+	}else if (tempSpeed_r + errorRight > 200) {
+		set_pwm_speed_direction(200,'r');
+	}else {
+		INT8U tempErrorSpeed_r = (INT8U)get_current_speed('r') + errorRight;
+		set_pwm_speed_direction(0,'r');
+	//	set_pwm_speed_direction(tempErrorSpeed_r,'r');
+	}
+
+	if (tempSpeed_l + errorLeft < 0) {
+		set_pwm_speed_direction(0,'l');
+	}else if (tempSpeed_l + errorLeft > 200) {
+		set_pwm_speed_direction(200,'l');
+	}else {
+		INT8U tempErrorSpeed_l = (INT8U)get_current_speed('l') + errorLeft;
+		set_pwm_speed_direction(10,'l');
+		//set_pwm_speed_direction(tempErrorSpeed_l,'l');
+//		set_pwm_speed_direction(50,'l');
+	}
+
 
 }
 
@@ -264,38 +286,38 @@ void commands()
 		{
 
 
-//			unsigned char temp[4];
-//
-//			INT8U i = 0;
-//			while(i < 4)
-//			{
-//				if(serial_rx_avail())
-//				{
-//					temp[i] = serial_rx();
-//					i++;
-//				}
-//			}
-//
-//			desired_speed_left = (INT8U)temp[0];
-//			desired_speed_right = (INT8U)temp[1];
-//			direction_left = temp[2];
-//			direction_right = temp[3];
+			unsigned char temp[4];
 
-			INT8U templ = 0;
-			unsigned char direction_l;
-			INT8U tempr = 0;
-			unsigned char direction_r;
-			if(serial_rx_avail())
+			INT8U i = 0;
+			while(i < 4)
 			{
-				templ = (INT8U)serial_rx();
-				tempr = (INT8U)serial_rx();
-				direction_l = serial_rx();
-				direction_r = serial_rx();
+				if(serial_rx_avail())
+				{
+					temp[i] = serial_rx();
+					i++;
+				}
 			}
-			desired_speed_left = templ;
-			desired_speed_right = tempr;
-			direction_left = direction_l;
-			direction_right = direction_r;
+
+			desired_speed_left = (INT8U)temp[0];
+			desired_speed_right = (INT8U)temp[1];
+			direction_left = temp[2];
+			direction_right = temp[3];
+
+//			INT8U templ = 0;
+//			unsigned char direction_l;
+//			INT8U tempr = 0;
+//			unsigned char direction_r;
+//			if(serial_rx_avail())
+//			{
+//				templ = (INT8U)serial_rx();
+//				tempr = (INT8U)serial_rx();
+//				direction_l = serial_rx();
+//				direction_r = serial_rx();
+//			}
+//			desired_speed_left = templ;
+//			desired_speed_right = tempr;
+//			direction_left = direction_l;
+//			direction_right = direction_r;
 		}
 
 }

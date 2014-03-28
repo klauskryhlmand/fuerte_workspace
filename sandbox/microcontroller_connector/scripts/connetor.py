@@ -23,17 +23,29 @@ class Microcontroller_connector:
 		pass
 
 	def pwmCallback(self,msg):
+		dir_l = ''
+		dir_r = ''
 		rospy.loginfo('left pwmCallback was: ' + str(msg.speed_left))
 		rospy.loginfo('right pwmCallback was: ' + str(msg.speed_right))
 		speed_left = int(msg.speed_left * 100)
 		speed_right = int(msg.speed_right * 100)
+		direction_l = int(msg.direction_left)
+		direction_r = int(msg.direction_right)
+		if (direction_l == 0):
+			dir_l = 'b'
+		elif(direction_l == 1):
+			dir_l = 'f'
+		if(direction_r == 0):
+			dir_r = 'b'
+		elif(direction_r  == 1):
+			dir_r = 'f'
 		if speed_left > 255:
 			speed_left = 255
 		if speed_right > 255:
 			speed_right = 255
-		msgMicroControler = 'SDSD' + chr(speed_left) + chr(speed_right) + 'f' +'f'
+		msgMicroControler = 'SDSD' + chr(speed_left) + chr(speed_right) + dir_l + dir_r
 		self.serial.write(msgMicroControler)
-#		rospy.loginfo('send msgMicroControler: ' + str(msgMicroControler))
+		rospy.loginfo('send msgMicroControler: ' + str(msgMicroControler))
 		pass
 
 	def talker(self):
