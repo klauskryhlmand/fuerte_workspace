@@ -25,9 +25,9 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Variables   *******************************/
-INT16U moved_right = 0;
-INT16U moved_left = 0;
-INT16U Dummy = 0;
+INT16S moved_right = 0;
+INT16S moved_left = 0;
+INT16S Dummy = 0;
 /*****************************   Functions   *******************************/
 
 void encoder_init(void)
@@ -45,7 +45,7 @@ void encoder_init(void)
 }
 
 
-INT16U get_left(void)
+INT16S get_left(void)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -57,7 +57,7 @@ INT16U get_left(void)
 	return Dummy;
 }
 
-INT16U get_right(void)
+INT16S get_right(void)
 /*****************************************************************************
 *   Input    :
 *   Output   :

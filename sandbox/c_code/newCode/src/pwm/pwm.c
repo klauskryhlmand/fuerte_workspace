@@ -24,6 +24,8 @@
 
 /*****************************   Variables   *******************************/
 INT16U new_speed = 0;
+INT8U current_speed_left = 0;
+INT8U current_speed_right = 0;
 /*****************************   Functions   *******************************/
 
 void pwm_init(void)
@@ -84,6 +86,19 @@ void pwm_init(void)
 	
 }
 
+INT8U get_current_speed(unsigned char side)
+{
+	if(side == 'r')
+	{
+		return current_speed_right;
+	}
+	else if (side == 'l') {
+		return current_speed_left;
+	}
+	return 0;
+}
+
+
 void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 /*****************************************************************************
 *   Input    :
@@ -93,6 +108,7 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 {
 	if(one_char == 'r')
 	{
+		current_speed_right = speed;
 		if(speed <= 99)
 		{
 			new_speed = speed;
@@ -114,8 +130,9 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char)
 			OCR1AH = new_speed/33;
 		}
 	}
-	else if (one_char == 'l') // why add this check Klaus ?
+	else if (one_char == 'l')
 	{
+		current_speed_left = speed;
 		if(speed <= 99)
 		{
 			new_speed = speed;

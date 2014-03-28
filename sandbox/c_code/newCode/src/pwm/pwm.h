@@ -26,4 +26,6 @@ void set_pwm_speed_direction(INT8U speed,INT8U one_char);
 *   Function :
 ******************************************************************************/
 
+INT8U get_current_speed(unsigned char side);
+
 #endif /* PWM_H_ */

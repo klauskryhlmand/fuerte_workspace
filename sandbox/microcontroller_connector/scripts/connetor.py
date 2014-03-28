@@ -31,15 +31,9 @@ class Microcontroller_connector:
 			speed_left = 255
 		if speed_right > 255:
 			speed_right = 255
-		msgMicroControler = 'MSBS' + chr(speed_left) + chr(speed_right)
+		msgMicroControler = 'SDSD' + chr(speed_left) + chr(speed_right) + 'f' +'f'
 		self.serial.write(msgMicroControler)
 #		rospy.loginfo('send msgMicroControler: ' + str(msgMicroControler))
-#		speed_desired_left = hex(msg.speed_left)[2:]
-#		speed_desired_right = hex(msg.speed_right)[2:]
-#		dir = hex(msg.direction)[2:]
-#		en = hex(msg.enable)[2:]
-#	
-#		in_cmd = "w04 " + speed_desired_left.zfill(3) + speed_desired_right.zfill(3) + dir + en
 		pass
 
 	def talker(self):
@@ -70,25 +64,7 @@ class Microcontroller_connector:
 			rospy.loginfo('right: '+str(rightcounter*0.0005))
 			rospy.loginfo('high: '+str(high))
 			rospy.loginfo('low: '+str(low))
-				
-#			rospy.loginfo(str(self.serial.read(size=2)))
-#			rospy.loginfo(str(int(self.serial.read(size=1),16)))
-			#rospy.loginfo(str(int(self.serial.read(size=1),16)))
-#			ser.write("r00\n")
-#			Sleep(0.001)
-#			encoder_le = int(ser.read(size=9),16)
-#			str = "left encoder %s" % encoder_le
-#			rospy.loginfo(str)
-#			myFpga_data.encoder_l = encoder_le
-#		
-#			ser.write("r01\n")
-#			Sleep(0.001)
-#			encoder_ri = int(ser.read(size=9),16)
-#			str = "right encoder %s" % encoder_ri
-#			rospy.loginfo(str)
-#			myFpga_data.encoder_r = encoder_ri
-#		
-#			pub.publish(myFpga_data)
+
 			rospy.sleep(0.02)
 
 

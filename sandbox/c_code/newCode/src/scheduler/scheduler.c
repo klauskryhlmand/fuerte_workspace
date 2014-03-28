@@ -33,6 +33,15 @@ struct task (*allTask);
 
 unsigned char message[4];
 
+INT8U desired_speed_left = 0;
+INT8U desired_speed_right = 0;
+unsigned char direction_left;
+unsigned char direction_right;
+
+#define twoEncoderTicklength 20
+#define controlerTimeStep 1000 // can not be more than 1000. Will cause devices by 0
+
+
 #define GET_8_LOW_BIT(word,out)    out = (0xFF & word)
 #define GET_8_HIGH_BIT(word,out)    out = (0xFF & (value >> 8))
 
@@ -53,8 +62,6 @@ void uart_send_INT16U(INT16U value, unsigned char handle_part1, unsigned char ha
 {
 	unsigned char l;
 	GET_8_LOW_BIT(value,l);
-//	value = value >> 8;
-//	unsigned char h = 0xFF & value;
 	unsigned char h;
 	GET_8_HIGH_BIT(value,h);
 
@@ -125,7 +132,7 @@ void aliveTask(void)
 
 void aliveTask2(void)
 {
-	TOGGLE_BIT(PORTE,PE5);
+//	TOGGLE_BIT(PORTE,PE5);
 //	serial_tx('a');
 //	serial_tx('l');
 //	serial_tx('i');
@@ -140,7 +147,6 @@ void aliveTask2(void)
 
 }
 
-
 //INT8U pwmTestSpeed = 0;
 //void pwmtestTask()
 //{
@@ -153,17 +159,68 @@ void aliveTask2(void)
 //	}
 //}
 
+
+
+INT16S storeEncoderLeft = 0;
+INT16S storeEncoderRight = 0;
+
+INT16S lastEnconderWantedLeft = 0;
+INT16S lastEnconderWantedRight = 0;
+
+void speedControleTask()
+{
+	TOGGLE_BIT(PORTE,PE5);
+	INT8U localDesiredSpeedLeft = desired_speed_left;
+	INT8U localDesiredSpeedRight = desired_speed_right;
+
+	INT16S enconderWantedLeft = 0;
+	INT16S enconderWantedRight = 0;
+	if(direction_left == 'b')
+	{
+		enconderWantedLeft = -1 * ((localDesiredSpeedLeft) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+	}else if(direction_left == 'f'){
+		enconderWantedLeft = ((localDesiredSpeedLeft) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+	}
+
+	if (direction_right == 'b') {
+		enconderWantedRight = -1 * ((localDesiredSpeedRight) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+	}else if(direction_right == 'f'){
+		enconderWantedRight = ((localDesiredSpeedRight) / twoEncoderTicklength) / (1000 / (controlerTimeStep));
+	}
+
+	INT16S tempTickLeft = get_left();
+	INT16S tempTickRight = get_right();
+
+	INT8S errorLeft = lastEnconderWantedLeft - tempTickLeft;
+	INT8S errorRight = lastEnconderWantedRight - tempTickRight;
+
+	lastEnconderWantedLeft = enconderWantedLeft;
+	lastEnconderWantedRight = enconderWantedRight;
+
+
+	set_pwm_speed_direction((INT8U)enconderWantedRight,'r');
+	set_pwm_speed_direction((INT8U)enconderWantedLeft,'l');
+
+//	enconderWantedLeft += errorLeft;
+//	enconderWantedRight += errorRight;
+
+//	set_pwm_speed_direction(get_current_speed('r') + errorRight,'r');
+//	set_pwm_speed_direction(get_current_speed('l') + errorLeft,'l');
+
+}
+
+
 void commands()
 {
 	// read encoder left regiset
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'L' && message[3] == 'R')
 	{
-		uart_send_INT16U(get_left(),'E','L');
+		uart_send_INT16S(storeEncoderLeft,'E','L');
 	}
 	// read encoder left regiset
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'R' && message[3] == 'R')
 	{
-		uart_send_INT16U(get_right(),'E','R');
+		uart_send_INT16S(storeEncoderRight,'E','R');
 	}
 
 	// set moter left enable
@@ -188,41 +245,58 @@ void commands()
 		SET_BIT_LOW(PORTA,PA3);
 	}
 
-
-
-	//moter speed Bothe set
-	if(message[0] == 'M' && message[1] == 'S' && message[2] == 'B' && message[3] == 'S')
+	//Set Desired Motor Speed
+	if(message[0] == 'S' && message[1] == 'D' && message[2] == 'M' && message[3] == 'S')
 	{
-		INT8U templ = 100;
-		INT8U tempr = 100;
+		INT8U templ = 0;
+		INT8U tempr = 0;
 		if(serial_rx_avail())
 		{
 			templ = (INT8U)serial_rx();
 			tempr = (INT8U)serial_rx();
 		}
-		set_pwm_speed_direction(templ,'l');
-		set_pwm_speed_direction(tempr,'r');
-	}else if (message[2] == 'R') { 					//moter speed right set
-		INT8U temp = 0;
-		serial_tx('r');
-		if(serial_rx_avail())
-		{
-			serial_tx('r');
-			temp = (INT8U)serial_rx();
-			serial_tx(temp);
-		}
-		set_pwm_speed_direction(temp,'r');
-	}else {											//moter speed left set
-		INT8U temp = 0;
-		serial_tx('l');
-		if(serial_rx_avail())
-		{
-			serial_tx('l');
-			temp = (INT8U)serial_rx();
-			serial_tx(temp);
-		}
-		set_pwm_speed_direction(temp,'l');
+		desired_speed_left = templ;
+		desired_speed_right = tempr;
 	}
+
+	//Set Desired Speed and Direction
+		if(message[0] == 'S' && message[1] == 'D' && message[2] == 'S' && message[3] == 'D')
+		{
+
+
+//			unsigned char temp[4];
+//
+//			INT8U i = 0;
+//			while(i < 4)
+//			{
+//				if(serial_rx_avail())
+//				{
+//					temp[i] = serial_rx();
+//					i++;
+//				}
+//			}
+//
+//			desired_speed_left = (INT8U)temp[0];
+//			desired_speed_right = (INT8U)temp[1];
+//			direction_left = temp[2];
+//			direction_right = temp[3];
+
+			INT8U templ = 0;
+			unsigned char direction_l;
+			INT8U tempr = 0;
+			unsigned char direction_r;
+			if(serial_rx_avail())
+			{
+				templ = (INT8U)serial_rx();
+				tempr = (INT8U)serial_rx();
+				direction_l = serial_rx();
+				direction_r = serial_rx();
+			}
+			desired_speed_left = templ;
+			desired_speed_right = tempr;
+			direction_left = direction_l;
+			direction_right = direction_r;
+		}
 
 }
 
@@ -241,12 +315,6 @@ void resiveTask()
 		}
 	}
 }
-
-void speedControleTask()
-{
-
-}
-
 
 void dummyTask()
 {
@@ -277,12 +345,12 @@ void schedulSetup()
 //	pwmTest.functionPtr = &pwmtestTask;
 
 	struct task pid;
-	pid.time = 20;
+	pid.time = controlerTimeStep;
 	pid.nextRun = 0;
 	pid.functionPtr = &speedControleTask;
 
 	struct task resiveTaskStruct;
-	resiveTaskStruct.time = 50;
+	resiveTaskStruct.time = 10;
 	resiveTaskStruct.nextRun = 0;
 	resiveTaskStruct.functionPtr = &resiveTask;
 
