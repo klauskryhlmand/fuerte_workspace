@@ -52,8 +52,10 @@ INT16S get_left(void)
 *   Function :
 ******************************************************************************/
 {
+	cli();
 	Dummy = moved_left;
 	moved_left = 0;
+	sei();
 	return Dummy;
 }
 
@@ -64,8 +66,10 @@ INT16S get_right(void)
 *   Function :
 ******************************************************************************/
 {
+	cli();
 	Dummy = moved_right;
 	moved_right = 0;
+	sei();
 	return Dummy;
 }
 
