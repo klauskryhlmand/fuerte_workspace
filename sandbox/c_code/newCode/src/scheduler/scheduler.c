@@ -197,8 +197,17 @@ INT16S enconderWantedRight = 0;
 INT16S tempTickLeft = 0;
 INT16S tempTickRight = 0;
 
-INT8S errorLeft = 0;
-INT8S errorRight = 0;
+INT16S errorLeft = 0;
+INT16S errorRight = 0;
+
+INT16S errorLeftOld = 0;
+INT16S errorRightOld = 0;
+
+INT16S acumulatedErrorLeft = 0;
+INT16S acumulatedErrorRight = 0;
+
+INT16S errorLeftIntegrated = 0;
+INT16S errorRightIntegrated = 0;
 
 INT16S tempSpeed_r = 0;
 INT16S tempSpeed_l = 0;
@@ -232,18 +241,17 @@ void speedControleTask()
 	storeEncoderLeft += tempTickLeft;
 	storeEncoderRight += tempTickRight;
 
-	errorLeft = (lastEnconderWantedLeft - tempTickLeft)/5;
-	errorRight = (lastEnconderWantedRight - tempTickRight)/5;
+	errorLeft = (lastEnconderWantedLeft - tempTickLeft);
+	errorRight = (lastEnconderWantedRight - tempTickRight);
 
+	acumulatedErrorLeft = acumulatedErrorLeft + errorLeftOld - errorLeft;
+	acumulatedErrorRight = acumulatedErrorRight + errorRightOld - errorRight;	
+	
+//	errorLeftIntegrated = errorLeftIntegrated + errorLeft/50;
+//	errorRightIntegrated = errorRightIntegrated + errorRight/50;
+	
 	lastEnconderWantedLeft = enconderWantedLeft;
 	lastEnconderWantedRight = enconderWantedRight;
-//
-////
-////	set_pwm_speed_direction(localDesiredSpeedRight,'r');
-////	set_pwm_speed_direction(localDesiredSpeedLeft,'l');
-//
-////	enconderWantedLeft += errorLeft;
-////	enconderWantedRight += errorRight;
 
 	tempSpeed_r = (INT16S)get_current_speed('r');
 	tempSpeed_l = (INT16S)get_current_speed('l');
@@ -263,7 +271,7 @@ void speedControleTask()
 		set_pwm_speed_direction(200,'r');
 	}
 	else {
-		tempErrorSpeed_r = (INT8U)get_current_speed('r') + errorRight;
+		tempErrorSpeed_r = (INT8U)get_current_speed('r') + (errorRight + acumulatedErrorRight)/2;
 //		set_pwm_speed_direction(0,'r');
 	//	set_pwm_speed_direction(tempErrorSpeed_r,'r');
 	}
@@ -282,13 +290,15 @@ void speedControleTask()
 		set_pwm_speed_direction(200,'l');
 	}
 	else {
-		tempErrorSpeed_l = (INT8U)((INT16S)get_current_speed('l') + errorLeft);
+		tempErrorSpeed_l = (INT8U)((INT16S)get_current_speed('l') + (errorLeft + acumulatedErrorLeft)/2);
 ////		INT8U tempErrorSpeed_l = (INT8U)get_current_speed('l') + errorLeft;
 ////		set_pwm_speed_direction(10,'l');
 		set_pwm_speed_direction(tempErrorSpeed_l,'l');
 ////		set_pwm_speed_direction(50,'l');
 	}
 
+	errorLeftOld = errorLeft;
+	errorRightOld = errorRight;
 }
 
 

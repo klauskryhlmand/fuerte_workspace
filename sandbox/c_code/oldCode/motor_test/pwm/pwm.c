@@ -36,13 +36,13 @@ void pwm_init(void)
 	DDRD |= (1<<DDD4); // enable PD4 (led pin) as output
 	DDRD |= (1<<DDD5); // enable PD5 (led pin) as output
 	DDRD |= (1<<DDD6); // enable PD6 (led pin) as output
-	DDRD |= (1<<DDD3); // enable PD3 (led pin) as output skal laves om til PD7
+	DDRD |= (1<<DDD3); // enable PD3 (led pin) as output skal laves om til PD7 !!!!!!!!
 
 	TCCR0A|= (1<<WGM00);	//can be found i data sheath on page 102
 	TCCR0A|= (1<<WGM01);
 //	TCCR0A|= (1<<COM0A0);	//set OC0A to inverted output if add
 	TCCR0A|= (1<<COM0A1);	//set OC0A to non-inverted output
-//	TCCR0A|= (1<<COM0B0);	//set OC0A to inverted output if add
+//	TCCR0A|= (1<<COM0B0);	//set OC0B to inverted output if add
 	TCCR0A|= (1<<COM0B1);	//set OC0B to inverted output
 
 //	TCCR0B |= (1<<CS00);	// see page 105 for prescaler set up
