@@ -25,11 +25,11 @@
 INT16U timer_tick = 0;
 INT16U systikOverflowCompare = 0;
 
-INT8U numberOfTask = 0;
+#define numberOfTask 5 // must set number of task here
 INT8S nextTask = -1;
 BOOLEAN schedulerNotRun = FALSE;
 
-struct task (*allTask);
+struct task allTask[numberOfTask];
 
 unsigned char message[4];
 
@@ -174,10 +174,10 @@ void pwmtestTask()
 //		pwmDir = FALSE;
 //	}
 
-
-//	if (pwmTestSpeed > 200) {
-//		pwmTestSpeed = 0;
-//	}
+pwmTestSpeed++;
+	if (pwmTestSpeed > 99) {
+		pwmTestSpeed = 0;
+	}
 }
 
 
@@ -203,8 +203,8 @@ INT16S errorRight = 0;
 INT16S errorLeftOld = 0;
 INT16S errorRightOld = 0;
 
-INT16S acumulatedErrorLeft = 0;
-INT16S acumulatedErrorRight = 0;
+//INT16S acumulatedErrorLeft = 0;
+//INT16S acumulatedErrorRight = 0;
 
 INT16S errorLeftIntegrated = 0;
 INT16S errorRightIntegrated = 0;
@@ -212,11 +212,14 @@ INT16S errorRightIntegrated = 0;
 INT16S tempSpeed_r = 0;
 INT16S tempSpeed_l = 0;
 
-INT8U tempErrorSpeed_r = 0;
-INT8U tempErrorSpeed_l = 0;
+INT8U tempErrorSpeed_r = 100;
+INT8U tempErrorSpeed_l = 100;
+
+INT8U I_led = 32;
 
 void speedControleTask()
 {
+	TOGGLE_BIT(PORTE,PE5);
 	localDesiredSpeedLeft = desired_speed_left;
 	localDesiredSpeedRight = desired_speed_right;
 
@@ -225,8 +228,10 @@ void speedControleTask()
 	if(direction_left == 'b')
 	{
 		enconderWantedLeft = -1 * ((localDesiredSpeedLeft) * twoEncoderTicklength) / (1000 / (controlerTimeStep));
+		uart_send_INT16S(enconderWantedLeft,'b','b');
 	}else if(direction_left == 'f'){
 		enconderWantedLeft = ((localDesiredSpeedLeft) * twoEncoderTicklength) / (1000 / (controlerTimeStep));
+		uart_send_INT16S(enconderWantedLeft,'f','f');
 	}
 
 	if (direction_right == 'b') {
@@ -244,8 +249,41 @@ void speedControleTask()
 	errorLeft = (lastEnconderWantedLeft - tempTickLeft);
 	errorRight = (lastEnconderWantedRight - tempTickRight);
 
-	acumulatedErrorLeft = acumulatedErrorLeft + errorLeftOld - errorLeft;
-	acumulatedErrorRight = acumulatedErrorRight + errorRightOld - errorRight;	
+	errorLeftIntegrated += errorLeft;
+	errorRightIntegrated += errorRight;
+
+	if(errorLeftIntegrated * errorLeft < 0)
+	{
+		errorLeftIntegrated = errorLeft;
+	}
+
+	if(errorRightIntegrated * errorRight < 0)
+	{
+		errorRightIntegrated = errorRight;
+	}
+
+	if(errorLeftIntegrated > I_led * 100)
+	{
+		errorLeftIntegrated = I_led * 100;
+	}else if (errorLeftIntegrated < I_led * - 100) {
+		errorLeftIntegrated = I_led * -100;
+	}
+
+	if(errorRightIntegrated > I_led * 100)
+	{
+		errorRightIntegrated = I_led * 100;
+	}else if (errorRightIntegrated < I_led * -100) {
+		errorRightIntegrated = I_led * -100;
+	}
+
+	errorLeftOld = errorLeft;
+	errorRightOld = errorRight;
+
+	errorLeft = 0;
+	errorRight = 0;
+
+//	acumulatedErrorLeft = acumulatedErrorLeft + errorLeftOld - errorLeft;
+//	acumulatedErrorRight = acumulatedErrorRight + errorRightOld - errorRight;
 	
 //	errorLeftIntegrated = errorLeftIntegrated + errorLeft/50;
 //	errorRightIntegrated = errorRightIntegrated + errorRight/50;
@@ -253,52 +291,39 @@ void speedControleTask()
 	lastEnconderWantedLeft = enconderWantedLeft;
 	lastEnconderWantedRight = enconderWantedRight;
 
-	tempSpeed_r = (INT16S)get_current_speed('r');
-	tempSpeed_l = (INT16S)get_current_speed('l');
+//	tempSpeed_r = (INT16S)get_current_speed('r');
+//	tempSpeed_l = (INT16S)get_current_speed('l');
 
-	if(tempSpeed_r + errorRight < 0)
+	tempErrorSpeed_r = 100;
+	tempErrorSpeed_l = 100;
+
+	if(tempErrorSpeed_r + errorRight + errorRightIntegrated/I_led < 0)
 	{
-		serial_tx('\n');
-		serial_tx('r');
-		serial_tx('0');
-		serial_tx('\n');
 		set_pwm_speed_direction(0,'r');
-	}else if (tempSpeed_r + errorRight > 200) {
-		serial_tx('\n');
-		serial_tx('r');
-		serial_tx('2');
-		serial_tx('\n');
+	}else if (errorRight + tempErrorSpeed_r + errorRightIntegrated/I_led > 200) {
 		set_pwm_speed_direction(200,'r');
 	}
 	else {
-		tempErrorSpeed_r = (INT8U)get_current_speed('r') + (errorRight + acumulatedErrorRight)/2;
+		tempErrorSpeed_r = (INT8U)(tempErrorSpeed_r + errorRight + errorRightIntegrated/I_led);
 //		set_pwm_speed_direction(0,'r');
 	//	set_pwm_speed_direction(tempErrorSpeed_r,'r');
 	}
 //
-	if (tempSpeed_l + errorLeft < 0) {
-		serial_tx('\n');
-		serial_tx('l');
-		serial_tx('0');
-		serial_tx('\n');
+	if (tempErrorSpeed_l + errorLeft + errorLeftIntegrated/I_led < 0) {
 		set_pwm_speed_direction(0,'l');
-	}else if (tempSpeed_l + errorLeft > 200) {
-		serial_tx('\n');
-		serial_tx('l');
-		serial_tx('2');
-		serial_tx('\n');
+	}else if (tempErrorSpeed_l + errorLeft + errorLeftIntegrated/I_led > 200) {
 		set_pwm_speed_direction(200,'l');
 	}
 	else {
-		tempErrorSpeed_l = (INT8U)((INT16S)get_current_speed('l') + (errorLeft + acumulatedErrorLeft)/2);
+		tempErrorSpeed_l =(INT8U)(tempErrorSpeed_l + errorLeft + errorLeftIntegrated/I_led); //errorLeft +
+		uart_send_INT16U(tempErrorSpeed_l,'L','P');
 ////		INT8U tempErrorSpeed_l = (INT8U)get_current_speed('l') + errorLeft;
 ////		set_pwm_speed_direction(10,'l');
 		set_pwm_speed_direction(tempErrorSpeed_l,'l');
 ////		set_pwm_speed_direction(50,'l');
 	}
 
-	errorLeftOld = errorLeft;
-	errorRightOld = errorRight;
+
 }
 
 
@@ -308,11 +333,13 @@ void commands()
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'L' && message[3] == 'R')
 	{
 		uart_send_INT16S(storeEncoderLeft,'E','L');
+		storeEncoderLeft = 0;
 	}
 	// read encoder left regiset
 	if(message[0] == 'R' && message[1] == 'E' && message[2] == 'R' && message[3] == 'R')
 	{
 		uart_send_INT16S(storeEncoderRight,'E','R');
+		storeEncoderRight = 0;
 	}
 
 	// set moter left enable
@@ -417,9 +444,7 @@ void schedulSetup()
 {
 	initAliveTasks();
 
-	numberOfTask = 5; // must set number of task here
-
-	struct task allTaks[numberOfTask];
+//	struct task allTaks[numberOfTask];
 
 	struct task aliveTaskStruck;
 	aliveTaskStruck.time = 50;
@@ -452,14 +477,14 @@ void schedulSetup()
 	dummy.functionPtr = &dummyTask;
 
 
-	allTaks[0] = aliveTaskStruck;
-	allTaks[1] = aliveTaskStruck2;
-	allTaks[2] = resiveTaskStruct;
-	allTaks[3] = pid;
-//	allTaks[4] = pwmTest;
-	allTaks[4] = dummy;
+	allTask[0] = aliveTaskStruck;
+	allTask[1] = aliveTaskStruck2;
+	allTask[2] = resiveTaskStruct;
+	allTask[3] = pid;
+//	allTask[3] = pwmTest;
+	allTask[4] = dummy;
 
-	allTask = allTaks;
+//	allTask = allTaks;
 	timer_tick = 0;
 	timer0_init();
 }
