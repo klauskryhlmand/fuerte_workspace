@@ -105,13 +105,13 @@ class Microcontroller_connector:
 			if 'ER' in i:
 				self.rightcounter = int(i[2:]) + self.rightcounter
 			if 'ff' in i:
-#				rospy.loginfo('go forward destins: ' + str(int(i[2:])*0.0005))
+				rospy.loginfo('go forward destins: ' + str(int(i[2:])*0.0005))
 				pass
 			if 'bb' in i:
-#				rospy.loginfo('go back destins: ' + str(int(i[2:])*0.0005))
+				rospy.loginfo('go back destins: ' + str(int(i[2:])*0.0005))
 				pass
 			if 'LP' in i:
-#				rospy.loginfo('Left PWM: ' + str(int(i[2:])))
+				rospy.loginfo('Left PWM: ' + str(int(i[2:])))
 				pass
 
 	def talker(self):

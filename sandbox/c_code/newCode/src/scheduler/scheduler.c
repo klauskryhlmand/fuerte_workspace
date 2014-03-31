@@ -37,6 +37,8 @@ INT8U desired_speed_left = 0;
 INT8U desired_speed_right = 0;
 unsigned char direction_left;
 unsigned char direction_right;
+unsigned char enable_left;
+unsigned char enable_right;
 
 #define twoEncoderTicklength 20
 #define controlerTimeStep 20 // can not be more than 1000. Will cause devices by 0
@@ -223,6 +225,22 @@ void speedControleTask()
 	localDesiredSpeedLeft = desired_speed_left;
 	localDesiredSpeedRight = desired_speed_right;
 
+	if(enable_left == 'e')
+	{
+		SET_BIT_HIGH(PORTA,PA3);
+	}
+	else {
+		SET_BIT_LOW(PORTA,PA3);
+	}
+
+	if(enable_right == 'e')
+	{
+		SET_BIT_HIGH(PORTA,PA2);
+	}
+	else {
+		SET_BIT_LOW(PORTA,PA2);
+	}
+
 	enconderWantedLeft = 0;
 	enconderWantedRight = 0;
 	if(direction_left == 'b')
@@ -383,10 +401,10 @@ void commands()
 		{
 
 
-			unsigned char temp[4];
+			unsigned char temp[6];
 
 			INT8U i = 0;
-			while(i < 4)
+			while(i < 6)
 			{
 				if(serial_rx_avail())
 				{
@@ -399,6 +417,8 @@ void commands()
 			desired_speed_right = (INT8U)temp[1];
 			direction_left = temp[2];
 			direction_right = temp[3];
+			enable_left = temp[4];
+			enable_right = temp[5];
 
 //			INT8U templ = 0;
 //			unsigned char direction_l;
@@ -445,6 +465,9 @@ void schedulSetup()
 	initAliveTasks();
 
 //	struct task allTaks[numberOfTask];
+
+	enable_left = 'd';
+	enable_right = 'd';
 
 	struct task aliveTaskStruck;
 	aliveTaskStruck.time = 50;
