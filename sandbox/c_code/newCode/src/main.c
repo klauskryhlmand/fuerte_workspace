@@ -29,14 +29,14 @@ int main(void)
 	schedulSetup();
 	serial_init();
 
-	serial_tx('B');
-	serial_tx('o');
-	serial_tx('o');
-	serial_tx('t');
-	serial_tx('i');
-	serial_tx('n');
-	serial_tx('g');
-	serial_tx('\n');
+//	serial_tx('B');
+//	serial_tx('o');
+//	serial_tx('o');
+//	serial_tx('t');
+//	serial_tx('i');
+//	serial_tx('n');
+//	serial_tx('g');
+//	serial_tx('\n');
 
 
 	while(1)

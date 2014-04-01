@@ -31,8 +31,12 @@ class Microcontroller_connector:
 	def pwmCallback(self,msg):
 		dir_l = ''
 		dir_r = ''
-		rospy.loginfo('left pwmCallback was: ' + str(msg.speed_left))
-		rospy.loginfo('right pwmCallback was: ' + str(msg.speed_right))
+		rospy.loginfo('left speed pwmCallback was: ' + str(msg.speed_left))
+		rospy.loginfo('right speed pwmCallback was: ' + str(msg.speed_right))
+		rospy.loginfo('left direction pwmCallback was: ' + str(msg.direction_left))
+		rospy.loginfo('right direction pwmCallback was: ' + str(msg.direction_right))
+		rospy.loginfo('left enable pwmCallback was: ' + str(msg.enable_left))
+		rospy.loginfo('right enable pwmCallback was: ' + str(msg.enable_right))
 		speed_left = int(msg.speed_left * 100)
 		speed_right = int(msg.speed_right * 100)
 		direction_l = int(msg.direction_left)
@@ -49,10 +53,10 @@ class Microcontroller_connector:
 			enable_r = 'e'
 		else:
 			enable_r = 'd'
-
-		if (direction_l == 0):
+		
+		if direction_l == 0:
 			dir_l = 'b'
-		elif(direction_l == 1):
+		elif direction_l == 1:
 			dir_l = 'f'
 		if(direction_r == 0):
 			dir_r = 'b'
@@ -64,6 +68,7 @@ class Microcontroller_connector:
 			speed_right = 255
 		msgMicroControler = 'SDSD' + chr(speed_left) + chr(speed_right) + dir_l + dir_r + enable_l + enable_r
 		self.serial.write(msgMicroControler)
+		self.serial.write(msgMicroControler)
 		rospy.loginfo('send msgMicroControler: ' + str(msgMicroControler))
 		pass
 
@@ -72,16 +77,16 @@ class Microcontroller_connector:
 	def findMessages(self,messages):
 		messages = self.__messagesLeftPartEnd + messages
 		self.__messagesLeftPartEnd = ''
-		handles = ['EL','ER','LP','ff','bb']
+		handles = ['EL','ER','LP','RP','fl','bl','fr','br','er','el']
 		messagesFound = []
 		for i in handles:
 			if i in messages:
 				temp = [m.start() for m in re.finditer(i, messages)]
 				for j in temp:
 					if len(messages) < j + 4:
-						rospy.loginfo('j is: ' + str(j))
+#						rospy.loginfo('j is: ' + str(j))
 						self.__messagesLeftPartEnd = messages[j:len(messages)]
-						rospy.loginfo('rest was' + self.__messagesLeftPartEnd)
+#						rospy.loginfo('rest was' + self.__messagesLeftPartEnd)
 					else:
 						messagesFound.append(messages[j:j+2] + str(self.hexReASemple(ord(messages[j+2]),ord(messages[j+3]))))
 		return messagesFound
@@ -104,24 +109,39 @@ class Microcontroller_connector:
 				self.leftcounter = self.leftcounter + int(i[2:])
 			if 'ER' in i:
 				self.rightcounter = int(i[2:]) + self.rightcounter
-			if 'ff' in i:
-				rospy.loginfo('go forward destins: ' + str(int(i[2:])*0.0005))
+#			if 'fl' in i:
+#				rospy.loginfo('go forward left desired: ' + str(int(i[2:])*0.0005))
+#				pass
+#			if 'bl' in i:
+#				rospy.loginfo('go back left desired: ' + str(int(i[2:])*0.0005))
+#				pass
+#			if 'fr' in i:
+#				rospy.loginfo('go forward right desired: ' + str(int(i[2:])*0.0005))
+#				pass
+#			if 'br' in i:
+#				rospy.loginfo('go back right desired: ' + str(int(i[2:])*0.0005))
+#				pass
+			if 'er' in i:
+				rospy.loginfo('right error: ' + str(int(i[2:])))
 				pass
-			if 'bb' in i:
-				rospy.loginfo('go back destins: ' + str(int(i[2:])*0.0005))
+			if 'el' in i:
+				rospy.loginfo('left error: ' + str(int(i[2:])))
 				pass
 			if 'LP' in i:
 				rospy.loginfo('Left PWM: ' + str(int(i[2:])))
 				pass
+			if 'RP' in i:
+				rospy.loginfo('Right PWM: ' + str(int(i[2:])))
+				pass
+		pass
+
 
 	def talker(self):
 		slowDown = 0
+		delay = 0
 		while not rospy.is_shutdown():
 			resived = self.serial.read(size=20)
-#			rospy.loginfo('resived lenght: ' + str(len(resived)))
 			theMessages = self.findMessages(resived)
-#			for i in theMessages:
-#				rospy.loginfo(i)
 			self.messagesHandler(theMessages)
 			
 			if slowDown > 2:
@@ -131,34 +151,14 @@ class Microcontroller_connector:
 			else:
 				slowDown = slowDown + 1
 			
-#			total = self.hexReASemple(high,low)
-#			rospy.loginfo(str(firstl)+str(secondl)+str(total))
-
-#			if (firstl == 'E' and secondl == 'L'):
-#				if (high > 127):
-#					leftcounter = leftcounter - total
-#				else:
-#					leftcounter = total + leftcounter
-#			elif (firstl == 'E' and secondl == 'R'):
-#				if (high > 127):
-#					rightcounter = rightcounter - total
-#				else:
-#					rightcounter = total + rightcounter
-#			
-#			if firstl == 'b' and secondl == 'b':
-#				rospy.loginfo('go back destins: ' + str(total*0.0005))
-#			if firstl == 'f' and secondl == 'f':
-#				rospy.loginfo('go forward destins: ' + str(total*0.0005))
-#			if firstl == 'L' and secondl == 'P':
-#				rospy.loginfo('Left PWM: ' + str(total))
-			
-			rospy.loginfo('left: '+str(self.leftcounter*0.0005))
-			rospy.loginfo('right: '+str(self.rightcounter*0.0005))
-#			rospy.loginfo('firstl: '+str(firstl))
-#			rospy.loginfo('secondl: '+str(secondl))
-#			rospy.loginfo('high: '+str(high))
-#			rospy.loginfo('low: '+str(low))
-
+#			if delay > 200:
+#				rospy.loginfo('left: '+str(self.leftcounter*0.0005))
+#				rospy.loginfo('right: '+str(self.rightcounter*0.0005))
+#				delay = 0
+#			else:
+#				delay = delay + 1
+#				rospy.loginfo('left: '+str(self.leftcounter*0.0005))
+#				rospy.loginfo('right: '+str(self.rightcounter*0.0005))
 			rospy.sleep(0.02)
 
 
