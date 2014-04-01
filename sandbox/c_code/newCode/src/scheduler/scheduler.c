@@ -211,14 +211,18 @@ INT16S errorRightOld = 0;
 INT16S errorLeftIntegrated = 0;
 INT16S errorRightIntegrated = 0;
 
+INT16S errorLeftDerivative = 0;
+INT16S errorRightDerivative = 0;
+
 //INT16S tempSpeed_r = 0;
 //INT16S tempSpeed_l = 0;
 
-INT8U tempErrorSpeed_r = 100;
-INT8U tempErrorSpeed_l = 100;
+INT16U tempErrorSpeed_r = 100;
+INT16U tempErrorSpeed_l = 100;
 
 INT8U I_led = 64;
 INT8U P_led = 10;
+INT8U D_led = 10;
 
 void speedControleTask()
 {
@@ -285,6 +289,9 @@ void speedControleTask()
 	errorLeft = (lastEnconderWantedLeft - tempTickLeft);
 	errorRight = (lastEnconderWantedRight - tempTickRight);
 
+	errorLeftDerivative = errorLeft - errorLeftOld;
+	errorRightDerivative = errorRight - errorRightOld;
+
 	uart_send_INT16S(errorLeft,'e','l');
 	uart_send_INT16S(errorRight,'e','r');
 
@@ -325,29 +332,29 @@ void speedControleTask()
 	lastEnconderWantedLeft = enconderWantedLeft;
 	lastEnconderWantedRight = enconderWantedRight;
 
-//	tempErrorSpeed_r = 100;
-//	tempErrorSpeed_l = 100;
+	tempErrorSpeed_r = 100;
+	tempErrorSpeed_l = 100;
 
-	if(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led < 0)
+	if(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led + errorRightDerivative/D_led < 0)
 	{
 		set_pwm_speed_direction(0,'r');
-	}else if (errorRight/P_led + tempErrorSpeed_r + errorRightIntegrated/I_led > 200) {
+	}else if (errorRight/P_led + tempErrorSpeed_r + errorRightIntegrated/I_led + errorRightDerivative/D_led > 200) {
 		set_pwm_speed_direction(200,'r');
 	}
 	else {
-		tempErrorSpeed_r = (INT8U)(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led);
+		tempErrorSpeed_r = (INT8U)(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led + errorRightDerivative/D_led);
 		uart_send_INT16U(tempErrorSpeed_r,'R','P');
 		set_pwm_speed_direction(tempErrorSpeed_r,'r');
 	}
 
 
-	if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led < 0) {
+	if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led < 0) {
 		set_pwm_speed_direction(0,'l');
-	}else if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led > 200) {
+	}else if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led > 200) {
 		set_pwm_speed_direction(200,'l');
 	}
 	else {
-		tempErrorSpeed_l =(INT8U)(tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led); //errorLeft +
+		tempErrorSpeed_l =(INT8U)(tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led); //errorLeft +
 		uart_send_INT16U(tempErrorSpeed_l,'L','P');
 		set_pwm_speed_direction(tempErrorSpeed_l,'l');
 	}
