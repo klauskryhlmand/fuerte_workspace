@@ -149,7 +149,7 @@ void aliveTask2(void)
 
 }
 
-INT8U pwmTestSpeed = 140;
+INT8U pwmTestSpeed = 100;
 BOOLEAN pwmDir = TRUE;
 void pwmtestTask()
 {
@@ -176,9 +176,9 @@ void pwmtestTask()
 //		pwmDir = FALSE;
 //	}
 
-pwmTestSpeed++;
-	if (pwmTestSpeed > 99) {
-		pwmTestSpeed = 0;
+pwmTestSpeed--;
+	if (pwmTestSpeed == 0) {
+		pwmTestSpeed = 100;
 	}
 }
 
@@ -220,9 +220,9 @@ INT16S errorRightDerivative = 0;
 INT16U tempErrorSpeed_r = 100;
 INT16U tempErrorSpeed_l = 100;
 
-INT8U I_led = 64;
-INT8U P_led = 10;
-INT8U D_led = 10;
+#define I_led 10
+#define P_led 10
+//#define D_led 10
 
 void speedControleTask()
 {
@@ -233,16 +233,20 @@ void speedControleTask()
 	if(localDesiredSpeedLeft == 0)
 	{
 		tempErrorSpeed_l = 100;
+		set_pwm_speed_direction(tempErrorSpeed_r,'l');
 		errorLeftIntegrated = 0;
 		errorLeftOld = 0;
 		errorLeft = 0;
+		lastEnconderWantedLeft = 0;
 	}
 	if(localDesiredSpeedRight == 0)
 	{
 		tempErrorSpeed_r = 100;
+		set_pwm_speed_direction(tempErrorSpeed_r,'r');
 		errorRightIntegrated = 0;
 		errorRightOld = 0;
 		errorRight = 0;
+		lastEnconderWantedRight = 0;
 	}
 
 	if(enable_left == 'e')
@@ -289,76 +293,148 @@ void speedControleTask()
 	errorLeft = (lastEnconderWantedLeft - tempTickLeft);
 	errorRight = (lastEnconderWantedRight - tempTickRight);
 
-	errorLeftDerivative = errorLeft - errorLeftOld;
-	errorRightDerivative = errorRight - errorRightOld;
+//	errorLeftDerivative = errorLeft - errorLeftOld;
+//	errorRightDerivative = errorRight - errorRightOld;
 
-	uart_send_INT16S(errorLeft,'e','l');
-	uart_send_INT16S(errorRight,'e','r');
+//	uart_send_INT16S(errorLeft,'e','l');
+//	uart_send_INT16S(errorRight,'e','r');
 
-	errorLeftIntegrated += errorLeft;
-	errorRightIntegrated += errorRight;
+	errorLeftIntegrated += errorLeft*2;
+	errorRightIntegrated += errorRight*2;
+
+//		if(errorLeft * errorLeft < 0)
+//		{
+//			errorLeft = errorLeft/20;
+//		}
+//
+//		if(errorRight * errorRight < 0)
+//		{
+//			errorRight = errorRight/20;
+//		}
 
 //	if(errorLeftIntegrated * errorLeft < 0)
 //	{
 //		errorLeftIntegrated = errorLeft;
 //	}else
-	if(errorLeftIntegrated > I_led * 100)
-	{
-		errorLeftIntegrated = I_led * 100;
-	}else if (errorLeftIntegrated < I_led * - 100) {
-		errorLeftIntegrated = I_led * -100;
-	}
-
-//	if(errorRightIntegrated * errorRight < 0)
+//	if(errorLeftIntegrated > I_led * 50)
 //	{
-//		errorRightIntegrated = errorRight;
-//	}else
-	if(errorRightIntegrated > I_led * 100)
-	{
-		errorRightIntegrated = I_led * 100;
-	}else if (errorRightIntegrated < I_led * -100) {
-		errorRightIntegrated = I_led * -100;
-	}
+//		errorLeftIntegrated = I_led * 50;
+//	}else if (errorLeftIntegrated < I_led * - 50) {
+//		errorLeftIntegrated = I_led * -50;
+//	}
+//
+//////	if(errorRightIntegrated * errorRight < 0)
+//////	{
+//////		errorRightIntegrated = errorRight;
+//////	}else
+//	if(errorRightIntegrated > I_led * 50)
+//	{
+//		errorRightIntegrated = I_led * 50;
+//	}else if (errorRightIntegrated < I_led * - 50) {
+//		errorRightIntegrated = I_led * - 50;
+//	}
 
-	errorLeftOld = errorLeft;
-	errorRightOld = errorRight;
 
-	errorLeft = 0;
-	errorRight = 0;
+//	errorLeft = 0;
+//	errorRight = 0;
 
-//	acumulatedErrorLeft = acumulatedErrorLeft + errorLeftOld - errorLeft;
-//	acumulatedErrorRight = acumulatedErrorRight + errorRightOld - errorRight;
-	
+//	errorLeftDerivative = 0;
+//	errorRightDerivative = 0;
+
 	lastEnconderWantedLeft = enconderWantedLeft;
 	lastEnconderWantedRight = enconderWantedRight;
 
-	tempErrorSpeed_r = 100;
-	tempErrorSpeed_l = 100;
+//	lastEnconderWantedLeft = lastEnconderWantedLeft - (errorLeftOld * 100) / 99;
+//	lastEnconderWantedRight = lastEnconderWantedRight - (errorRightOld * 100) / 99;
 
-	if(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led + errorRightDerivative/D_led < 0)
-	{
-		set_pwm_speed_direction(0,'r');
-	}else if (errorRight/P_led + tempErrorSpeed_r + errorRightIntegrated/I_led + errorRightDerivative/D_led > 200) {
-		set_pwm_speed_direction(200,'r');
-	}
-	else {
-		tempErrorSpeed_r = (INT8U)(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led + errorRightDerivative/D_led);
-		uart_send_INT16U(tempErrorSpeed_r,'R','P');
-		set_pwm_speed_direction(tempErrorSpeed_r,'r');
-	}
+	errorLeftOld = errorLeft/P_led + (errorLeftIntegrated/100)/I_led;
+	errorRightOld = errorRight/P_led + (errorRightIntegrated/100)/I_led;
+//	tempErrorSpeed_r = 100;
+//	tempErrorSpeed_l = 100;
+
+ if (errorLeftOld > 0) {
+	 uart_send_INT16U(errorLeftOld,'e','l');
+}
+
+ if (errorRightOld > 0) {
+ 	 uart_send_INT16U(errorRightOld,'e','r');
+ }
+
+//	if (errorRight * errorRight > 242 ) {
+		if(100 + errorRight/P_led + errorRightIntegrated/I_led < 0)
+		{
+			set_pwm_speed_direction(0,'r');
+		}else if ( 100 + errorRight/P_led + errorRightIntegrated/I_led > 200) {
+			set_pwm_speed_direction(200,'r');
+		}
+		else {
+			tempErrorSpeed_r = (INT8U)( errorRight/P_led + errorRightIntegrated/I_led + 100);
+//			uart_send_INT16U(tempErrorSpeed_r,'R','P');
+			set_pwm_speed_direction(tempErrorSpeed_r,'r');
+		}
+//	}
 
 
-	if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led < 0) {
-		set_pwm_speed_direction(0,'l');
-	}else if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led > 200) {
-		set_pwm_speed_direction(200,'l');
-	}
-	else {
-		tempErrorSpeed_l =(INT8U)(tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led); //errorLeft +
-		uart_send_INT16U(tempErrorSpeed_l,'L','P');
-		set_pwm_speed_direction(tempErrorSpeed_l,'l');
-	}
-
+//	if (errorLeft * errorLeft > 242 ) {
+		if (100 + errorLeft/P_led + errorLeftIntegrated/I_led < 0) {
+			set_pwm_speed_direction(0,'l');
+		}else if (100 + errorLeft/P_led + errorLeftIntegrated/I_led > 200) {
+			set_pwm_speed_direction(200,'l');
+		}
+		else {
+			tempErrorSpeed_l =(INT8U)( 100 + errorLeft/P_led + errorLeftIntegrated/I_led);
+//			uart_send_INT16U(tempErrorSpeed_l,'L','P');
+			set_pwm_speed_direction(tempErrorSpeed_l,'l');
+		}
+//	}
+////	if(tempErrorSpeed_r + errorRight/P_led + errorRightDerivative/D_led < 0)
+////	{
+////		set_pwm_speed_direction(0,'r');
+////	}else if (errorRight/P_led + tempErrorSpeed_r + errorRightDerivative/D_led > 200) {
+////		set_pwm_speed_direction(200,'r');
+////	}
+////	else {
+////		tempErrorSpeed_r = (INT8U)(tempErrorSpeed_r + errorRight/P_led + errorRightDerivative/D_led);
+////		uart_send_INT16U(tempErrorSpeed_r,'R','P');
+////		set_pwm_speed_direction(tempErrorSpeed_r,'r');
+////	}
+////
+////
+////	if (tempErrorSpeed_l + errorLeft/P_led +  errorLeftDerivative/D_led < 0) {
+////		set_pwm_speed_direction(0,'l');
+////	}else if (tempErrorSpeed_l + errorLeft/P_led + errorLeftDerivative/D_led > 200) {
+////		set_pwm_speed_direction(200,'l');
+////	}
+////	else {
+////		tempErrorSpeed_l =(INT8U)(tempErrorSpeed_l + errorLeft/P_led + errorLeftDerivative/D_led);
+////		uart_send_INT16U(tempErrorSpeed_l,'L','P');
+////		set_pwm_speed_direction(tempErrorSpeed_l,'l');
+////	}
+//
+////	if(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led + errorRightDerivative/D_led < 0)
+////	{
+////		set_pwm_speed_direction(0,'r');
+////	}else if (errorRight/P_led + tempErrorSpeed_r + errorRightIntegrated/I_led + errorRightDerivative/D_led > 200) {
+////		set_pwm_speed_direction(200,'r');
+////	}
+////	else {
+////		tempErrorSpeed_r = (INT8U)(tempErrorSpeed_r + errorRight/P_led + errorRightIntegrated/I_led + errorRightDerivative/D_led);
+////		uart_send_INT16U(tempErrorSpeed_r,'R','P');
+////		set_pwm_speed_direction(tempErrorSpeed_r,'r');
+////	}
+////
+////
+////	if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led < 0) {
+////		set_pwm_speed_direction(0,'l');
+////	}else if (tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led > 200) {
+////		set_pwm_speed_direction(200,'l');
+////	}
+////	else {
+////		tempErrorSpeed_l =(INT8U)(tempErrorSpeed_l + errorLeft/P_led + errorLeftIntegrated/I_led + errorLeftDerivative/D_led); //errorLeft +
+////		uart_send_INT16U(tempErrorSpeed_l,'L','P');
+////		set_pwm_speed_direction(tempErrorSpeed_l,'l');
+////	}
+//
 
 }
 
