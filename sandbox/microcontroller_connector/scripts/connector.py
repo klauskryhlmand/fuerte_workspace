@@ -113,7 +113,7 @@ class Microcontroller_connector:
 				tempmsg = micro_data()
 				tempmsg.encoder_l = float(self.leftcounter * 0.0005)
 				tempmsg.encoder_r = float(self.rightcounter * 0.0005)
-				self.pub_distance(tempmsg)
+				self.pub_distance.publish(tempmsg)
 			if 'ER' in i:
 				self.rightcounter = int(i[2:]) + self.rightcounter
 				tempmsg = micro_data()
