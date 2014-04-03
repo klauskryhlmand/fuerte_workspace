@@ -34,12 +34,12 @@ class Microcontroller_connector:
 	def pwmCallback(self,msg):
 		dir_l = ''
 		dir_r = ''
-		rospy.loginfo('left speed pwmCallback was: ' + str(msg.speed_left))
-		rospy.loginfo('right speed pwmCallback was: ' + str(msg.speed_right))
-		rospy.loginfo('left direction pwmCallback was: ' + str(msg.direction_left))
-		rospy.loginfo('right direction pwmCallback was: ' + str(msg.direction_right))
-		rospy.loginfo('left enable pwmCallback was: ' + str(msg.enable_left))
-		rospy.loginfo('right enable pwmCallback was: ' + str(msg.enable_right))
+#		rospy.loginfo('left speed pwmCallback was: ' + str(msg.speed_left))
+#		rospy.loginfo('right speed pwmCallback was: ' + str(msg.speed_right))
+#		rospy.loginfo('left direction pwmCallback was: ' + str(msg.direction_left))
+#		rospy.loginfo('right direction pwmCallback was: ' + str(msg.direction_right))
+#		rospy.loginfo('left enable pwmCallback was: ' + str(msg.enable_left))
+#		rospy.loginfo('right enable pwmCallback was: ' + str(msg.enable_right))
 		speed_left = int(msg.speed_left * 100)
 		speed_right = int(msg.speed_right * 100)
 		direction_l = int(msg.direction_left)

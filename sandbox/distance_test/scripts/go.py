@@ -30,12 +30,10 @@ class Traveler (object):
 		
 		self.__distance_to_go_to_left = 0.0
 		self.__distance_to_go_to_right = 0.0
-		self.__desired_speed_left 0.0
-		self.__desired_speed_right 0.0
+		self.__desired_speed_left = 0.0
+		self.__desired_speed_right = 0.0
 		self.__direction_left = 1
 		self.__direction_right = 1
-		self.__enable_left = 0
-		self.__enable_right = 0
 		self.__copy_of_current_dist_left = 0.0
 		self.__copy_of_current_dist_right = 0.0
 		self.__go = False
@@ -47,10 +45,22 @@ class Traveler (object):
 	def go(self,msg):
 		self.__distance_to_go_to_left = float(msg.dist_left) + self.__copy_of_current_dist_left
 		self.__distance_to_go_to_right = float(msg.dist_right) + self.__copy_of_current_dist_right
+		
+		if self.__distance_to_go_to_left < self.__copy_of_current_dist_left:
+			self.__direction_left = 0
+		else:
+			self.__direction_left = 1
+		
+		if self.__distance_to_go_to_right < self.__copy_of_current_dist_right:
+			self.__direction_right = 0
+		else:
+			self.__direction_right=1
+		
 		self.__desired_speed_left = float(msg.speed_left)
 		self.__desired_speed_right = float(msg.speed_right)
 		self.__go = True
 		pass
+
 
 	def traveling(self,msg):
 		self.__copy_of_current_dist_left = float(msg.encoder_l)
@@ -65,7 +75,7 @@ class Traveler (object):
 		msg_pwm.direction_right = 1
 		msg_pwm.enable_left = 0
 		msg_pwm.enable_right = 0
-		pub_pwm.publish(msg_pwm)
+		self.pub_pwm.publish(msg_pwm)
 		pass
 
 	def main_loop(self):
@@ -75,29 +85,29 @@ class Traveler (object):
 				msg_pwm = pwm_micro()
 				
 				msg_pwm.direction_left = self.__direction_left
-				msg_pwm.enable_left = self.__enable_left
+				msg_pwm.enable_left = 1
 				
-				if self.__copy_of_current_dist_left < self.distance_to_go_to_left - 0.1 or self.__copy_of_current_dist_left > self.distance_to_go_to_left + 0.1 :
+				if self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.1 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.1 :
 					msg_pwm.speed_left = self.__desired_speed_left
-				elif self.__copy_of_current_dist_left < self.distance_to_go_to_left - 0.05 or self.__copy_of_current_dist_left > self.distance_to_go_to_left + 0.05:
+				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.05 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.05:
 					msg_pwm.speed_left = 0.1
 				else:
 					msg_pwm.speed_left = 0.0
 				
 				msg_pwm.direction_right = self.__direction_right
-				msg_pwm.enable_right = self.__enable_right
+				msg_pwm.enable_right = 1
 				
-				if self.__copy_of_current_dist_right < self.distance_to_go_to_right - 0.1 or self.__copy_of_current_dist_right > self.distance_to_go_to_right + 0.1:
+				if self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.1 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.1:
 					msg_pwm.speed_right = self.__desired_speed_right
-				elif self.__copy_of_current_dist_right < self.distance_to_go_to_right - 0.05 or self.__copy_of_current_dist_right > self.distance_to_go_to_right + 0.05:
+				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.05 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.05:
 					msg_pwm.speed_right = 0.1
 				else:
 					msg_pwm.speed_right = 0.0
 				
-				if (self.__copy_of_current_dist_right > self.distance_to_go_to_right - 0.05 and self.__copy_of_current_dist_right < self.distance_to_go_to_right + 0.05) and (self.__copy_of_current_dist_left > self.distance_to_go_to_left - 0.05 and self.__copy_of_current_dist_left < self.distance_to_go_to_left + 0.05):
+				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.05 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.05) and (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.05 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.05):
 					self.__go = False
 				
-				pub_pwm.publish(msg_pwm)
+				self.pub_pwm.publish(msg_pwm)
 			else:
 				self.stop()
 			rospy.sleep(0.02)
@@ -107,7 +117,7 @@ if __name__ == '__main__':
 	try:
 		traveler = Traveler()
 	except rospy.ROSInterruptException:
-		pass)
+		pass
 
 
 
