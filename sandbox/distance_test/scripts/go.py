@@ -91,7 +91,7 @@ class Traveler (object):
 					msg_pwm.speed_left = self.__desired_speed_left
 				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.1 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.1:
 					msg_pwm.speed_left = self.__desired_speed_left/2.0
-				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.05 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.05:
+				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.01 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.01:
 					msg_pwm.speed_left = 0.1
 				else:
 					msg_pwm.speed_left = 0.0
@@ -103,12 +103,12 @@ class Traveler (object):
 					msg_pwm.speed_right = self.__desired_speed_right
 				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.1 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.1:
 					msg_pwm.speed_right = self.__desired_speed_right/2.0
-				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.05 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.05:
+				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.01 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.01:
 					msg_pwm.speed_right = 0.1
 				else:
 					msg_pwm.speed_right = 0.0
 				
-				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.05 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.05) and (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.05 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.05):
+				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.01 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.01) and (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.01 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.01):
 					self.__go = False
 				
 				self.pub_pwm.publish(msg_pwm)
