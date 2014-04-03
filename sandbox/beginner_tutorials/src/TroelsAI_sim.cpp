@@ -11,7 +11,7 @@
 #include <tf/transform_listener.h>
 #include <laser_geometry/laser_geometry.h>
 #include "beginner_tutorials/laser_info.h"
-#include "FroboMsgs/pwm_o.h"
+#include "FroboMsgs/pwm_micro.h"
 #include "FroboMsgs/fpga_data.h"
 
 #include "opencv/cv.h"
@@ -57,7 +57,7 @@ double encR_old = 0;
 double encL = 0;
 double encR = 0;
 bool turn_left;
-void turn(FroboMsgs::pwm_o &msg)
+void turn(FroboMsgs::pwm_micro &msg)
 {
 	switch (turn_state)
 	{
@@ -137,7 +137,8 @@ void turn(FroboMsgs::pwm_o &msg)
 			{
 				msg.speed_left = Max_speed/2;
 				msg.speed_right = Max_speed/2;
-				msg.direction = 4;
+				msg.direction_right = 0;
+				msg.direction_left = 1;
 				if(encR_old - encR > turn180_ticks && encR_old - encR < 100)
 				{
 					msg.speed_right = 0;
@@ -176,10 +177,11 @@ ros::Subscriber enc_sub;
 ros::Publisher speed_pub;
 void laserInfoCallback(const beginner_tutorials::laser_info ls_inf)
 {
-	FroboMsgs::pwm_o msg;
-	msg.direction = 5;
-	msg.enable_left = 0;
-	msg.enable_right = 0;
+	FroboMsgs::pwm_micro msg;
+	msg.direction_left = 1;
+	msg.direction_right = 1;
+	msg.enable_left = 1;
+	msg.enable_right = 1;
 	msg.speed_left = 0;
 	msg.speed_right = 0;
 
@@ -494,7 +496,7 @@ int main(int argc, char** argv){
 	// ROS PUBLISHERS AND SUBSCRIBERS
 	laser_sub = n.subscribe<beginner_tutorials::laser_info>(laser_info_topic.c_str(), 1, &laserInfoCallback);
 	enc_sub = n.subscribe<FroboMsgs::fpga_data>("encoder", 2, &encInfoCallback);
-	speed_pub = n.advertise<FroboMsgs::pwm_o>(wheel_speeds_topic.c_str(), 1);
+	speed_pub = n.advertise<FroboMsgs::pwm_micro>(wheel_speeds_topic.c_str(), 1);
 
 
 	// Spin
