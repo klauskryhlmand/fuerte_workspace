@@ -111,14 +111,14 @@ class Microcontroller_connector:
 			if 'EL' in i:
 				self.leftcounter = self.leftcounter + int(i[2:])
 				msg = micro_data()
-				msg.encoder_l = self.leftcounter
-				msg.encoder_r = self.rightcounter
+				msg.encoder_l = self.leftcounter * 0.0005
+				msg.encoder_r = self.rightcounter * 0.0005
 				self.pub_distance(msg)
 			if 'ER' in i:
 				self.rightcounter = int(i[2:]) + self.rightcounter
 				msg = micro_data()
-				msg.encoder_l = self.leftcounter
-				msg.encoder_r = self.rightcounter
+				msg.encoder_l = self.leftcounter * 0.0005
+				msg.encoder_r = self.rightcounter * 0.0005
 				self.pub_distance(msg)
 #			if 'fl' in i:
 #				rospy.loginfo('go forward left desired: ' + str(int(i[2:])*0.0005))
