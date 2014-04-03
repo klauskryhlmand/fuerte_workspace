@@ -8,6 +8,10 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/distance_test</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="FroboMsgs"/>
+  <depend package="microcontroller_connector"/>
 
 </package>
 
