@@ -1,9 +1,11 @@
-/*
- * Pilot.cpp
- *
- *  
- *      Author: Klaus Kryhlmand
- */
+/**
+ *	Project Name:     FREFrobo basic task controler
+ *	File name:        basic_task_AI.cpp
+ *	Creation date:    Thu Apr 3 12:28:11 CEST 2014
+ *	Author:           Troels Bo Jørgensen and Daniel Lindekilde Ravn
+ *	SDU email:        darav08@student.sdu.dk
+ *	gmail:            daniel.ravn43@gmail.com
+**/
 #include <iostream>
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
