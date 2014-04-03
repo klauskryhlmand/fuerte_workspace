@@ -1,0 +1,14 @@
+<package>
+  <description brief="distance_test">
+
+     distance_test
+
+  </description>
+  <author>daniel</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/distance_test</url>
+
+</package>
+
+
