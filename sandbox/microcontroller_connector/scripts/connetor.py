@@ -3,6 +3,7 @@ import roslib; roslib.load_manifest('beginner_tutorials')
 import rospy
 from std_msgs.msg import Int16, Float64
 from FroboMsgs.msg import pwm_micro
+from FroboMsgs.msg import micro_data
 import serial
 import time
 import re
@@ -20,6 +21,8 @@ class Microcontroller_connector:
 			rospy.loginfo('Connection failed to open')
 		
 		rospy.Subscriber('pwm', pwm_micro, self.pwmCallback)
+		
+		self.pub_distance = rospy.Publisher('distance', micro_data)
 		
 		self.__messagesLeftPartEnd = ''
 		self.leftcounter = 0
@@ -107,8 +110,16 @@ class Microcontroller_connector:
 		for i in messages:
 			if 'EL' in i:
 				self.leftcounter = self.leftcounter + int(i[2:])
+				msg = micro_data()
+				msg.encoder_l = self.leftcounter
+				msg.encoder_r = self.rightcounter
+				self.pub_distance(msg)
 			if 'ER' in i:
 				self.rightcounter = int(i[2:]) + self.rightcounter
+				msg = micro_data()
+				msg.encoder_l = self.leftcounter
+				msg.encoder_r = self.rightcounter
+				self.pub_distance(msg)
 #			if 'fl' in i:
 #				rospy.loginfo('go forward left desired: ' + str(int(i[2:])*0.0005))
 #				pass
