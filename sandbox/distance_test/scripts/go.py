@@ -87,8 +87,10 @@ class Traveler (object):
 				msg_pwm.direction_left = self.__direction_left
 				msg_pwm.enable_left = 1
 				
-				if self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.1 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.1 :
+				if self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.1 - self.__desired_speed_left or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.1 + self.__desired_speed_left :
 					msg_pwm.speed_left = self.__desired_speed_left
+				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.1 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.1:
+					msg_pwm.speed_left = self.__desired_speed_left/2.0
 				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.05 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.05:
 					msg_pwm.speed_left = 0.1
 				else:
@@ -97,8 +99,10 @@ class Traveler (object):
 				msg_pwm.direction_right = self.__direction_right
 				msg_pwm.enable_right = 1
 				
-				if self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.1 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.1:
+				if self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.1 - self.__desired_speed_right or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.1 + self.__desired_speed_right:
 					msg_pwm.speed_right = self.__desired_speed_right
+				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.1 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.1:
+					msg_pwm.speed_right = self.__desired_speed_right/2.0
 				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.05 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.05:
 					msg_pwm.speed_right = 0.1
 				else:
