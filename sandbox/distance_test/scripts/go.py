@@ -108,7 +108,7 @@ class Traveler (object):
 				else:
 					msg_pwm.speed_right = 0.0
 				
-				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.01 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.01) and (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.01 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.01):
+				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.1 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.1) and (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.1 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.1):
 					self.__go = False
 				
 				self.pub_pwm.publish(msg_pwm)
