@@ -69,23 +69,22 @@ class Traveler (object):
 		self.__copy_of_current_dist_right = float(msg.encoder_r)
 		pass
 
-	def stop(self):
-		msg_pwm = pwm_micro()
-		msg_pwm.speed_left = 0.0
-		msg_pwm.speed_right = 0.0
-		msg_pwm.direction_left = 1
-		msg_pwm.direction_right = 1
-		msg_pwm.enable_left = 0
-		msg_pwm.enable_right = 0
-		self.pub_pwm.publish(msg_pwm)
-		pass
+#	def stop(self):
+#		msg_pwm = pwm_micro()
+#		msg_pwm.speed_left = 0.0
+#		msg_pwm.speed_right = 0.0
+#		msg_pwm.direction_left = 1
+#		msg_pwm.direction_right = 1
+#		msg_pwm.enable_left = 0
+#		msg_pwm.enable_right = 0
+#		self.pub_pwm.publish(msg_pwm)
+#		pass
 
 	def main_loop(self):
 		while not rospy.is_shutdown():
-			if self.__go_left or self.__go_right:
-				rospy.loginfo('go!!!')
-				msg_pwm = pwm_micro()
-				
+			msg_pwm = pwm_micro()
+			if self.__go_left:
+				rospy.loginfo('go left!!!')
 				msg_pwm.direction_left = self.__direction_left
 				msg_pwm.enable_left = 1
 				
@@ -98,6 +97,16 @@ class Traveler (object):
 				else:
 					msg_pwm.speed_left = 0.0
 				
+				if (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.025 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.025):
+					self.__go_left = False
+			else:
+				msg_pwm.speed_left = 0.0
+				msg_pwm.direction_left = 1
+				msg_pwm.enable_left = 0
+			
+			
+			if self.__go_right:
+				rospy.loginfo('go right!!!')
 				msg_pwm.direction_right = self.__direction_right
 				msg_pwm.enable_right = 1
 				
@@ -110,14 +119,14 @@ class Traveler (object):
 				else:
 					msg_pwm.speed_right = 0.0
 				
-				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.05 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.05):
+				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.025 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.025):
 					self.__go_right = False
-				if (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.05 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.05):
-					self.__go_left = False
-				
-				self.pub_pwm.publish(msg_pwm)
 			else:
-				self.stop()
+				msg_pwm.speed_right = 0.0
+				msg_pwm.direction_right = 1
+				msg_pwm.enable_right = 0
+				
+			self.pub_pwm.publish(msg_pwm)
 			rospy.sleep(0.02)
 		pass
 
