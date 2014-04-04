@@ -36,7 +36,8 @@ class Traveler (object):
 		self.__direction_right = 1
 		self.__copy_of_current_dist_left = 0.0
 		self.__copy_of_current_dist_right = 0.0
-		self.__go = False
+		self.__go_left = False
+		self.__go_right = False
 		
 		self.main_loop()
 		pass
@@ -58,7 +59,8 @@ class Traveler (object):
 		
 		self.__desired_speed_left = float(msg.speed_left)
 		self.__desired_speed_right = float(msg.speed_right)
-		self.__go = True
+		self.__go_left = True
+		self.__go_right = True
 		pass
 
 
@@ -80,7 +82,7 @@ class Traveler (object):
 
 	def main_loop(self):
 		while not rospy.is_shutdown():
-			if self.__go:
+			if self.__go_left or self.__go_right:
 				rospy.loginfo('go!!!')
 				msg_pwm = pwm_micro()
 				
@@ -91,7 +93,7 @@ class Traveler (object):
 					msg_pwm.speed_left = self.__desired_speed_left
 				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.1 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.1:
 					msg_pwm.speed_left = self.__desired_speed_left/2.0
-				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.01 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.01:
+				elif self.__copy_of_current_dist_left < self.__distance_to_go_to_left - 0.05 or self.__copy_of_current_dist_left > self.__distance_to_go_to_left + 0.05:
 					msg_pwm.speed_left = 0.1
 				else:
 					msg_pwm.speed_left = 0.0
@@ -103,13 +105,15 @@ class Traveler (object):
 					msg_pwm.speed_right = self.__desired_speed_right
 				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.1 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.1:
 					msg_pwm.speed_right = self.__desired_speed_right/2.0
-				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.01 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.01:
+				elif self.__copy_of_current_dist_right < self.__distance_to_go_to_right - 0.05 or self.__copy_of_current_dist_right > self.__distance_to_go_to_right + 0.05:
 					msg_pwm.speed_right = 0.1
 				else:
 					msg_pwm.speed_right = 0.0
 				
-				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.1 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.1) and (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.1 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.1):
-					self.__go = False
+				if (self.__copy_of_current_dist_right > self.__distance_to_go_to_right - 0.05 and self.__copy_of_current_dist_right < self.__distance_to_go_to_right + 0.05):
+					self.__go_right = False
+				if (self.__copy_of_current_dist_left > self.__distance_to_go_to_left - 0.05 and self.__copy_of_current_dist_left < self.__distance_to_go_to_left + 0.05):
+					self.__go_left = False
 				
 				self.pub_pwm.publish(msg_pwm)
 			else:
