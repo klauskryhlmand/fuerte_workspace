@@ -454,7 +454,7 @@ temporary Switch state logic
 	speed_pub.publish(msg);
 }
 
-void encInfoCallback(const FroboMsgs::fpga_data enc_inf)
+void encInfoCallback(const FroboMsgs::micro_data enc_inf)
 {
 	encL = enc_inf.encoder_l;
 	encR = enc_inf.encoder_r;
@@ -493,11 +493,11 @@ int main(int argc, char** argv){
 	ros::NodeHandle nh = ros::NodeHandle("~");
 	// ROS PARAMETERS
 	nh.param<string>("object_topic", laser_info_topic, "object_topic");
-	nh.param<string>("wheel_speeds_topic", wheel_speeds_topic, "wheel_speeds_topic");
+	nh.param<string>("wheel_speeds_topic", wheel_speeds_topic, "pwm");
 
 	// ROS PUBLISHERS AND SUBSCRIBERS
 	laser_sub = n.subscribe<beginner_tutorials::laser_info>(laser_info_topic.c_str(), 1, &laserInfoCallback);
-	enc_sub = n.subscribe<FroboMsgs::fpga_data>("encoder", 2, &encInfoCallback);
+	enc_sub = n.subscribe<FroboMsgs::micro_data>("distance", 2, &encInfoCallback);
 	speed_pub = n.advertise<FroboMsgs::pwm_micro>(wheel_speeds_topic.c_str(), 1);
 
 
