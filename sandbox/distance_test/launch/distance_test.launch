@@ -3,7 +3,8 @@
 
 	<group ns="frobo">
 		<node pkg="microcontroller_connector" name="connector" type="connector.py" output="screen"> </node>  
-		<node pkg="distance_test" name="distance_test" type="go.py" output="screen"> </node>  
+		<node pkg="distance_test" name="distance_test" type="goFullCorrected.py" output="screen"> </node>  
+		<!--<node pkg="distance_test" name="distance_test" type="go.py" output="screen"> </node> -->  
 	</group>
 
 	

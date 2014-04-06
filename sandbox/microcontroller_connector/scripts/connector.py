@@ -72,7 +72,7 @@ class Microcontroller_connector:
 		msgMicroControler = 'SDSD' + chr(speed_left) + chr(speed_right) + dir_l + dir_r + enable_l + enable_r
 		self.serial.write(msgMicroControler)
 #		self.serial.write(msgMicroControler)
-		rospy.loginfo('send msgMicroControler: ' + str(msgMicroControler))
+#		rospy.loginfo('send msgMicroControler: ' + str(msgMicroControler))
 		pass
 
 

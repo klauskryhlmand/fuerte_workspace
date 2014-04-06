@@ -202,8 +202,8 @@ INT16S tempTickRight = 0;
 INT16S errorLeft = 0;
 INT16S errorRight = 0;
 
-INT16S errorLeftOld = 0;
-INT16S errorRightOld = 0;
+//INT16S errorLeftOld = 0;
+//INT16S errorRightOld = 0;
 
 //INT16S acumulatedErrorLeft = 0;
 //INT16S acumulatedErrorRight = 0;
@@ -235,7 +235,7 @@ void speedControleTask()
 		tempErrorSpeed_l = 100;
 		set_pwm_speed_direction(tempErrorSpeed_r,'l');
 		errorLeftIntegrated = 0;
-		errorLeftOld = 0;
+//		errorLeftOld = 0;
 		errorLeft = 0;
 		lastEnconderWantedLeft = 0;
 	}
@@ -244,7 +244,7 @@ void speedControleTask()
 		tempErrorSpeed_r = 100;
 		set_pwm_speed_direction(tempErrorSpeed_r,'r');
 		errorRightIntegrated = 0;
-		errorRightOld = 0;
+//		errorRightOld = 0;
 		errorRight = 0;
 		lastEnconderWantedRight = 0;
 	}
@@ -347,18 +347,18 @@ void speedControleTask()
 //	lastEnconderWantedLeft = lastEnconderWantedLeft - (errorLeftOld * 100) / 99;
 //	lastEnconderWantedRight = lastEnconderWantedRight - (errorRightOld * 100) / 99;
 
-	errorLeftOld = errorLeft/P_led + (errorLeftIntegrated/100)/I_led;
-	errorRightOld = errorRight/P_led + (errorRightIntegrated/100)/I_led;
+//	errorLeftOld = errorLeft/P_led + (errorLeftIntegrated/100)/I_led;
+//	errorRightOld = errorRight/P_led + (errorRightIntegrated/100)/I_led;
 //	tempErrorSpeed_r = 100;
 //	tempErrorSpeed_l = 100;
 
- if (errorLeftOld > 0) {
-	 uart_send_INT16U(errorLeftOld,'e','l');
-}
-
- if (errorRightOld > 0) {
- 	 uart_send_INT16U(errorRightOld,'e','r');
- }
+// if (errorLeftOld > 0) {
+//	 uart_send_INT16U(errorLeftOld,'e','l');
+//}
+//
+// if (errorRightOld > 0) {
+// 	 uart_send_INT16U(errorRightOld,'e','r');
+// }
 
 //	if (errorRight * errorRight > 242 ) {
 		if(100 + errorRight/P_led + errorRightIntegrated/I_led < 0)

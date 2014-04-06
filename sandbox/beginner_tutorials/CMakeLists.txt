@@ -29,6 +29,9 @@ rosbuild_add_executable(control src/control.cpp)
 rosbuild_add_executable(TroelsPlanner_sim src/TroelsPlanner_sim.cpp)
 rosbuild_add_executable(TroelsAI_sim src/TroelsAI_sim.cpp)
 
+rosbuild_add_executable(basic_task_planner src/basic_task_planner.cpp)
+rosbuild_add_executable(basic_task_AI src/basic_task_AI.cpp)
+
 #include_directories(/usr/include/)
 #link_directories(/usr/lib/)
 target_link_libraries(lms111_node /usr/lib/libLMS1xx.so)

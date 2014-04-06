@@ -14,7 +14,7 @@
 #include <laser_geometry/laser_geometry.h>
 #include "beginner_tutorials/laser_info.h"
 #include "FroboMsgs/pwm_micro.h"
-#include "FroboMsgs/fpga_data.h"
+#include "FroboMsgs/micro_data.h"
 
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
@@ -24,10 +24,10 @@
 using namespace std;
 
 string laser_info_topic, wheel_speeds_topic;
-const double Max_speed = 2;//0.0034;
-const double Max_speed_rot = 0.6;//0.0034;
+const double Max_speed = 0.75;//0.0034;
+const double Max_speed_rot = 0.45;//0.0034;
 const double forward_turn_ticks = 0.5;
-const double sharp_turn_ticks = 1.8;
+const double sharp_turn_ticks = 1.5;
 const double sharp_turn_ratio = 0.3;
 const double turn180_ticks = 1700;
 
@@ -85,17 +85,17 @@ void turn(FroboMsgs::pwm_micro &msg)
 		case Drive_forward:
 			msg.speed_left = Max_speed_rot;
 			msg.speed_right = Max_speed_rot;
-			if(encL-encL_old > forward_turn_ticks && encL-encL_old < 100)
+			if(encL-encL_old > forward_turn_ticks )
 			{
 				msg.speed_left = 0;
 			}
 
-			if(encR - encR_old > forward_turn_ticks && encR - encR_old < 100)
+			if(encR - encR_old > forward_turn_ticks )
 			{
 				msg.speed_right = 0;
 			}
 
-			if(msg.speed_left == 0 || msg.speed_right == 0)
+			if(msg.speed_left == 0 && msg.speed_right == 0)
 			{
 				turn_state = Turn_fast;
 				//remember enc_values
@@ -109,30 +109,38 @@ void turn(FroboMsgs::pwm_micro &msg)
 			{
 				msg.speed_left = Max_speed_rot;
 				msg.speed_right = msg.speed_left * sharp_turn_ratio;
-				if(encL - encL_old > sharp_turn_ticks && encL - encL_old < 100)
+				if(encL - encL_old > sharp_turn_ticks)
 				{
-					turn_state = Tune_turn;
+//					turn_state = Tune_turn;
 					msg.speed_left = 0;
+//					msg.speed_right = 0;
 				}
-				if(encR - encR_old > sharp_turn_ticks * sharp_turn_ratio && encR - encR_old < 100)
+				if(encR - encR_old > sharp_turn_ticks * sharp_turn_ratio)
+				{
+					msg.speed_right = 0;
+				}
+				if(msg.speed_left == 0 && msg.speed_right == 0)
 				{
 					turn_state = Tune_turn;
-					msg.speed_right = 0;
 				}
 			}
 			else if(end_of_row_act[eoraPTR].action == 'L')
 			{
 				msg.speed_right = Max_speed_rot;
 				msg.speed_left = msg.speed_right * sharp_turn_ratio;
-				if(encR - encR_old > sharp_turn_ticks && encR - encR_old < 100)
+				if(encR - encR_old > sharp_turn_ticks)
 				{
-					turn_state = Tune_turn;
+//					turn_state = Tune_turn;
 					msg.speed_right = 0;
+//					msg.speed_left = 0;
 				}
-				if(encL - encL_old > sharp_turn_ticks * sharp_turn_ratio && encL - encL_old < 100)
+				if(encL - encL_old > sharp_turn_ticks * sharp_turn_ratio)
+				{
+					msg.speed_left = 0;
+				}
+				if(msg.speed_left == 0 && msg.speed_right == 0)
 				{
 					turn_state = Tune_turn;
-					msg.speed_left = 0;
 				}
 			}
 			else if(end_of_row_act[eoraPTR].action == 'O')
@@ -271,6 +279,11 @@ Switch state logic
 				ROS_ERROR("state: row drive");
 				ROS_ERROR("left speed: %f", msg.speed_left);
 				ROS_ERROR("right speed: %f", msg.speed_right);
+				
+				
+				double temp = msg.speed_left;
+				msg.speed_left = msg.speed_right;
+				msg.speed_right = temp;
 			}
 			break;
 
@@ -451,36 +464,53 @@ temporary Switch state logic
 			ROS_ERROR("state: default WTF!!!!");
 			break;
 	}
+//			double temp = msg.speed_left;
+//			msg.speed_left = msg.speed_right;
+//			msg.speed_right = temp;
 	speed_pub.publish(msg);
 }
 
 void encInfoCallback(const FroboMsgs::micro_data enc_inf)
 {
-	encL = enc_inf.encoder_l;
 	encR = enc_inf.encoder_r;
+	encL = enc_inf.encoder_l;
 
-	ROS_ERROR("enc l: %f", enc_inf.encoder_l);
-	ROS_ERROR("enc r: %f", enc_inf.encoder_r);
+//	ROS_ERROR("enc l: %f", enc_inf.encoder_l);
+//	ROS_ERROR("enc r: %f", enc_inf.encoder_r);
 }
 
 
 
 int main(int argc, char** argv){
 	//Get actions
-	for(int i = 0; i < 60; i += 6)
+	for(int i = 0; i < 60; i += 1)
 	{
 		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i].action = 'L';
-		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i+1].action = 'R';
-		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i+2].action = 'L';
-		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i+3].action = 'L';
-		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i+4].action = 'R';
-		end_of_row_act.push_back(turn_act());
-		end_of_row_act[i+5].action = 'L';
+		end_of_row_act[i].action = 'R';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+1].action = 'L';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+2].action = 'R';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+3].action = 'R';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+4].action = 'L';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+5].action = 'R';
+
+
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i].action = 'L';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+1].action = 'R';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+2].action = 'L';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+3].action = 'L';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+4].action = 'R';
+//		end_of_row_act.push_back(turn_act());
+//		end_of_row_act[i+5].action = 'L';
 	}
 	end_of_row_act.push_back(turn_act());
 	end_of_row_act[60].action = 'F';

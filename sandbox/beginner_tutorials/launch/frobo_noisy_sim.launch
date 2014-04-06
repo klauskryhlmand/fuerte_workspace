@@ -46,7 +46,7 @@
 			<param name="row_box_count" value="10" />-->
 		</node>	
 
-		 <node pkg="beginner_tutorials" type="TroelsAI_sim" name="AI" 			output="screen"> 
+		 <node pkg="beginner_tutorials" type="TroelsAI_sim" name="AI" output="screen"> 
 			<param name="show_image" value="0" />
 			<param name="object_topic" value="object_topic" />
 			<param name="wheel_speeds_topic" value="pwm" />

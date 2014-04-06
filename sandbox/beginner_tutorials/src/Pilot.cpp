@@ -13,7 +13,7 @@ Pilot::Pilot()
 	n = ros::NodeHandle();
 	nh = ros::NodeHandle("~");
 	// ROS PARAMETERS
-	nh.param<string>("laser_scan_topic", laser_scan_topic, "laser_scan_topic");
+	nh.param<string>("laser_scan_topic", laser_scan_topic, "/frobo/laser_msgs_1");
 	nh.param<int>("show_image", show_image, 1);
 	nh.param<double>("robot_clearence_width", robot_clearence_width, 0.2);
 	nh.param<double>("robot_stop_zone", robot_stop_zone, 0.2);
@@ -51,7 +51,7 @@ Pilot::Pilot()
 		cvNamedWindow(framedWindowName);
 		cvStartWindowThread();
 		// Show image test
-		//cvShowImage(framedWindowName, rawData_img);
+//		cvShowImage(framedWindowName, rawData_img);
 	} 
 
 	

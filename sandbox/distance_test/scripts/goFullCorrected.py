@@ -21,7 +21,9 @@ class StopControler (object):
 
 	def __init__(self,start_point, end_point):
 		self.__start_point = start_point
+		rospy.loginfo('start_point: ' + str(self.__start_point))
 		self.__end_point = end_point
+		rospy.loginfo('end_point: ' + str(self.__end_point))
 		self.__end_greater_than_start = False
 		self.__end_reached = False
 		pass
@@ -33,8 +35,8 @@ class StopControler (object):
 			self.__end_greater_than_start = True
 		pass
 	
-	def endReachedTest(self, current_location):
-		if not self.__end_reached:
+	def endReachedTest(self, current_location, desired_speed):
+		if not self.__end_reached and desired_speed > 0.0:
 			if self.__end_greater_than_start:
 				if self.__end_point > current_location:
 					self.__end_reached = True
@@ -53,22 +55,22 @@ class StopControler (object):
 	
 	def breakingDegree(self, current_speed, current_location):
 		if self.__end_greater_than_start:
-			if current_location + current_speed > self.__end_point - 1.0:
-				if current_location + current_speed > self.__end_point - 0.5:
-					if current_location + current_speed > self.__end_point - 0.25:
+			if current_location + current_speed > self.__end_point - 0.250:
+				if current_location + current_speed > self.__end_point - 0.1:
+					if current_location + current_speed > self.__end_point - 0.05:
 						return 8.0
 					return 4.0
 				return 2.0
-				else:
-					return 1.0
-			elif current_location - current_speed < self.__end_point + 1.0:
-				if current_location - current_speed < self.__end_point + 0.5:
-					if current_location - current_speed < self.__end_point + 0.25:
-						return 8.0
-					return 4.0
-				return 2.0
-				else:
-					return 1.0
+			else:
+				return 1.0
+		elif current_location - current_speed < self.__end_point + 0.25:
+			if current_location - current_speed < self.__end_point + 0.1:
+				if current_location - current_speed < self.__end_point + 0.05:
+					return 8.0
+				return 4.0
+			return 2.0
+		else:
+			return 1.0
 		pass
 
 
@@ -106,15 +108,15 @@ class Traveler (object):
 		self.__desired_destination_left = float(msg.dist_left) + self.__copy_of_current_dist_left
 		self.__desired_destination_right = float(msg.dist_right) + self.__copy_of_current_dist_right
 		
-		self.__stop_criteria_left = StopControler(self.__desired_destination_left, self.__copy_of_current_dist_left)
-		self.__stop_criteria_right = StopControler(self.__desired_destination_right, self.__copy_of_current_dist_right)
+		self.__stop_criteria_left = StopControler(self.__copy_of_current_dist_left, self.__desired_destination_left)
+		self.__stop_criteria_right = StopControler(self.__copy_of_current_dist_right, self.__desired_destination_right)
 		
-		if self.__distance_to_go_to_left < self.__copy_of_current_dist_left:
+		if self.__desired_destination_left < self.__copy_of_current_dist_left:
 			self.__direction_left = 0
 		else:
 			self.__direction_left = 1
 		
-		if self.__distance_to_go_to_right < self.__copy_of_current_dist_right:
+		if self.__desired_destination_right < self.__copy_of_current_dist_right:
 			self.__direction_right = 0
 		else:
 			self.__direction_right=1
@@ -146,29 +148,31 @@ class Traveler (object):
 		rospy.loginfo('distance_test node running')
 		while not rospy.is_shutdown():
 			msg_pwm = pwm_micro()
-			if not self.__stop_criteria_left.endReachedTest(self.__copy_of_current_dist_left):
-				rospy.loginfo('go left!!!')
+			if not self.__stop_criteria_left.endReachedTest(self.__copy_of_current_dist_left, self.__desired_speed_left):
+#				rospy.loginfo('go left!!!')
 				msg_pwm.direction_left = self.__direction_left
 				msg_pwm.enable_left = 1
 				
-				tempSpeed = self.__desired_speed_left/self.__stop_criteria_left.breakingDegree(self.__desired_speed_left,self.__copy_of_current_dist_left)
-				if tempSpeed < 0.1:
-					tempSpeed = 0.1
-				
+#				tempSpeed = self.__desired_speed_left/self.__stop_criteria_left.breakingDegree(self.__desired_speed_left,self.__copy_of_current_dist_left)
+#				if tempSpeed < 0.1:
+#					tempSpeed = 0.1
+				tempSpeed = self.__desired_speed_left
 				msg_pwm.speed_left = tempSpeed
 			else:
 				msg_pwm.speed_left = 0.0
 				msg_pwm.direction_left = 1
 				msg_pwm.enable_left = 0
 				
-			if not self.__stop_criteria_right.endReachedTest(self.__copy_of_current_dist_right):
-				rospy.loginfo('go right!!!')
+			if not self.__stop_criteria_right.endReachedTest(self.__copy_of_current_dist_right, self.__desired_speed_right):
+#				rospy.loginfo('go right!!!')
 				msg_pwm.direction_right = self.__direction_right
 				msg_pwm.enable_right = 1
 				
-				tempSpeed = self.__desired_speed_right/self.__stop_criteria_right.breakingDegree(self.__desired_speed_right, self.__copy_of_current_dist_right)
-				if tempSpeed < 0.1:
-					tempSpeed = 0.1
+#				tempSpeed = self.__desired_speed_right/self.__stop_criteria_right.breakingDegree(self.__desired_speed_right, self.__copy_of_current_dist_right)
+#				if tempSpeed < 0.1:
+#					tempSpeed = 0.1
+				
+				tempSpeed = self.__desired_speed_right
 				
 				msg_pwm.speed_right = tempSpeed
 			else:
