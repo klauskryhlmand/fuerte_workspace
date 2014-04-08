@@ -1,0 +1,17 @@
+<package>
+  <description brief="simple_controller">
+
+     simple_controller
+
+  </description>
+  <author>daniel</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/simple_controller</url>
+  <depend package="rospy"/>
+  <depend package="beginner_tutorials"/>
+  <depend package="rosmsg"/>
+
+</package>
+
+
