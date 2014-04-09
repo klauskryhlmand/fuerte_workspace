@@ -11,6 +11,9 @@
 import roslib; roslib.load_manifest('beginner_tutorials')
 import rospy
 import sensor_msgs.msg
+import cv2
+import numpy as np
+
 
 class Visualization (object):
 
@@ -25,6 +28,8 @@ class Visualization (object):
 
 	def laserCallback(self,data):
 		rospy.loginfo('laser callback')
+		blank_image = np.zeros((height,width,3), np.uint8)
+		cv2.imshow("blank_image",blank_image)
 		pass
 
 
