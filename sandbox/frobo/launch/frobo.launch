@@ -12,8 +12,8 @@
 			<param name="moveSpeed" value = "0.5" />
 			<param name="maxSpeed" value = "1"/>
 			<param name="pwm" value ="pwm" />
-			<param name="exitRow_m" value = "0.2" />
-			<param name="turn90" value = "0.3" />
+			<param name="exitRow_m" value = "0.3" />
+			<param name="turn90" value = "0.2" />
 			<param name="micro_data" value = "distance" />
 			
 			<!--
@@ -26,14 +26,14 @@
 		</node>
 		 <node pkg="frobo" type="pilot_node" name="pilot_node" output="screen"> 
 			<param name="laser_scan_topic" value="laser_msgs_1" />
-			<param name="show_image" value="1" />
+			<param name="show_image" value="0" />
 			<param name="object_topic" value="object_topic" />
 			<param name="object_row_topic" value="object_row_topic" /> 
 			<!--<param name="wheel_speeds_topic" value="/Hilde/wheel_speed_topic" /> --> 
 			<param name="robot_clearence_width" value="0.15" />
 			<param name="robot_stop_zone" value="0.02" />
 			<param name="robot_turn_zone" value="0.8" /> 
-			<param name="robot_turn_zone_extra_width" value="0.10" />
+			<param name="robot_turn_zone_extra_width" value="0.30" />
 			
 			<param name="row_box_start_value" value="0.03" />
 			<param name="row_box_width" value="0.30" />
