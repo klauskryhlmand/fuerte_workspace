@@ -60,6 +60,8 @@ typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 	//double left_error, right_error;
 	int previous_state = STM_START;
 	double p_led;
+	double encoder_left;
+	double encoder_right;
 	double encoder_right_moved;
 	double encoder_right_offset, encoder_left_offset;
 	double encoder_left_moved;
@@ -165,9 +167,9 @@ void Control::controlLoop() {
 					left_error = atan((0.25 - sin(object_left_angle)*object_left_distance+0.00001)/(cos(object_left_angle)*(object_left_distance+0.00001)))*Preg;
 					error = left_error - right_error;*/
 					if (object_right_angle > object_left_angle){
-						error = object_right_angle - object_left_angle;
-						speed_right = moveSpeed - error;
-						speed_left = moveSpeed + error;
+						error = (object_right_angle - object_left_angle)*p_led;
+						speed_right = (moveSpeed - error);
+						speed_left = (moveSpeed + error);
 						if (speed_left > maxSpeed) {
 							speed_left = maxSpeed;
 						}
@@ -176,9 +178,9 @@ void Control::controlLoop() {
 						}
 					}
 					else if(object_right_angle < object_left_angle){
-						error = object_left_angle - object_right_angle;
+						error = (object_left_angle - object_right_angle)*p_led;
 						speed_right = (moveSpeed + error);
-						speed_left = (moveSpeed - error)*p_led;
+						speed_left = (moveSpeed - error);
 						if (speed_right > maxSpeed) {
 							speed_right = maxSpeed;
 						}
@@ -336,9 +338,7 @@ void Control::controlLoop() {
 			}
 			if (encoder_left_moved > turn90 && encoder_right_moved > turn90) {
 				ROS_WARN("90 degrees turned, entering headland_row");
-				control.speed_right = 0;
-				control.speed_left = 0;
-				//state = STM_HEADLAND_ROW;
+				state = STM_HEADLAND_ROW;
 			}
 			
 			/*
@@ -387,6 +387,8 @@ void Control::controlLoop() {
 			
 			break;
 		case STM_HEADLAND_ROW:
+			control.speed_right = 0;
+			control.speed_left = 0;/*
 			control.direction_left = 1;
 			control.direction_right = 1;
 			ROS_WARN("Inside Row, looking for hole");
@@ -475,7 +477,7 @@ void Control::controlLoop() {
 					rowcount++;
 					ROS_WARN("New row found");
 				}
-			}
+			}*/
 			break;
 		case STM_ENTER_ROW:
 			previous_state = STM_ENTER_ROW;
@@ -530,6 +532,7 @@ control_pub.publish(control);
 void Control::initEncoders() {
 	encoder_right_offset = encoder_right;
 	encoder_left_offset = encoder_left;
+	ROS_WARN("Encoder_left_off: %f Encoder_right_off: %f",encoder_right_offset,encoder_left_offset);
 	encoder_left_moved = 0;
 	encoder_right_moved = 0;
 }

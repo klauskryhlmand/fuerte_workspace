@@ -71,8 +71,6 @@ public:
 	
 	// Parameters
 	int end_of_row;
-	int encoder_right;
-	int encoder_left;
 	double linear_mean_velocity, mean_driving_distance_from_rows;
 	double cte_weight_angle, cte_weight_distance;
 	double base_link_radius_to_wheels;
