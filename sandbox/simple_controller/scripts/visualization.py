@@ -93,7 +93,7 @@ class Visualization (object):
 			a = np.cos(theta)
 			b = np.sin(theta)
 #			if a < np.pi/8 and a > (np.pi/180)*5:
-			if a < np.pi/8 or a > 0.1:
+			if a < np.pi/8:
 				x0 = a*rho
 				y0 = b*rho
 				x1 = int(x0 + 1000*(-b))   # Here i have used int() instead of rounding the decimal value, so 3.8 --> 3
